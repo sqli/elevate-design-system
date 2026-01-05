@@ -38,7 +38,7 @@
 /**
  * Form Inputs Focus
  *
- * Simple border color change on focus.
+ * Simple border color change on focus - NO ring/shadow effects.
  * Uses var(--color-primary) to automatically adapt to theme:
  * - Light mode: Cobalt (#1F24E9)
  * - Dark mode: Sky (#6DA5FF)
@@ -58,8 +58,46 @@ label.input:has(:focus) {
   outline-width: 0 !important;
   border-color: var(--color-primary) !important;
   box-shadow: none !important;
-  --tw-ring-shadow: none !important;
-  --tw-ring-offset-shadow: none !important;
+  --tw-ring-shadow: 0 0 #0000 !important;
+  --tw-ring-offset-shadow: 0 0 #0000 !important;
+  --tw-shadow: 0 0 #0000 !important;
+}
+
+/**
+ * Color variant inputs - preserve border color on focus
+ */
+.input-primary:focus,
+.input-secondary:focus,
+.input-accent:focus,
+.input-info:focus,
+.input-success:focus,
+.input-warning:focus,
+.input-error:focus,
+.select-primary:focus,
+.select-secondary:focus,
+.select-accent:focus,
+.select-info:focus,
+.select-success:focus,
+.select-warning:focus,
+.select-error:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  --tw-ring-shadow: 0 0 #0000 !important;
+  --tw-ring-offset-shadow: 0 0 #0000 !important;
+  --tw-shadow: 0 0 #0000 !important;
+}
+
+/**
+ * Join elements - remove double border effect
+ */
+.join .input:focus,
+.join .select:focus,
+.join .btn:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  --tw-ring-shadow: 0 0 #0000 !important;
+  --tw-ring-offset-shadow: 0 0 #0000 !important;
+  z-index: 1;
 }
 
 /**
@@ -82,8 +120,9 @@ label.input:has(:focus) {
   outline: none !important;
   outline-width: 0 !important;
   box-shadow: none !important;
-  --tw-ring-shadow: none !important;
-  --tw-ring-offset-shadow: none !important;
+  --tw-ring-shadow: 0 0 #0000 !important;
+  --tw-ring-offset-shadow: 0 0 #0000 !important;
+  --tw-shadow: 0 0 #0000 !important;
 }
 
 /* ==========================================================================

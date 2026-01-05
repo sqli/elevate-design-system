@@ -218,16 +218,20 @@ export const Colored = () => `
 Colored.storyName = 'Colored Cards';
 
 export const Glass = () => `
-  <div class="bg-gradient-to-r from-primary to-secondary p-8 rounded-box">
-    <div class="card glass w-96">
-      <figure>
-        <img src="${IMAGES.main}" alt="Glass card" />
-      </figure>
-      <div class="card-body">
-        <h2 class="card-title">Glass Effect</h2>
-        <p>A translucent card with blur effect.</p>
-        <div class="card-actions justify-end">
-          <button class="btn btn-primary">Learn More</button>
+  <div class="relative min-h-80 rounded-box overflow-hidden">
+    <img src="${IMAGES.workspace}" alt="Background" class="absolute inset-0 w-full h-full object-cover" />
+    <div class="absolute inset-0 bg-gradient-to-br from-primary/30 to-secondary/50"></div>
+    <div class="relative p-8 flex items-center justify-center min-h-80">
+      <div class="card glass w-80">
+        <figure class="px-4 pt-4">
+          <img src="${IMAGES.main}" alt="Glass card" class="rounded-xl" />
+        </figure>
+        <div class="card-body">
+          <h2 class="card-title">Glass Effect</h2>
+          <p>A translucent card with blur effect.</p>
+          <div class="card-actions justify-end">
+            <button class="btn btn-primary btn-sm">Learn More</button>
+          </div>
         </div>
       </div>
     </div>

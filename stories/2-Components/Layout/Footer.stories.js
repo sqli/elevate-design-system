@@ -3,6 +3,14 @@
  * @description DaisyUI Footer component with SQLI theme
  * @see https://daisyui.com/components/footer/
  */
+
+// SQLI logos
+const LOGOS = {
+  midnight: '/assets/logos/Logo_midnight.svg',
+  cream: '/assets/logos/Logo_cream.svg',
+  sky: '/assets/logos/Logo_sky.svg',
+};
+
 export default {
   title: 'Components/Layout/Footer',
   tags: ['autodocs'],
@@ -55,12 +63,8 @@ export const Default = () => `
 export const WithLogo = () => `
   <footer class="footer bg-base-200 text-base-content p-10">
     <aside>
-      <div class="text-4xl font-bold text-primary">SQLI</div>
-      <p>
-        SQLI Group
-        <br />
-        Elevate. Digitally since 1990
-      </p>
+      <img src="${LOGOS.midnight}" alt="sqli" class="h-10 w-auto" />
+      <p class="mt-2">Elevate. Digitally</p>
     </aside>
     <nav>
       <h6 class="footer-title">Services</h6>
@@ -151,8 +155,8 @@ export const DarkMode = () => `
   <div data-theme="sqli-dark">
     <footer class="footer bg-base-200 text-base-content p-10">
       <aside>
-        <div class="text-4xl font-bold text-primary">SQLI</div>
-        <p>Elevate. Digitally</p>
+        <img src="${LOGOS.cream}" alt="sqli" class="h-10 w-auto" />
+        <p class="mt-2">Elevate. Digitally</p>
       </aside>
       <nav>
         <h6 class="footer-title">Services</h6>

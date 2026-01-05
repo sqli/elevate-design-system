@@ -43,16 +43,44 @@ export const Ghost = () => `
 
 export const ColorVariants = () => `
   <div class="flex flex-col gap-4 w-full max-w-xs">
-    <input type="text" placeholder="Primary" class="input input-bordered input-primary" />
-    <input type="text" placeholder="Secondary" class="input input-bordered input-secondary" />
-    <input type="text" placeholder="Accent" class="input input-bordered input-accent" />
-    <input type="text" placeholder="Info" class="input input-bordered input-info" />
-    <input type="text" placeholder="Success" class="input input-bordered input-success" />
-    <input type="text" placeholder="Warning" class="input input-bordered input-warning" />
-    <input type="text" placeholder="Error" class="input input-bordered input-error" />
+    <div class="form-control">
+      <label class="label"><span class="label-text">Primary</span></label>
+      <input type="text" placeholder="Primary input" class="input input-bordered input-primary" />
+    </div>
+    <div class="form-control">
+      <label class="label"><span class="label-text">Secondary</span></label>
+      <input type="text" placeholder="Secondary input" class="input input-bordered input-secondary" />
+    </div>
+    <div class="form-control">
+      <label class="label"><span class="label-text">Accent</span></label>
+      <input type="text" placeholder="Accent input" class="input input-bordered input-accent" />
+    </div>
   </div>
 `;
 ColorVariants.storyName = 'Color Variants';
+
+export const StateVariants = () => `
+  <div class="flex flex-col gap-4 w-full max-w-xs">
+    <div class="form-control">
+      <label class="label"><span class="label-text">Info</span></label>
+      <input type="text" placeholder="Info message" class="input input-bordered input-info" />
+    </div>
+    <div class="form-control">
+      <label class="label"><span class="label-text">Success</span></label>
+      <input type="text" value="Valid value" class="input input-bordered input-success" />
+    </div>
+    <div class="form-control">
+      <label class="label"><span class="label-text">Warning</span></label>
+      <input type="text" value="Check this" class="input input-bordered input-warning" />
+    </div>
+    <div class="form-control">
+      <label class="label"><span class="label-text">Error</span></label>
+      <input type="text" value="Invalid value" class="input input-bordered input-error" />
+      <label class="label"><span class="label-text-alt text-error">This field is required</span></label>
+    </div>
+  </div>
+`;
+StateVariants.storyName = 'State Variants';
 
 export const Sizes = () => `
   <div class="flex flex-col gap-4 w-full max-w-xs">

@@ -215,3 +215,104 @@ a:not(.btn):not(.link-neutral):hover {
   --toggle-bg: var(--color-primary);
   border-color: var(--color-primary);
 }
+
+/* ==========================================================================
+   Code Block Component
+   Syntax-highlighted code display with SQLI theme
+
+   Features:
+   - Header with language badge and copy button
+   - Optional line numbers
+   - Dark background for readability
+   - SQLI brand colors for syntax highlighting
+   ========================================================================== */
+
+.code-block {
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background-color: #1e1e2e;
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.code-block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background-color: #313244;
+  border-bottom: 1px solid #45475a;
+}
+
+.code-block-lang {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #cdd6f4;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.code-block-copy {
+  color: #cdd6f4 !important;
+}
+
+.code-block-copy:hover {
+  color: #f5e0dc !important;
+  background-color: #45475a !important;
+}
+
+.code-block-body {
+  display: flex;
+  overflow-x: auto;
+}
+
+.code-block-body.with-lines {
+  padding-left: 0;
+}
+
+.code-block-lines {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+  padding-left: 1rem;
+  padding-right: 0.75rem;
+  background-color: #181825;
+  color: #6c7086;
+  text-align: right;
+  user-select: none;
+  border-right: 1px solid #313244;
+  font-size: 0.75rem;
+}
+
+.code-block-lines span {
+  line-height: 1.5;
+}
+
+.code-block-content {
+  flex: 1;
+  margin: 0;
+  padding: 1rem;
+  overflow-x: auto;
+  color: #cdd6f4;
+  background-color: transparent;
+}
+
+.code-block-content code {
+  font-family: inherit;
+  white-space: pre;
+}
+
+/* Dark mode adjustments */
+[data-theme='sqli-dark'] .code-block {
+  background-color: #11111b;
+}
+
+[data-theme='sqli-dark'] .code-block-header {
+  background-color: #1e1e2e;
+  border-bottom-color: #313244;
+}
+
+[data-theme='sqli-dark'] .code-block-lines {
+  background-color: #0d0d14;
+}

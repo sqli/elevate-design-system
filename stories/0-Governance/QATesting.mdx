@@ -1,0 +1,170 @@
+{/* QATesting.mdx */}
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Governance/QA & Testing" />
+
+# QA & Testing
+
+> Status: **Draft**
+
+## Visual Regression Strategy
+
+Visual consistency is critical for a Design System. We use:
+
+- **Storybook Chromatic** (planned): Automated visual regression testing
+- **Snapshot testing**: For all component variants
+- **Cross-browser visual comparison**: Ensuring consistency across browsers
+
+## Accessibility Testing
+
+<table>
+  <thead>
+    <tr>
+      <th>Test Type</th>
+      <th>Tool/Method</th>
+      <th>Coverage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Automated</strong></td>
+      <td>axe-core integration</td>
+      <td>All stories</td>
+    </tr>
+    <tr>
+      <td><strong>Keyboard</strong></td>
+      <td>Manual navigation audit</td>
+      <td>Interactive components</td>
+    </tr>
+    <tr>
+      <td><strong>Screen Reader</strong></td>
+      <td>VoiceOver, NVDA testing</td>
+      <td>Critical paths</td>
+    </tr>
+    <tr>
+      <td><strong>Color Contrast</strong></td>
+      <td>Storybook a11y addon</td>
+      <td>All color combinations</td>
+    </tr>
+  </tbody>
+</table>
+
+## Cross-Browser Support
+
+<table>
+  <thead>
+    <tr>
+      <th>Browser</th>
+      <th>Versions</th>
+      <th>Support Level</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Chrome</td>
+      <td>Last 2</td>
+      <td>Full</td>
+    </tr>
+    <tr>
+      <td>Firefox</td>
+      <td>Last 2</td>
+      <td>Full</td>
+    </tr>
+    <tr>
+      <td>Safari</td>
+      <td>Last 2</td>
+      <td>Full</td>
+    </tr>
+    <tr>
+      <td>Edge</td>
+      <td>Last 2</td>
+      <td>Full</td>
+    </tr>
+    <tr>
+      <td>Safari iOS</td>
+      <td>Last 2</td>
+      <td>Full</td>
+    </tr>
+    <tr>
+      <td>Chrome Android</td>
+      <td>Last 2</td>
+      <td>Full</td>
+    </tr>
+  </tbody>
+</table>
+
+## Performance Baseline
+
+<table>
+  <thead>
+    <tr>
+      <th>Metric</th>
+      <th>Target</th>
+      <th>Current</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>CSS bundle size (gzipped)</td>
+      <td>&lt; 50KB</td>
+      <td>~16KB</td>
+    </tr>
+    <tr>
+      <td>JavaScript required</td>
+      <td>None for styling</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td>Critical CSS extractable</td>
+      <td>Yes</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>Tree-shakeable</td>
+      <td>Yes</td>
+      <td>Yes (via Tailwind)</td>
+    </tr>
+  </tbody>
+</table>
+
+## Testing Checklist by Component Type
+
+### Primitives
+
+- [ ] All variants render correctly
+- [ ] All states (hover, focus, disabled, etc.) work
+- [ ] Responsive behavior at all breakpoints
+- [ ] Dark mode appearance
+- [ ] Accessibility audit passes
+- [ ] No visual regressions
+
+### Compositions
+
+- [ ] All primitive dependencies work correctly
+- [ ] Layout adapts to content variations
+- [ ] Responsive behavior
+- [ ] Interactive states function properly
+- [ ] Accessibility audit passes
+
+## Release Checklist
+
+Before any release:
+
+- [ ] All stories render without errors
+- [ ] Visual regression tests pass (or changes approved)
+- [ ] Accessibility audit complete (0 critical issues)
+- [ ] Cross-browser testing complete
+- [ ] Documentation updated
+- [ ] Changelog entry added
+- [ ] Version bumped appropriately
+- [ ] Build succeeds without warnings
+
+## Reporting Issues
+
+When reporting a bug:
+
+1. **Component name**: Which component is affected
+2. **Browser/OS**: Where you observed the issue
+3. **Steps to reproduce**: How to trigger the bug
+4. **Expected vs actual**: What should happen vs what happens
+5. **Screenshots**: Visual evidence if applicable

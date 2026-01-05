@@ -1,0 +1,68 @@
+/**
+ * SQLI DaisyUI Themes - Documentation
+ *
+ * IMPORTANT: Theme definitions (@plugin "daisyui/theme") are in main.css
+ * because @plugin directives cannot be imported from external files.
+ *
+ * This file serves as documentation for the theme system.
+ *
+ * ==========================================================================
+ * THEMES AVAILABLE
+ * ==========================================================================
+ *
+ * Two themes are provided:
+ * - sqli-light: Default theme (Cream background, Cobalt primary)
+ * - sqli-dark:  Dark mode (Midnight background, Sky primary)
+ *
+ * ==========================================================================
+ * COLOR FORMAT: OKLCH
+ * ==========================================================================
+ *
+ * We use OKLCH instead of HEX because:
+ * 1. Perceptually uniform - colors look consistent across the spectrum
+ * 2. Better for accessibility - easier contrast calculations
+ * 3. Modern CSS standard - supported by all modern browsers
+ *
+ * OKLCH FORMAT: oklch(Lightness% Chroma Hue)
+ * - Lightness: 0% (black) to 100% (white)
+ * - Chroma: 0 (gray) to ~0.4 (vivid)
+ * - Hue: 0-360 (color wheel angle)
+ *
+ * ==========================================================================
+ * CONVERSION REFERENCE
+ * ==========================================================================
+ *
+ * | Brand Color | HEX       | OKLCH                  | Role           |
+ * |-------------|-----------|------------------------|----------------|
+ * | Cream       | #FFFAF0   | oklch(98.5% 0.012 85)  | base-100 light |
+ * | Midnight    | #0F0E2B   | oklch(15% 0.04 270)    | base-100 dark  |
+ * | Cobalt      | #1F24E9   | oklch(42% 0.28 265)    | primary light  |
+ * | Sky         | #6DA5FF   | oklch(68% 0.14 250)    | primary dark   |
+ *
+ * ==========================================================================
+ * SEMANTIC COLOR MAPPING
+ * ==========================================================================
+ *
+ * Light Theme (sqli-light):
+ * - base-100/200/300: Cream shades
+ * - base-content: Midnight (text)
+ * - primary: Cobalt (interactions)
+ * - secondary: Midnight with Sky content
+ * - accent: Darker Cobalt
+ * - neutral: Midnight
+ *
+ * Dark Theme (sqli-dark):
+ * - base-100/200/300: Midnight shades
+ * - base-content: Cream (text)
+ * - primary: Sky (interactions)
+ * - secondary: Cream with Midnight content
+ * - accent: Lighter Sky
+ * - neutral: Dark gray
+ *
+ * @see https://oklch.com - Interactive OKLCH picker
+ * @see SQLI-BRAND-REFERENCE.md - Brand color definitions
+ * @see main.css - Actual theme definitions
+ * @since v0.1.0
+ */
+
+/* This file is documentation only. Theme definitions are in main.css */

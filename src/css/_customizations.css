@@ -1,0 +1,151 @@
+/**
+ * DaisyUI Component Customizations
+ *
+ * Overrides and enhancements for DaisyUI components to match SQLI brand.
+ * These rules modify default DaisyUI behavior without breaking functionality.
+ *
+ * IMPORTANT: Only add overrides here that are necessary for brand compliance.
+ * Avoid duplicating DaisyUI defaults or adding unnecessary complexity.
+ *
+ * @since v0.1.0
+ */
+
+/* ==========================================================================
+   Focus Styles
+   Global fix for DaisyUI focus states
+
+   Problem: DaisyUI adds rings/outlines that can create double borders.
+   Solution: Remove all outlines, use border color change for focus indication.
+
+   Accessibility: Focus states remain visible through border color changes,
+   maintaining WCAG 2.1 compliance for keyboard navigation.
+   ========================================================================== */
+
+/**
+ * Global Focus Reset
+ *
+ * Removes browser default outlines. Focus indication is handled
+ * per-component below using border colors.
+ */
+*:focus,
+*:focus-visible,
+*:focus-within {
+  outline: none !important;
+  outline-width: 0 !important;
+  outline-offset: 0 !important;
+}
+
+/**
+ * Form Inputs Focus
+ *
+ * Simple border color change on focus.
+ * Uses var(--color-primary) to automatically adapt to theme:
+ * - Light mode: Cobalt (#1F24E9)
+ * - Dark mode: Sky (#6DA5FF)
+ */
+.input:focus,
+.input:focus-visible,
+.input:focus-within,
+.select:focus,
+.select:focus-visible,
+.textarea:focus,
+.textarea:focus-visible,
+.file-input:focus,
+.file-input:focus-visible,
+label.input:focus-within,
+label.input:has(:focus) {
+  outline: none !important;
+  outline-width: 0 !important;
+  border-color: var(--color-primary) !important;
+  box-shadow: none !important;
+  --tw-ring-shadow: none !important;
+  --tw-ring-offset-shadow: none !important;
+}
+
+/**
+ * Buttons and Interactive Elements Focus
+ *
+ * Remove ring shadows, rely on :hover/:active states for feedback.
+ */
+.btn:focus,
+.btn:focus-visible,
+.checkbox:focus,
+.checkbox:focus-visible,
+.radio:focus,
+.radio:focus-visible,
+.toggle:focus,
+.toggle:focus-visible,
+.range:focus,
+.range:focus-visible,
+.rating:focus,
+.rating:focus-visible {
+  outline: none !important;
+  outline-width: 0 !important;
+  box-shadow: none !important;
+  --tw-ring-shadow: none !important;
+  --tw-ring-offset-shadow: none !important;
+}
+
+/* ==========================================================================
+   Diff Component
+   Visible resizer line for image comparison
+
+   Uses neutral color for contrast on both image sides.
+   ========================================================================== */
+
+.diff-item-1 {
+  border-right-color: var(--color-neutral) !important;
+}
+
+.diff-item-2::after {
+  background-color: var(--color-neutral) !important;
+  border-color: var(--color-neutral-content) !important;
+  outline-color: var(--color-neutral-content) !important;
+}
+
+/* ==========================================================================
+   Links
+   SQLI Brand Compliance
+
+   Default links use primary color (Cobalt in light, Sky in dark).
+   Hover state uses accent color for subtle darkening effect.
+
+   Excluded:
+   - .btn class (buttons have their own styling)
+   - .link-neutral class (intentionally neutral links)
+   ========================================================================== */
+
+a:not(.btn):not(.link-neutral) {
+  color: var(--color-primary);
+}
+
+a:not(.btn):not(.link-neutral):hover {
+  color: var(--color-accent);
+}
+
+.link {
+  color: var(--color-primary);
+}
+
+.link:hover {
+  color: var(--color-accent);
+}
+
+/* ==========================================================================
+   Toggle Component
+   SQLI Brand Compliance
+
+   Default toggle uses primary color when checked:
+   - Light mode: Cobalt (#1F24E9)
+   - Dark mode: Sky (#6DA5FF)
+   ========================================================================== */
+
+.toggle:checked {
+  --toggle-bg: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+[data-theme='sqli-dark'] .toggle:checked {
+  --toggle-bg: var(--color-primary);
+  border-color: var(--color-primary);
+}

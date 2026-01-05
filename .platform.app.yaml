@@ -1,0 +1,66 @@
+# Platform.sh / Upsun configuration for SQLI Design System (Storybook)
+# Documentation: https://docs.platform.sh/
+
+name: storybook
+
+type: 'nodejs:22'
+
+# Build configuration
+build:
+  flavor: none
+
+# Dependencies and build process
+hooks:
+  build: |
+    set -e
+    npm ci
+    npm run build-storybook
+
+# Web configuration - static site only
+web:
+  commands:
+    # No server needed for static files
+    start: sleep infinity
+  locations:
+    '/':
+      root: 'storybook-static'
+      index:
+        - index.html
+      expires: 7d
+      scripts: false
+      allow: true
+      headers:
+        Cache-Control: 'public, max-age=604800'
+    # Cache static assets longer
+    '/assets':
+      root: 'storybook-static/assets'
+      expires: 30d
+      allow: true
+      headers:
+        Cache-Control: 'public, max-age=2592000, immutable'
+    '/fonts':
+      root: 'storybook-static/fonts'
+      expires: 365d
+      allow: true
+      headers:
+        Cache-Control: 'public, max-age=31536000, immutable'
+    '/logos':
+      root: 'storybook-static/logos'
+      expires: 30d
+      allow: true
+      headers:
+        Cache-Control: 'public, max-age=2592000'
+    '/images':
+      root: 'storybook-static/images'
+      expires: 30d
+      allow: true
+      headers:
+        Cache-Control: 'public, max-age=2592000'
+
+# Disk space allocation (minimum for static site)
+disk: 256
+
+# Resources sizing - increase memory for Storybook build
+resources:
+  base_memory: 256
+  memory_ratio: 256

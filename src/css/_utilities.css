@@ -1,0 +1,75 @@
+/**
+ * SQLI Custom Utilities
+ *
+ * Utility classes that extend Tailwind CSS and DaisyUI.
+ * Only add utilities here that are not provided by Tailwind/DaisyUI.
+ *
+ * Naming Convention:
+ * - Prefix all custom utilities with 'sqli-' to avoid conflicts
+ * - Use descriptive names (sqli-sr-only, not sqli-hide)
+ *
+ * @since v0.1.0
+ */
+
+/* ==========================================================================
+   Accessibility Utilities
+   ========================================================================== */
+
+/**
+ * Screen Reader Only
+ *
+ * Visually hides content while keeping it accessible to screen readers.
+ * Use for:
+ * - Skip links
+ * - Form labels that are visually implied
+ * - Additional context for icons
+ *
+ * @example
+ * <button>
+ *   <svg>...</svg>
+ *   <span class="sqli-sr-only">Close menu</span>
+ * </button>
+ */
+@utility sqli-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  border-width: 0;
+  clip: rect(0, 0, 0, 0);
+}
+
+/* ==========================================================================
+   Reduced Motion Support
+   Accessibility feature for users who prefer reduced motion.
+
+   This affects ALL elements on the page when the user has enabled
+   "Reduce motion" in their OS settings.
+
+   IMPORTANT: This is a critical accessibility feature. Do not remove.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   Future Utilities
+   Reserved space for additional utilities as needed.
+
+   When adding new utilities:
+   1. Ensure they're not already available in Tailwind/DaisyUI
+   2. Use the sqli- prefix
+   3. Add documentation with @example
+   4. Consider accessibility implications
+   ========================================================================== */

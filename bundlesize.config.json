@@ -1,0 +1,9 @@
+{
+  "files": [
+    {
+      "path": "dist/sqli-design-system.min.css",
+      "maxSize": "50 kB",
+      "compression": "gzip"
+    }
+  ]
+}

@@ -1,0 +1,139 @@
+{/* GettingStarted.mdx */}
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Governance/Getting Started" />
+
+# Getting Started
+
+Get up and running with the Elevate Design System in 5 minutes.
+
+---
+
+## Quick Install
+
+### Option 1: npm (Recommended)
+
+```bash
+npm install @sqli/elevate-design-system
+```
+
+```css
+/* In your main CSS file */
+@import '@sqli/elevate-design-system';
+```
+
+```html
+<!-- Apply theme to your HTML -->
+<html data-theme="sqli-light">
+```
+
+### Option 2: CDN (No build required)
+
+```html
+<!DOCTYPE html>
+<html data-theme="sqli-light">
+<head>
+  <link rel="stylesheet" href="https://unpkg.com/@sqli/elevate-design-system/dist/sqli-design-system.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/@sqli/elevate-design-system/dist/fonts.css" />
+</head>
+<body>
+  <button class="btn btn-primary">Hello World</button>
+</body>
+</html>
+```
+
+---
+
+## Your First Component
+
+Once installed, you can use any DaisyUI component with SQLI themes:
+
+```html
+<!-- Buttons -->
+<button class="btn btn-primary">Primary</button>
+<button class="btn btn-secondary">Secondary</button>
+
+<!-- Card -->
+<div class="card bg-base-100 shadow-xl">
+  <div class="card-body">
+    <h2 class="card-title">Hello World</h2>
+    <p>Welcome to the Elevate Design System!</p>
+  </div>
+</div>
+
+<!-- Alert -->
+<div class="alert alert-info">
+  <span>You're all set!</span>
+</div>
+```
+
+---
+
+## Themes
+
+Two themes are available:
+
+<table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '1.5rem' }}>
+  <thead>
+    <tr style={{ borderBottom: '2px solid #e5e7eb' }}>
+      <th style={{ textAlign: 'left', padding: '0.75rem' }}>Theme</th>
+      <th style={{ textAlign: 'left', padding: '0.75rem' }}>Usage</th>
+      <th style={{ textAlign: 'left', padding: '0.75rem' }}>Background</th>
+      <th style={{ textAlign: 'left', padding: '0.75rem' }}>Primary</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+      <td style={{ padding: '0.75rem' }}><code>sqli-light</code></td>
+      <td style={{ padding: '0.75rem' }}>Default</td>
+      <td style={{ padding: '0.75rem' }}>Cream</td>
+      <td style={{ padding: '0.75rem' }}>Cobalt</td>
+    </tr>
+    <tr>
+      <td style={{ padding: '0.75rem' }}><code>sqli-dark</code></td>
+      <td style={{ padding: '0.75rem' }}>Dark mode</td>
+      <td style={{ padding: '0.75rem' }}>Midnight</td>
+      <td style={{ padding: '0.75rem' }}>Sky</td>
+    </tr>
+  </tbody>
+</table>
+
+Switch themes by changing the `data-theme` attribute:
+
+```javascript
+// Toggle theme
+document.documentElement.setAttribute('data-theme', 'sqli-dark');
+```
+
+---
+
+## Next Steps
+
+<table style={{ width: '100%', borderCollapse: 'collapse' }}>
+  <tbody>
+    <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+      <td style={{ padding: '0.75rem', width: '30%' }}><strong>Full Installation Guide</strong></td>
+      <td style={{ padding: '0.75rem' }}><a href="?path=/docs/governance-installation--docs">Installation</a> - npm registry, CDN, frameworks, troubleshooting</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+      <td style={{ padding: '0.75rem' }}><strong>Browse Components</strong></td>
+      <td style={{ padding: '0.75rem' }}><a href="?path=/docs/components-actions-button--docs">Components</a> - 65+ DaisyUI components with SQLI themes</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+      <td style={{ padding: '0.75rem' }}><strong>Design Tokens</strong></td>
+      <td style={{ padding: '0.75rem' }}><a href="?path=/docs/foundations-design-tokens--docs">Design Tokens</a> - Colors, typography, CSS variables</td>
+    </tr>
+    <tr>
+      <td style={{ padding: '0.75rem' }}><strong>Theming</strong></td>
+      <td style={{ padding: '0.75rem' }}><a href="?path=/docs/foundations-theming--docs">Theming</a> - Light/dark mode, theme switching</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+## Need Help?
+
+- Browse the [Component Index](?path=/docs/governance-component-index--docs) for all available components
+- Check the [Contribution Guide](?path=/docs/governance-contribution-guide--docs) for development setup
+- See [DaisyUI documentation](https://daisyui.com/components/) for complete class references

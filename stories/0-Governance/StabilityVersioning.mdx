@@ -1,0 +1,179 @@
+{/* StabilityVersioning.mdx */}
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Governance/Stability & Versioning" />
+
+# Stability & Versioning
+
+> Status: **Draft**
+
+## Component Maturity Tags
+
+Each component in the Design System has a maturity tag indicating its stability:
+
+<table>
+  <thead>
+    <tr>
+      <th>Tag</th>
+      <th>Description</th>
+      <th>Can I use it?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Experimental</strong></td>
+      <td>API may change significantly between versions</td>
+      <td>For prototypes only</td>
+    </tr>
+    <tr>
+      <td><strong>Beta</strong></td>
+      <td>API stabilizing, feedback welcome</td>
+      <td>Yes, but expect minor changes</td>
+    </tr>
+    <tr>
+      <td><strong>Stable</strong></td>
+      <td>Production-ready, follows semantic versioning</td>
+      <td>Yes, fully supported</td>
+    </tr>
+    <tr>
+      <td><strong>Deprecated</strong></td>
+      <td>Scheduled for removal in a future major version</td>
+      <td>Migrate to replacement</td>
+    </tr>
+  </tbody>
+</table>
+
+## Semantic Versioning
+
+We follow [SemVer 2.0](https://semver.org/) for all releases:
+
+<table>
+  <thead>
+    <tr>
+      <th>Version Type</th>
+      <th>Format</th>
+      <th>When to bump</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Major</strong></td>
+      <td>X.0.0</td>
+      <td>Breaking changes</td>
+    </tr>
+    <tr>
+      <td><strong>Minor</strong></td>
+      <td>0.X.0</td>
+      <td>New features (backward compatible)</td>
+    </tr>
+    <tr>
+      <td><strong>Patch</strong></td>
+      <td>0.0.X</td>
+      <td>Bug fixes only</td>
+    </tr>
+  </tbody>
+</table>
+
+## What Counts as a Breaking Change?
+
+<table>
+  <thead>
+    <tr>
+      <th>Change Type</th>
+      <th>Breaking?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Removing a component or variant</td>
+      <td><strong>Yes</strong></td>
+    </tr>
+    <tr>
+      <td>Renaming CSS classes</td>
+      <td><strong>Yes</strong></td>
+    </tr>
+    <tr>
+      <td>Changing default behavior</td>
+      <td><strong>Yes</strong></td>
+    </tr>
+    <tr>
+      <td>Changing visual appearance significantly</td>
+      <td><strong>Yes</strong></td>
+    </tr>
+    <tr>
+      <td>Adding a new variant or component</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>Fixing a bug or improving accessibility</td>
+      <td>No</td>
+    </tr>
+  </tbody>
+</table>
+
+## Migration Support
+
+When breaking changes are necessary:
+
+1. **Deprecation Notice**: Mark as deprecated in the previous minor version
+2. **Migration Guide**: Provide step-by-step migration instructions
+3. **Codemods**: Automated migration scripts when possible
+4. **Transition Period**: Keep deprecated version available for at least one minor release
+
+## Release Cadence
+
+- **Patch releases**: As needed for bug fixes
+- **Minor releases**: Monthly (or as features are ready)
+- **Major releases**: Annually (or when necessary for significant changes)
+
+## Git Workflow
+
+### Branch Strategy
+
+<table>
+  <thead>
+    <tr>
+      <th>Branch</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>main</code></td>
+      <td>Production-ready releases</td>
+    </tr>
+    <tr>
+      <td><code>develop</code></td>
+      <td>Integration branch</td>
+    </tr>
+    <tr>
+      <td><code>feature/*</code></td>
+      <td>New features</td>
+    </tr>
+    <tr>
+      <td><code>fix/*</code></td>
+      <td>Bug fixes</td>
+    </tr>
+    <tr>
+      <td><code>release/vX.Y.Z</code></td>
+      <td>Release preparation</td>
+    </tr>
+  </tbody>
+</table>
+
+### Tag Convention
+
+- **Format**: `vX.Y.Z` or `vX.Y.Z-alpha/beta`
+- **Examples**: `v0.7.0-alpha`, `v1.0.0`
+- Tags trigger npm publish via CI/CD
+
+### Version Synchronization
+
+**The Changelog is the source of truth.**
+
+Before creating a release:
+
+1. Add entry to `Changelog.mdx` with version and date
+2. Update `package.json` version field to match
+3. Commit with message: `chore(release): vX.Y.Z`
+4. Create and push tag: `git tag vX.Y.Z && git push --tags`

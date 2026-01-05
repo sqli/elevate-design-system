@@ -1,0 +1,52 @@
+/**
+ * Storybook Preview Styles
+ *
+ * Storybook-specific styles for component display
+ * Updated for DaisyUI theme system (data-theme attribute)
+ */
+
+/* Story wrapper - uses DaisyUI theme variables */
+.sqli-story-wrapper {
+  font-family:
+    'TWK Everett',
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-weight: 300;
+  background-color: var(--color-base-100);
+  color: var(--color-base-content);
+  padding: 1.5rem;
+  min-height: 200px;
+  transition:
+    background-color 200ms ease,
+    color 200ms ease;
+}
+
+/* Storybook canvas background override for dark theme */
+[data-theme='sqli-dark'] .docs-story,
+[data-theme='sqli-dark'] #storybook-root {
+  background-color: oklch(15% 0.04 270); /* Midnight */
+}
+
+/* Storybook canvas background override for light theme */
+[data-theme='sqli-light'] .docs-story,
+[data-theme='sqli-light'] #storybook-root {
+  background-color: oklch(98.5% 0.012 85); /* Cream */
+}
+
+/* Smooth theme transition */
+html {
+  transition: background-color 0.2s ease;
+}
+
+/* Dark theme - Midnight background */
+html[data-theme='sqli-dark'] {
+  background-color: oklch(15% 0.04 270);
+  color-scheme: dark;
+}
+
+/* Light theme - Cream background */
+html[data-theme='sqli-light'] {
+  background-color: oklch(98.5% 0.012 85);
+  color-scheme: light;
+}

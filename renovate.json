@@ -1,0 +1,63 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":semanticCommits",
+    ":separateMajorReleases",
+    "group:allNonMajor"
+  ],
+  "labels": ["dependencies"],
+  "rangeStrategy": "bump",
+  "lockFileMaintenance": {
+    "enabled": true,
+    "schedule": ["before 5am on monday"]
+  },
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": ["security"]
+  },
+  "packageRules": [
+    {
+      "description": "Group Storybook packages",
+      "groupName": "storybook",
+      "matchPackagePatterns": ["^@storybook/", "^storybook$"]
+    },
+    {
+      "description": "Group ESLint packages",
+      "groupName": "eslint",
+      "matchPackagePatterns": ["^@eslint/", "^eslint$"]
+    },
+    {
+      "description": "Group Vitest packages",
+      "groupName": "vitest",
+      "matchPackagePatterns": ["^@vitest/", "^vitest$"]
+    },
+    {
+      "description": "Group PostCSS packages",
+      "groupName": "postcss",
+      "matchPackagePatterns": ["^postcss", "^autoprefixer$", "^cssnano$"]
+    },
+    {
+      "description": "Group semantic-release packages",
+      "groupName": "semantic-release",
+      "matchPackagePatterns": ["^@semantic-release/", "^semantic-release$"]
+    },
+    {
+      "description": "Group Tailwind packages",
+      "groupName": "tailwindcss",
+      "matchPackagePatterns": ["^tailwindcss$", "^@tailwindcss/"]
+    },
+    {
+      "description": "Automerge patch updates",
+      "matchUpdateTypes": ["patch"],
+      "automerge": true,
+      "automergeType": "pr"
+    },
+    {
+      "description": "Wait 3 days before updating major versions",
+      "matchUpdateTypes": ["major"],
+      "stabilityDays": 3
+    }
+  ],
+  "schedule": ["every weekend"]
+}

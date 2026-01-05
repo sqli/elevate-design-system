@@ -1,0 +1,468 @@
+{/* Installation.mdx */}
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Governance/Installation" />
+
+# Installation Guide
+
+Complete guide to integrate the Elevate Design System into your projects.
+
+---
+
+## Installation Methods
+
+<table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '1.5rem' }}>
+  <thead>
+    <tr style={{ borderBottom: '2px solid #e5e7eb' }}>
+      <th style={{ textAlign: 'left', padding: '0.75rem' }}>Method</th>
+      <th style={{ textAlign: 'left', padding: '0.75rem' }}>Best For</th>
+      <th style={{ textAlign: 'left', padding: '0.75rem' }}>Build Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+      <td style={{ padding: '0.75rem' }}><strong>npm</strong></td>
+      <td style={{ padding: '0.75rem' }}>Production apps (React, Vue, Angular, Next.js)</td>
+      <td style={{ padding: '0.75rem' }}>Yes</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+      <td style={{ padding: '0.75rem' }}><strong>CDN (unpkg)</strong></td>
+      <td style={{ padding: '0.75rem' }}>Prototypes, static sites, quick demos</td>
+      <td style={{ padding: '0.75rem' }}>No</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+      <td style={{ padding: '0.75rem' }}><strong>CDN (jsDelivr)</strong></td>
+      <td style={{ padding: '0.75rem' }}>Production static sites (better caching)</td>
+      <td style={{ padding: '0.75rem' }}>No</td>
+    </tr>
+    <tr>
+      <td style={{ padding: '0.75rem' }}><strong>Download</strong></td>
+      <td style={{ padding: '0.75rem' }}>Offline usage, custom hosting</td>
+      <td style={{ padding: '0.75rem' }}>No</td>
+    </tr>
+  </tbody>
+</table>
+
+---
+
+## Method 1: npm (Recommended)
+
+### Prerequisites
+
+- Node.js >= 22.0.0
+- npm >= 9.0.0
+- Access to SQLI GitLab registry
+
+### Step 1: Configure npm Registry
+
+Create or modify `.npmrc` at your project root:
+
+```ini
+# @sqli scope configuration
+@sqli:registry=https://gitlab.paris.sqli.com/api/v4/projects/PROJECT_ID/packages/npm/
+
+# Authentication
+//gitlab.paris.sqli.com/api/v4/projects/PROJECT_ID/packages/npm/:_authToken=${GITLAB_TOKEN}
+```
+
+### Step 2: Set GitLab Token
+
+```bash
+# Linux/macOS
+export GITLAB_TOKEN="your-gitlab-token"
+
+# Windows PowerShell
+$env:GITLAB_TOKEN="your-gitlab-token"
+```
+
+### Step 3: Install
+
+```bash
+npm install @sqli/elevate-design-system
+```
+
+### Step 4: Import CSS
+
+```css
+/* In your main CSS file */
+@import '@sqli/elevate-design-system';
+```
+
+### Step 5: Apply Theme
+
+```html
+<html data-theme="sqli-light">
+  <!-- Your content -->
+</html>
+```
+
+---
+
+## Method 2: CDN (unpkg)
+
+No build step required. Add directly to your HTML:
+
+```html
+<!DOCTYPE html>
+<html lang="en" data-theme="sqli-light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My App</title>
+
+  <!-- Elevate Design System CSS -->
+  <link rel="stylesheet"
+        href="https://unpkg.com/@sqli/elevate-design-system@0.5.0-alpha/dist/sqli-design-system.min.css" />
+
+  <!-- Fonts (required for TWK Everett) -->
+  <link rel="stylesheet"
+        href="https://unpkg.com/@sqli/elevate-design-system@0.5.0-alpha/dist/fonts.css" />
+</head>
+<body class="bg-base-100 text-base-content">
+  <button class="btn btn-primary">Hello World</button>
+</body>
+</html>
+```
+
+---
+
+## Method 3: CDN (jsDelivr)
+
+jsDelivr offers better global CDN coverage and caching:
+
+```html
+<!-- CSS -->
+<link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@sqli/elevate-design-system@0.5.0-alpha/dist/sqli-design-system.min.css" />
+
+<!-- Fonts -->
+<link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@sqli/elevate-design-system@0.5.0-alpha/dist/fonts.css" />
+```
+
+---
+
+## Method 4: Direct Download
+
+Download files directly for self-hosting:
+
+<table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '1.5rem' }}>
+  <thead>
+    <tr style={{ borderBottom: '2px solid #e5e7eb' }}>
+      <th style={{ textAlign: 'left', padding: '0.75rem' }}>File</th>
+      <th style={{ textAlign: 'left', padding: '0.75rem' }}>Size</th>
+      <th style={{ textAlign: 'left', padding: '0.75rem' }}>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+      <td style={{ padding: '0.75rem' }}><code>sqli-design-system.min.css</code></td>
+      <td style={{ padding: '0.75rem' }}>~194 KB</td>
+      <td style={{ padding: '0.75rem' }}>Full CSS (minified)</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+      <td style={{ padding: '0.75rem' }}><code>fonts.css</code></td>
+      <td style={{ padding: '0.75rem' }}>~2 KB</td>
+      <td style={{ padding: '0.75rem' }}>Font declarations</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+      <td style={{ padding: '0.75rem' }}><code>tokens.css</code></td>
+      <td style={{ padding: '0.75rem' }}>~3 KB</td>
+      <td style={{ padding: '0.75rem' }}>CSS variables only</td>
+    </tr>
+    <tr>
+      <td style={{ padding: '0.75rem' }}><code>fonts/</code></td>
+      <td style={{ padding: '0.75rem' }}>~3 MB</td>
+      <td style={{ padding: '0.75rem' }}>TWK Everett font files</td>
+    </tr>
+  </tbody>
+</table>
+
+### Folder Structure
+
+```
+your-project/
+├── css/
+│   ├── sqli-design-system.min.css
+│   └── fonts.css
+└── fonts/
+    ├── TWKEverett-Light.woff2
+    ├── TWKEverett-Regular.woff2
+    ├── TWKEverett-Medium.woff2
+    └── TWKEverett-Bold.woff2
+```
+
+```html
+<link rel="stylesheet" href="./css/sqli-design-system.min.css" />
+<link rel="stylesheet" href="./css/fonts.css" />
+```
+
+---
+
+## Advanced: Tokens Only
+
+Import only the CSS variables without DaisyUI components:
+
+```css
+/* npm */
+@import '@sqli/elevate-design-system/tokens';
+
+/* CDN */
+<link rel="stylesheet" href="https://unpkg.com/@sqli/elevate-design-system/dist/tokens.css" />
+```
+
+Available variables:
+
+```css
+:root {
+  --color-sqli-cream: #FFFAF0;
+  --color-sqli-midnight: #0F0E2B;
+  --color-sqli-cobalt: #1F24E9;
+  --color-sqli-sky: #6DA5FF;
+  --font-family-sans: 'TWK Everett', system-ui, sans-serif;
+}
+```
+
+---
+
+## Advanced: Tailwind Preset
+
+Extend your Tailwind configuration with SQLI colors:
+
+```javascript
+// tailwind.config.js
+import sqliPreset from '@sqli/elevate-design-system/preset';
+
+export default {
+  presets: [sqliPreset],
+  // ... your config
+}
+```
+
+This adds:
+
+- `sqli-cream`, `sqli-midnight`, `sqli-cobalt`, `sqli-sky` colors
+- TWK Everett as default sans-serif font
+
+---
+
+## Framework Examples
+
+### Next.js (App Router)
+
+```css
+/* app/globals.css */
+@import '@sqli/elevate-design-system';
+```
+
+```tsx
+// app/layout.tsx
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en" data-theme="sqli-light" suppressHydrationWarning>
+      <body>{children}</body>
+    </html>
+  );
+}
+```
+
+### Vite + React
+
+```css
+/* src/index.css */
+@import '@sqli/elevate-design-system';
+```
+
+```tsx
+// src/main.tsx
+import './index.css';
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+
+document.documentElement.setAttribute('data-theme', 'sqli-light');
+
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <App />
+  </StrictMode>
+);
+```
+
+### Vite + Vue
+
+```css
+/* src/style.css */
+@import '@sqli/elevate-design-system';
+```
+
+```ts
+// src/main.ts
+import './style.css';
+import { createApp } from 'vue';
+import App from './App.vue';
+
+document.documentElement.setAttribute('data-theme', 'sqli-light');
+createApp(App).mount('#app');
+```
+
+### Angular
+
+```css
+/* styles.css */
+@import '@sqli/elevate-design-system';
+```
+
+```json
+// angular.json
+{
+  "projects": {
+    "your-app": {
+      "architect": {
+        "build": {
+          "options": {
+            "styles": ["src/styles.css"]
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+```html
+<!-- index.html -->
+<html data-theme="sqli-light">
+```
+
+---
+
+## Theme Switching
+
+### JavaScript Toggle
+
+```javascript
+function toggleTheme() {
+  const html = document.documentElement;
+  const current = html.getAttribute('data-theme');
+  const next = current === 'sqli-light' ? 'sqli-dark' : 'sqli-light';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+}
+
+// Load saved theme
+const saved = localStorage.getItem('theme') || 'sqli-light';
+document.documentElement.setAttribute('data-theme', saved);
+```
+
+### System Preference
+
+```javascript
+function getSystemTheme() {
+  return window.matchMedia('(prefers-color-scheme: dark)').matches
+    ? 'sqli-dark'
+    : 'sqli-light';
+}
+
+// Apply system theme if no preference saved
+const theme = localStorage.getItem('theme') || getSystemTheme();
+document.documentElement.setAttribute('data-theme', theme);
+```
+
+### DaisyUI Theme Controller
+
+```html
+<input type="checkbox" value="sqli-dark" class="toggle theme-controller" />
+```
+
+---
+
+## Font Integration
+
+### Option 1: Automatic (Default)
+
+Fonts are loaded automatically via CSS. Ensure font files are accessible at `/fonts/` or configure your bundler.
+
+### Option 2: CDN Fonts
+
+```html
+<link rel="stylesheet" href="https://unpkg.com/@sqli/elevate-design-system/dist/fonts.css" />
+```
+
+### Option 3: Self-Hosted
+
+```bash
+# Copy fonts to your project
+cp -r node_modules/@sqli/elevate-design-system/dist/fonts ./public/fonts
+```
+
+### Font Preloading (Performance)
+
+```html
+<link rel="preload"
+      href="/fonts/TWKEverett-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin />
+```
+
+---
+
+## Troubleshooting
+
+### Common Issues
+
+<table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '1.5rem' }}>
+  <thead>
+    <tr style={{ borderBottom: '2px solid #e5e7eb' }}>
+      <th style={{ textAlign: 'left', padding: '0.75rem' }}>Issue</th>
+      <th style={{ textAlign: 'left', padding: '0.75rem' }}>Cause</th>
+      <th style={{ textAlign: 'left', padding: '0.75rem' }}>Solution</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+      <td style={{ padding: '0.75rem' }}>Module not found</td>
+      <td style={{ padding: '0.75rem' }}>Registry config</td>
+      <td style={{ padding: '0.75rem' }}>Check <code>.npmrc</code></td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+      <td style={{ padding: '0.75rem' }}>Fonts not loading</td>
+      <td style={{ padding: '0.75rem' }}>Path issue</td>
+      <td style={{ padding: '0.75rem' }}>Use CDN or copy fonts locally</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+      <td style={{ padding: '0.75rem' }}>Theme not applying</td>
+      <td style={{ padding: '0.75rem' }}>Missing attribute</td>
+      <td style={{ padding: '0.75rem' }}>Add <code>data-theme</code> to <code>&lt;html&gt;</code></td>
+    </tr>
+    <tr>
+      <td style={{ padding: '0.75rem' }}>Components unstyled</td>
+      <td style={{ padding: '0.75rem' }}>CSS not imported</td>
+      <td style={{ padding: '0.75rem' }}>Import design system CSS first</td>
+    </tr>
+  </tbody>
+</table>
+
+### Diagnostic Commands
+
+```bash
+# Verify installation
+npm ls @sqli/elevate-design-system
+
+# Check package contents
+ls -la node_modules/@sqli/elevate-design-system/dist/
+
+# Verify theme in browser console
+document.documentElement.getAttribute('data-theme')
+
+# Check CSS loaded
+getComputedStyle(document.documentElement).getPropertyValue('--color-primary')
+```
+
+---
+
+## Support
+
+- **Storybook**: Browse [component examples](?path=/docs/governance-component-index--docs)
+- **GitLab**: [Open an issue](https://gitlab.paris.sqli.com/sqli/design-system/-/issues)
+- **Documentation**: [DaisyUI components](https://daisyui.com/components/)

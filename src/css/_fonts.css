@@ -1,0 +1,93 @@
+/**
+ * TWK Everett Font Face Declarations
+ *
+ * SQLI's primary typeface for all communications.
+ * Available weights: Light (300), Regular (400), Medium (500), Bold (700)
+ *
+ * Usage in Tailwind:
+ * - font-sans       → TWK Everett (default)
+ * - font-everett    → TWK Everett (explicit)
+ *
+ * @see SQLI-BRAND-REFERENCE.md for typography guidelines
+ * @since v0.1.0
+ */
+
+/* ==========================================================================
+   Light (300)
+   Use for: Body text, paragraphs, long-form content
+   ========================================================================== */
+
+@font-face {
+  font-family: 'TWK Everett';
+  src:
+    url('/fonts/TWKEverett-Light.woff2') format('woff2'),
+    url('/fonts/TWKEverett-Light.woff') format('woff');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TWK Everett';
+  src:
+    url('/fonts/TWKEverett-LightItalic.woff2') format('woff2'),
+    url('/fonts/TWKEverett-LightItalic.woff') format('woff');
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ==========================================================================
+   Regular (400)
+   Use for: Standard text, UI elements, buttons
+   ========================================================================== */
+
+@font-face {
+  font-family: 'TWK Everett';
+  src:
+    url('/fonts/TWKEverett-Regular.woff2') format('woff2'),
+    url('/fonts/TWKEverett-Regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TWK Everett';
+  src:
+    url('/fonts/TWKEverett-RegularItalic.woff2') format('woff2'),
+    url('/fonts/TWKEverett-RegularItalic.woff') format('woff');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ==========================================================================
+   Medium (500)
+   Use for: Headings, emphasis, navigation
+   ========================================================================== */
+
+@font-face {
+  font-family: 'TWK Everett';
+  src:
+    url('/fonts/TWKEverett-Medium.woff2') format('woff2'),
+    url('/fonts/TWKEverett-Medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ==========================================================================
+   Bold (700)
+   Use for: Strong emphasis, important callouts
+   ========================================================================== */
+
+@font-face {
+  font-family: 'TWK Everett';
+  src:
+    url('/fonts/TWKEverett-Bold.woff2') format('woff2'),
+    url('/fonts/TWKEverett-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}

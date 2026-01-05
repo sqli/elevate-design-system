@@ -1,0 +1,294 @@
+{/* ContributionGuide.mdx */}
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Governance/Contribution Guide" />
+
+# Contribution Guide
+
+## Design System Architecture
+
+The Elevate Design System is built on **DaisyUI** + **Tailwind CSS 4**:
+
+<table>
+  <thead>
+    <tr>
+      <th>Layer</th>
+      <th>Purpose</th>
+      <th>Examples</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Foundations</strong></td>
+      <td>Design tokens, themes, and brand assets</td>
+      <td>Colors, Typography, Theming, Logo, Ascender</td>
+    </tr>
+    <tr>
+      <td><strong>Components</strong></td>
+      <td>DaisyUI components with SQLI theme styling</td>
+      <td>Button, Input, Badge, Card, Alert, Modal</td>
+    </tr>
+  </tbody>
+</table>
+
+## Where to Place Contributions
+
+### Decision Tree
+
+1. **Is it a design token or brand asset?** → **Foundations**
+2. **Is it a new DaisyUI component story?** → **Components**
+3. **Is it a custom CSS override?** → `src/css/main.css`
+
+### Component Categories
+
+See the [Introduction](?path=/docs/introduction--docs#2-components) for the complete list of 65+ components organized by category (Actions, Data Display, Data Input, Feedback, Navigation, Layout, Mockup).
+
+## Naming Conventions
+
+### DaisyUI Classes
+
+Components use DaisyUI's semantic class system:
+
+```html
+<!-- Good - DaisyUI classes -->
+<button class="btn btn-primary">Primary</button>
+<div class="card bg-base-100">Card</div>
+<input class="input input-bordered" />
+
+<!-- Avoid - Custom sqli-* classes (deprecated) -->
+<button class="sqli-btn sqli-btn--primary">Primary</button>
+```
+
+### File Naming
+
+- Story files: `ComponentName.stories.js`
+- CSS overrides: Add to `src/css/main.css`
+
+## Theme System
+
+The design system uses `data-theme` attribute for theming (NOT `.dark` class). See the [Introduction - Theme System](?path=/docs/introduction--docs#theme-system) for complete usage examples.
+
+Available themes: `sqli-light` (default) and `sqli-dark`.
+
+### Custom CSS Overrides
+
+Add overrides in `src/css/main.css`:
+
+```css
+/* Light mode override */
+.component:focus {
+  border-color: oklch(42% 0.28 265) !important; /* Cobalt */
+}
+
+/* Dark mode variant */
+[data-theme='sqli-dark'] .component:focus {
+  border-color: oklch(68% 0.14 250) !important; /* Sky */
+}
+```
+
+## Required States
+
+Every interactive component story should demonstrate:
+
+<table>
+  <thead>
+    <tr>
+      <th>State</th>
+      <th>Required</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Default</td>
+      <td>Yes</td>
+      <td>Normal resting state</td>
+    </tr>
+    <tr>
+      <td>Variants</td>
+      <td>Yes</td>
+      <td>All color variants (primary, secondary, etc.)</td>
+    </tr>
+    <tr>
+      <td>Sizes</td>
+      <td>Yes</td>
+      <td>All size variants (xs, sm, md, lg)</td>
+    </tr>
+    <tr>
+      <td>States</td>
+      <td>Yes</td>
+      <td>Interactive states (hover, focus, disabled)</td>
+    </tr>
+    <tr>
+      <td>Dark Mode</td>
+      <td>Yes</td>
+      <td>Rendering with `data-theme="sqli-dark"`</td>
+    </tr>
+  </tbody>
+</table>
+
+## Story Template
+
+```javascript
+export default {
+  title: 'Components/<Category>/ComponentName',
+  tags: ['autodocs'],
+  parameters: {
+    docs: {
+      description: {
+        component: `
+DaisyUI ComponentName styled with SQLI themes.
+
+## Usage
+\`\`\`html
+<div class="component">Content</div>
+\`\`\`
+        `,
+      },
+    },
+  },
+};
+
+export const Default = () => `
+  <div class="component">Default</div>
+`;
+
+export const Variants = () => `
+  <div class="flex gap-4">
+    <button class="btn">Default</button>
+    <button class="btn btn-primary">Primary</button>
+    <button class="btn btn-secondary">Secondary</button>
+  </div>
+`;
+
+export const DarkMode = () => `
+  <div data-theme="sqli-dark" class="bg-base-100 p-6 rounded-lg">
+    <button class="btn btn-primary">Dark Mode</button>
+  </div>
+`;
+```
+
+## Accessibility Checklist
+
+All components must meet WCAG 2.1 AA standards. See [Introduction - Accessibility](?path=/docs/introduction--docs#accessibility) for design system accessibility features.
+
+Before submitting a component:
+
+- [ ] Color contrast meets WCAG 2.1 AA (4.5:1 for text, 3:1 for UI)
+- [ ] Keyboard navigation supported (Tab, Enter, Space, Escape)
+- [ ] ARIA attributes properly set where needed
+- [ ] Focus states visible and clear
+- [ ] Screen reader tested (or semantically correct HTML used)
+- [ ] Reduced motion respected (`prefers-reduced-motion`)
+
+## Responsive Expectations
+
+Components should be tested at all breakpoints (Mobile 375px, Tablet 768px, Desktop 1280px, Desktop XL 1920px). See [Introduction - Responsive Design](?path=/docs/introduction--docs#responsive-design) for the complete breakpoint reference.
+
+## Documentation Requirements
+
+Every component story must include:
+
+1. **Description**: What the component is and when to use it
+2. **Variants**: All available color variants documented
+3. **Sizes**: All size options shown
+4. **States**: All interactive states demonstrated
+5. **Dark Mode**: Rendering in dark theme
+6. **Usage**: Code examples with DaisyUI classes
+
+## Review Process
+
+1. **Design Review**: UX team validates design consistency
+2. **Code Review**: DS maintainers review implementation
+3. **Accessibility Audit**: a11y compliance verified
+4. **Documentation Check**: All required docs present
+5. **Visual Regression**: No unintended visual changes
+
+## Pull Request Process
+
+### Branch Naming
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Format</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Feature</td>
+      <td><code>feature/&lt;description&gt;</code></td>
+      <td><code>feature/add-tooltip-component</code></td>
+    </tr>
+    <tr>
+      <td>Fix</td>
+      <td><code>fix/&lt;description&gt;</code></td>
+      <td><code>fix/button-focus-state</code></td>
+    </tr>
+    <tr>
+      <td>Docs</td>
+      <td><code>docs/&lt;description&gt;</code></td>
+      <td><code>docs/update-contribution-guide</code></td>
+    </tr>
+    <tr>
+      <td>Chore</td>
+      <td><code>chore/&lt;description&gt;</code></td>
+      <td><code>chore/update-dependencies</code></td>
+    </tr>
+  </tbody>
+</table>
+
+### PR Description Template
+
+Your PR description should include:
+
+1. **Summary**: What does this PR do?
+2. **Changes**: List of changes made
+3. **Testing**: How was this tested?
+4. **Screenshots**: Visual changes (if applicable)
+5. **Related Issues**: Link to related issues
+
+### Before Merge Checklist
+
+- [ ] Code follows the style guidelines
+- [ ] Self-review completed
+- [ ] Documentation updated
+- [ ] Tests pass locally
+- [ ] No console errors
+- [ ] Storybook builds successfully
+- [ ] Accessibility verified
+
+### Labels
+
+<table>
+  <thead>
+    <tr>
+      <th>Label</th>
+      <th>Usage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>component</code></td>
+      <td>New or updated component</td>
+    </tr>
+    <tr>
+      <td><code>documentation</code></td>
+      <td>Documentation changes</td>
+    </tr>
+    <tr>
+      <td><code>bug</code></td>
+      <td>Bug fix</td>
+    </tr>
+    <tr>
+      <td><code>enhancement</code></td>
+      <td>Feature improvement</td>
+    </tr>
+    <tr>
+      <td><code>breaking</code></td>
+      <td>Breaking change</td>
+    </tr>
+  </tbody>
+</table>

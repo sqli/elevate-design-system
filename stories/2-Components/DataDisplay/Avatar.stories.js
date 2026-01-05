@@ -21,6 +21,15 @@ DaisyUI **Avatar** component for user images and placeholders.
 </div>
 \`\`\`
 
+## Placeholder (Initials)
+\`\`\`html
+<div class="avatar placeholder">
+  <div class="bg-neutral text-neutral-content w-12 h-12 rounded-full flex items-center justify-center">
+    <span class="text-sm">JD</span>
+  </div>
+</div>
+\`\`\`
+
 ## Shapes
 - \`rounded\` - Slightly rounded
 - \`rounded-full\` - Circular
@@ -29,7 +38,7 @@ DaisyUI **Avatar** component for user images and placeholders.
 ## Modifiers
 - \`online\` - Green indicator
 - \`offline\` - Gray indicator
-- \`placeholder\` - For initials
+- \`placeholder\` - For initials (use with flex centering)
         `,
       },
     },
@@ -126,23 +135,23 @@ WithIndicator.storyName = 'With Status Indicator';
 export const Placeholder = () => `
   <div class="flex gap-4">
     <div class="avatar placeholder">
-      <div class="bg-neutral text-neutral-content w-12 rounded-full">
-        <span>JD</span>
+      <div class="bg-neutral text-neutral-content w-12 h-12 rounded-full flex items-center justify-center">
+        <span class="text-sm">JD</span>
       </div>
     </div>
     <div class="avatar placeholder">
-      <div class="bg-primary text-primary-content w-12 rounded-full">
-        <span>AB</span>
+      <div class="bg-primary text-primary-content w-12 h-12 rounded-full flex items-center justify-center">
+        <span class="text-sm">AB</span>
       </div>
     </div>
     <div class="avatar placeholder">
-      <div class="bg-secondary text-secondary-content w-12 rounded-full">
-        <span>XY</span>
+      <div class="bg-secondary text-secondary-content w-12 h-12 rounded-full flex items-center justify-center">
+        <span class="text-sm">XY</span>
       </div>
     </div>
     <div class="avatar placeholder">
-      <div class="bg-accent text-accent-content w-12 rounded-full">
-        <span class="text-xs">MK</span>
+      <div class="bg-accent text-accent-content w-12 h-12 rounded-full flex items-center justify-center">
+        <span class="text-sm">MK</span>
       </div>
     </div>
   </div>
@@ -167,8 +176,8 @@ export const Group = () => `
       </div>
     </div>
     <div class="avatar placeholder">
-      <div class="bg-neutral text-neutral-content w-12">
-        <span>+99</span>
+      <div class="bg-neutral text-neutral-content w-12 h-12 flex items-center justify-center">
+        <span class="text-xs">+99</span>
       </div>
     </div>
   </div>
@@ -213,13 +222,13 @@ export const DarkMode = () => `
     </div>
     <div class="flex gap-4">
       <div class="avatar placeholder">
-        <div class="bg-primary text-primary-content w-12 rounded-full">
-          <span>AB</span>
+        <div class="bg-primary text-primary-content w-12 h-12 rounded-full flex items-center justify-center">
+          <span class="text-sm">AB</span>
         </div>
       </div>
       <div class="avatar placeholder">
-        <div class="bg-secondary text-secondary-content w-12 rounded-full">
-          <span>CD</span>
+        <div class="bg-secondary text-secondary-content w-12 h-12 rounded-full flex items-center justify-center">
+          <span class="text-sm">CD</span>
         </div>
       </div>
     </div>

@@ -40,69 +40,35 @@ export const Default = () => `
     <div class="camera"></div>
     <div class="display">
       <div class="artboard artboard-demo phone-1 bg-base-200 flex flex-col items-center justify-center">
-        <h1 class="text-2xl font-bold mb-4">SQLI</h1>
-        <p>Elevate. Digitally</p>
+        <p class="text-sm opacity-70">320 x 568</p>
       </div>
     </div>
   </div>
 `;
 
-export const WithApp = () => `
-  <div class="mockup-phone">
-    <div class="camera"></div>
-    <div class="display">
-      <div class="artboard phone-1 bg-base-100 flex flex-col">
-        <div class="navbar bg-primary text-primary-content px-4">
-          <span class="text-lg font-bold">SQLI App</span>
+export const Sizes = () => `
+  <div class="flex flex-wrap gap-8 items-end">
+    <div class="mockup-phone">
+      <div class="camera"></div>
+      <div class="display">
+        <div class="artboard artboard-demo phone-1 bg-base-200 flex flex-col items-center justify-center">
+          <p class="text-xs opacity-70">phone-1</p>
+          <p class="text-xs opacity-50">320 x 568</p>
         </div>
-        <div class="flex-1 p-4">
-          <h2 class="text-lg font-medium mb-2">Welcome</h2>
-          <p class="text-sm opacity-70 mb-4">Your digital transformation starts here.</p>
-          <button class="btn btn-primary btn-block">Get Started</button>
-        </div>
-        <div class="btm-nav">
-          <button class="active">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-            </svg>
-          </button>
-          <button>
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-          </button>
-          <button>
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-            </svg>
-          </button>
+      </div>
+    </div>
+    <div class="mockup-phone">
+      <div class="camera"></div>
+      <div class="display">
+        <div class="artboard artboard-demo phone-2 bg-base-200 flex flex-col items-center justify-center">
+          <p class="text-xs opacity-70">phone-2</p>
+          <p class="text-xs opacity-50">375 x 667</p>
         </div>
       </div>
     </div>
   </div>
 `;
-WithApp.storyName = 'With App Content';
-
-export const Colors = () => `
-  <div class="flex gap-4">
-    <div class="mockup-phone border-primary">
-      <div class="camera"></div>
-      <div class="display">
-        <div class="artboard phone-1 bg-primary text-primary-content flex items-center justify-center">
-          Primary
-        </div>
-      </div>
-    </div>
-    <div class="mockup-phone border-secondary">
-      <div class="camera"></div>
-      <div class="display">
-        <div class="artboard phone-1 bg-secondary text-secondary-content flex items-center justify-center">
-          Secondary
-        </div>
-      </div>
-    </div>
-  </div>
-`;
+Sizes.storyName = 'Artboard Sizes';
 
 export const DarkMode = () => `
   <div data-theme="sqli-dark" class="bg-base-100 p-6 rounded-lg">
@@ -111,8 +77,7 @@ export const DarkMode = () => `
       <div class="camera"></div>
       <div class="display">
         <div class="artboard artboard-demo phone-1 bg-base-200 flex flex-col items-center justify-center">
-          <h1 class="text-2xl font-bold mb-4">SQLI</h1>
-          <p>Dark Mode</p>
+          <p class="text-sm opacity-70">320 x 568</p>
         </div>
       </div>
     </div>

@@ -251,7 +251,7 @@ export const DarkMode = () => `
           </div>
         </div>
       </div>
-      <div class="card card-bordered w-80">
+      <div class="card card-bordered bg-base-200 border-base-content/20 w-80">
         <div class="card-body">
           <h2 class="card-title">Bordered</h2>
           <p>Bordered card in dark mode.</p>

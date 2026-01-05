@@ -90,17 +90,44 @@ label.input:has(:focus) {
    Diff Component
    Visible resizer line for image comparison
 
-   Uses neutral color for contrast on both image sides.
+   Uses high contrast colors for the resizer handle.
    ========================================================================== */
 
-.diff-item-1 {
-  border-right-color: var(--color-neutral) !important;
+.diff-resizer {
+  /* Make resizer more visible with a solid line and handle */
+  cursor: ew-resize;
 }
 
-.diff-item-2::after {
-  background-color: var(--color-neutral) !important;
-  border-color: var(--color-neutral-content) !important;
-  outline-color: var(--color-neutral-content) !important;
+.diff-resizer::after {
+  /* Handle circle */
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 2.5rem;
+  height: 2.5rem;
+  background-color: white;
+  border: 3px solid var(--color-primary);
+  border-radius: 9999px;
+  box-shadow:
+    0 2px 8px rgb(0 0 0 / 30%),
+    0 0 0 2px rgb(0 0 0 / 10%);
+  z-index: 10;
+}
+
+.diff-resizer::before {
+  /* Vertical line */
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 3px;
+  height: 100%;
+  background-color: white;
+  box-shadow: 0 0 4px rgb(0 0 0 / 50%);
+  z-index: 5;
 }
 
 /* ==========================================================================

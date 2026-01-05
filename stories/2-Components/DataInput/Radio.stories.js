@@ -30,19 +30,15 @@ DaisyUI **Radio** button component for single selection.
 };
 
 export const Default = () => `
-  <div class="flex flex-col gap-2">
-    <div class="form-control">
-      <label class="label cursor-pointer gap-4">
-        <span class="label-text">Red pill</span>
-        <input type="radio" name="radio-1" class="radio" checked />
-      </label>
-    </div>
-    <div class="form-control">
-      <label class="label cursor-pointer gap-4">
-        <span class="label-text">Blue pill</span>
-        <input type="radio" name="radio-1" class="radio" />
-      </label>
-    </div>
+  <div class="form-control">
+    <label class="label cursor-pointer justify-start gap-3">
+      <input type="radio" name="radio-1" class="radio radio-primary" checked />
+      <span class="label-text">Red pill</span>
+    </label>
+    <label class="label cursor-pointer justify-start gap-3">
+      <input type="radio" name="radio-1" class="radio radio-primary" />
+      <span class="label-text">Blue pill</span>
+    </label>
   </div>
 `;
 
@@ -103,52 +99,52 @@ export const Sizes = () => `
 Sizes.storyName = 'All Sizes';
 
 export const Disabled = () => `
-  <div class="flex flex-col gap-2">
-    <div class="form-control">
-      <label class="label cursor-not-allowed gap-4 opacity-50">
-        <span class="label-text">Disabled (checked)</span>
-        <input type="radio" name="radio-disabled" class="radio" checked disabled />
-      </label>
-    </div>
-    <div class="form-control">
-      <label class="label cursor-not-allowed gap-4 opacity-50">
-        <span class="label-text">Disabled (unchecked)</span>
-        <input type="radio" name="radio-disabled" class="radio" disabled />
-      </label>
-    </div>
+  <div class="form-control">
+    <label class="label cursor-not-allowed justify-start gap-3 opacity-50">
+      <input type="radio" name="radio-disabled" class="radio" checked disabled />
+      <span class="label-text">Disabled (checked)</span>
+    </label>
+    <label class="label cursor-not-allowed justify-start gap-3 opacity-50">
+      <input type="radio" name="radio-disabled" class="radio" disabled />
+      <span class="label-text">Disabled (unchecked)</span>
+    </label>
   </div>
 `;
 
 export const WithFormControl = () => `
-  <div class="form-control w-52">
-    <label class="cursor-pointer label">
-      <span class="label-text">Remember me</span>
+  <div class="form-control">
+    <label class="label cursor-pointer justify-start gap-3">
       <input type="radio" name="form-radio" class="radio radio-primary" checked />
+      <span class="label-text">Option 1</span>
     </label>
-    <label class="cursor-pointer label">
-      <span class="label-text">Option 2</span>
+    <label class="label cursor-pointer justify-start gap-3">
       <input type="radio" name="form-radio" class="radio radio-primary" />
+      <span class="label-text">Option 2</span>
+    </label>
+    <label class="label cursor-pointer justify-start gap-3">
+      <input type="radio" name="form-radio" class="radio radio-primary" />
+      <span class="label-text">Option 3</span>
     </label>
   </div>
 `;
-WithFormControl.storyName = 'With Form Control';
+WithFormControl.storyName = 'Form Example';
 
 export const DarkMode = () => `
   <div data-theme="sqli-dark" class="bg-base-100 p-6 rounded-lg">
     <h3 class="text-lg font-medium text-base-content mb-4">Dark Mode (sqli-dark)</h3>
-    <div class="flex flex-col gap-4">
-      <div class="flex items-center gap-2">
+    <div class="form-control">
+      <label class="label cursor-pointer justify-start gap-3">
         <input type="radio" name="dark-radio" class="radio radio-primary" checked />
-        <span class="text-base-content">Primary</span>
-      </div>
-      <div class="flex items-center gap-2">
+        <span class="label-text">Primary</span>
+      </label>
+      <label class="label cursor-pointer justify-start gap-3">
         <input type="radio" name="dark-radio" class="radio radio-secondary" />
-        <span class="text-base-content">Secondary</span>
-      </div>
-      <div class="flex items-center gap-2">
+        <span class="label-text">Secondary</span>
+      </label>
+      <label class="label cursor-pointer justify-start gap-3">
         <input type="radio" name="dark-radio" class="radio" />
-        <span class="text-base-content">Default</span>
-      </div>
+        <span class="label-text">Default</span>
+      </label>
     </div>
   </div>
 `;

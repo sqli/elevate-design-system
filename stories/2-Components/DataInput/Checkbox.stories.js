@@ -83,18 +83,18 @@ export const Disabled = () => `
 `;
 
 export const FormExample = () => `
-  <div class="form-control w-52">
-    <label class="label cursor-pointer">
+  <div class="form-control">
+    <label class="label cursor-pointer justify-start gap-3">
+      <input type="checkbox" class="checkbox checkbox-primary" />
       <span class="label-text">Option 1</span>
-      <input type="checkbox" class="checkbox checkbox-primary" />
     </label>
-    <label class="label cursor-pointer">
-      <span class="label-text">Option 2</span>
+    <label class="label cursor-pointer justify-start gap-3">
       <input type="checkbox" class="checkbox checkbox-primary" checked />
+      <span class="label-text">Option 2</span>
     </label>
-    <label class="label cursor-pointer">
-      <span class="label-text">Option 3</span>
+    <label class="label cursor-pointer justify-start gap-3">
       <input type="checkbox" class="checkbox checkbox-primary" />
+      <span class="label-text">Option 3</span>
     </label>
   </div>
 `;
@@ -109,10 +109,10 @@ export const DarkMode = () => `
       <input type="checkbox" class="checkbox checkbox-secondary" checked />
       <input type="checkbox" class="checkbox checkbox-accent" checked />
     </div>
-    <div class="form-control w-52">
-      <label class="label cursor-pointer">
-        <span class="label-text">Accept terms</span>
+    <div class="form-control">
+      <label class="label cursor-pointer justify-start gap-3">
         <input type="checkbox" class="checkbox checkbox-primary" />
+        <span class="label-text">Accept terms</span>
       </label>
     </div>
   </div>

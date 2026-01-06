@@ -316,3 +316,95 @@ a:not(.btn):not(.link-neutral):hover {
 [data-theme='sqli-dark'] .code-block-lines {
   background-color: #0d0d14;
 }
+
+/* ==========================================================================
+   Prism.js Syntax Highlighting - SQLI Theme
+   Based on Catppuccin Mocha with SQLI brand colors
+   ========================================================================== */
+
+/* Token colors */
+.code-block .token.comment,
+.code-block .token.prolog,
+.code-block .token.doctype,
+.code-block .token.cdata {
+  color: #6c7086;
+  font-style: italic;
+}
+
+.code-block .token.punctuation {
+  color: #9399b2;
+}
+
+.code-block .token.namespace {
+  opacity: 0.8;
+}
+
+.code-block .token.property,
+.code-block .token.tag,
+.code-block .token.constant,
+.code-block .token.symbol,
+.code-block .token.deleted {
+  color: #f38ba8;
+}
+
+.code-block .token.boolean,
+.code-block .token.number {
+  color: #fab387;
+}
+
+.code-block .token.selector,
+.code-block .token.attr-name,
+.code-block .token.string,
+.code-block .token.char,
+.code-block .token.builtin,
+.code-block .token.inserted {
+  color: #a6e3a1;
+}
+
+.code-block .token.operator,
+.code-block .token.entity,
+.code-block .token.url,
+.code-block .language-css .token.string,
+.code-block .style .token.string,
+.code-block .token.variable {
+  color: #94e2d5;
+}
+
+.code-block .token.atrule,
+.code-block .token.attr-value,
+.code-block .token.function,
+.code-block .token.class-name {
+  color: #f9e2af;
+}
+
+.code-block .token.keyword {
+  color: #cba6f7;
+}
+
+.code-block .token.regex,
+.code-block .token.important {
+  color: #fab387;
+}
+
+.code-block .token.important,
+.code-block .token.bold {
+  font-weight: bold;
+}
+
+.code-block .token.italic {
+  font-style: italic;
+}
+
+.code-block .token.entity {
+  cursor: help;
+}
+
+/* SQL specific */
+.code-block .token.sql-keyword {
+  color: #cba6f7;
+}
+
+/* PHP specific */
+.code-block .token.php-tag {
+  color: #f38ba8;
+}

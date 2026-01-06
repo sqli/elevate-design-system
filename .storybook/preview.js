@@ -147,62 +147,72 @@ const mermaidLightTheme = {
   // Base colors
   background: SQLI_COLORS.cream,
   mainBkg: SQLI_COLORS.cream,
-  textColor: SQLI_COLORS.cobalt,
-  lineColor: SQLI_COLORS.cobalt,
+  textColor: SQLI_COLORS.midnight,
+  lineColor: SQLI_COLORS.midnight,
 
-  // Primary - White fill with Cobalt border
-  primaryColor: SQLI_COLORS.white,
-  primaryTextColor: SQLI_COLORS.cobalt,
+  // Primary - Cobalt filled (actors, decisions) → HIGH IMPACT
+  primaryColor: SQLI_COLORS.cobalt,
+  primaryTextColor: SQLI_COLORS.white,
   primaryBorderColor: SQLI_COLORS.cobalt,
 
-  // Secondary
-  secondaryColor: SQLI_COLORS.white,
-  secondaryTextColor: SQLI_COLORS.cobalt,
+  // Secondary - Sky Blue filled (processes) → ACCENT
+  secondaryColor: SQLI_COLORS.sky,
+  secondaryTextColor: SQLI_COLORS.midnight,
   secondaryBorderColor: SQLI_COLORS.cobalt,
 
-  // Tertiary
+  // Tertiary - White with border (standard elements) → NEUTRAL
   tertiaryColor: SQLI_COLORS.white,
-  tertiaryTextColor: SQLI_COLORS.cobalt,
-  tertiaryBorderColor: SQLI_COLORS.cobalt,
+  tertiaryTextColor: SQLI_COLORS.midnight,
+  tertiaryBorderColor: SQLI_COLORS.midnight,
 
   // Flowchart
   nodeBkg: SQLI_COLORS.white,
-  nodeBorder: SQLI_COLORS.cobalt,
-  nodeTextColor: SQLI_COLORS.cobalt,
-  clusterBkg: colorUtils.cobaltAlpha(0.05),
+  nodeBorder: SQLI_COLORS.midnight,
+  nodeTextColor: SQLI_COLORS.midnight,
+  clusterBkg: colorUtils.skyAlpha(0.15),
   clusterBorder: SQLI_COLORS.cobalt,
-  defaultLinkColor: SQLI_COLORS.cobalt,
+  defaultLinkColor: SQLI_COLORS.midnight,
   edgeLabelBackground: SQLI_COLORS.cream,
 
-  // Sequence diagram
-  actorBkg: SQLI_COLORS.white,
+  // Sequence diagram - Actors filled for visibility
+  actorBkg: SQLI_COLORS.cobalt,
   actorBorder: SQLI_COLORS.cobalt,
-  actorTextColor: SQLI_COLORS.cobalt,
-  actorLineColor: SQLI_COLORS.cobalt,
-  signalColor: SQLI_COLORS.cobalt,
-  signalTextColor: SQLI_COLORS.cobalt,
+  actorTextColor: SQLI_COLORS.white,
+  actorLineColor: SQLI_COLORS.midnight,
+  signalColor: SQLI_COLORS.midnight,
+  signalTextColor: SQLI_COLORS.midnight,
   labelBoxBkgColor: SQLI_COLORS.white,
-  labelBoxBorderColor: SQLI_COLORS.cobalt,
-  labelTextColor: SQLI_COLORS.cobalt,
-  loopTextColor: SQLI_COLORS.cobalt,
-  noteBkgColor: colorUtils.cobaltAlpha(0.08),
+  labelBoxBorderColor: SQLI_COLORS.midnight,
+  labelTextColor: SQLI_COLORS.midnight,
+  loopTextColor: SQLI_COLORS.midnight,
+  noteBkgColor: colorUtils.skyAlpha(0.25),
   noteBorderColor: SQLI_COLORS.cobalt,
-  noteTextColor: SQLI_COLORS.cobalt,
-  activationBkgColor: colorUtils.cobaltAlpha(0.1),
+  noteTextColor: SQLI_COLORS.midnight,
+  activationBkgColor: SQLI_COLORS.sky,
   activationBorderColor: SQLI_COLORS.cobalt,
   sequenceNumberColor: SQLI_COLORS.white,
 
   // State diagram
-  labelColor: SQLI_COLORS.cobalt,
-  altBackground: colorUtils.cobaltAlpha(0.05),
+  labelColor: SQLI_COLORS.midnight,
+  altBackground: colorUtils.skyAlpha(0.1),
+  stateBkg: SQLI_COLORS.white,
+  stateLabelColor: SQLI_COLORS.midnight,
+  stateTextColor: SQLI_COLORS.midnight,
+  transitionColor: SQLI_COLORS.midnight,
+  transitionLabelColor: SQLI_COLORS.midnight,
+  compositeBackground: SQLI_COLORS.white,
+  compositeBorder: SQLI_COLORS.midnight,
+  compositeTitleBackground: colorUtils.skyAlpha(0.15),
+  innerEndBackground: SQLI_COLORS.midnight,
+  specialStateColor: SQLI_COLORS.cobalt,
 
   // Class diagram
-  classText: SQLI_COLORS.cobalt,
+  classText: SQLI_COLORS.midnight,
 
   // ER diagram
   entityBkg: SQLI_COLORS.white,
-  entityBorder: SQLI_COLORS.cobalt,
-  attributeBackgroundColorOdd: colorUtils.cobaltAlpha(0.05),
+  entityBorder: SQLI_COLORS.midnight,
+  attributeBackgroundColorOdd: colorUtils.skyAlpha(0.12),
   attributeBackgroundColorEven: SQLI_COLORS.white,
 
   // Gantt
@@ -268,63 +278,73 @@ const mermaidDarkTheme = {
   // Base colors
   background: SQLI_COLORS.midnight,
   mainBkg: SQLI_COLORS.midnight,
-  textColor: SQLI_COLORS.sky,
+  textColor: SQLI_COLORS.cream,
   lineColor: SQLI_COLORS.sky,
 
-  // Primary - Transparent fill with Sky border
-  primaryColor: colorUtils.skyAlpha(0.15),
-  primaryTextColor: SQLI_COLORS.sky,
+  // Primary - Sky filled (actors, decisions) → HIGH IMPACT
+  primaryColor: SQLI_COLORS.sky,
+  primaryTextColor: SQLI_COLORS.midnight,
   primaryBorderColor: SQLI_COLORS.sky,
 
-  // Secondary
-  secondaryColor: colorUtils.skyAlpha(0.1),
-  secondaryTextColor: SQLI_COLORS.sky,
+  // Secondary - Cobalt accent (processes) → ACCENT
+  secondaryColor: colorUtils.cobaltAlpha(0.4),
+  secondaryTextColor: SQLI_COLORS.cream,
   secondaryBorderColor: SQLI_COLORS.sky,
 
-  // Tertiary
-  tertiaryColor: colorUtils.skyAlpha(0.08),
-  tertiaryTextColor: SQLI_COLORS.sky,
+  // Tertiary - Transparent with border (standard) → NEUTRAL
+  tertiaryColor: colorUtils.skyAlpha(0.1),
+  tertiaryTextColor: SQLI_COLORS.cream,
   tertiaryBorderColor: SQLI_COLORS.sky,
 
   // Flowchart
-  nodeBkg: colorUtils.skyAlpha(0.1),
+  nodeBkg: colorUtils.skyAlpha(0.2),
   nodeBorder: SQLI_COLORS.sky,
-  nodeTextColor: SQLI_COLORS.sky,
-  clusterBkg: colorUtils.skyAlpha(0.05),
+  nodeTextColor: SQLI_COLORS.cream,
+  clusterBkg: colorUtils.skyAlpha(0.12),
   clusterBorder: SQLI_COLORS.sky,
   defaultLinkColor: SQLI_COLORS.sky,
   edgeLabelBackground: SQLI_COLORS.midnight,
 
-  // Sequence diagram
-  actorBkg: colorUtils.skyAlpha(0.1),
+  // Sequence diagram - Actors filled for visibility
+  actorBkg: SQLI_COLORS.sky,
   actorBorder: SQLI_COLORS.sky,
-  actorTextColor: SQLI_COLORS.sky,
+  actorTextColor: SQLI_COLORS.midnight,
   actorLineColor: SQLI_COLORS.sky,
   signalColor: SQLI_COLORS.sky,
-  signalTextColor: SQLI_COLORS.sky,
-  labelBoxBkgColor: colorUtils.skyAlpha(0.1),
+  signalTextColor: SQLI_COLORS.cream,
+  labelBoxBkgColor: colorUtils.skyAlpha(0.15),
   labelBoxBorderColor: SQLI_COLORS.sky,
-  labelTextColor: SQLI_COLORS.sky,
-  loopTextColor: SQLI_COLORS.sky,
-  noteBkgColor: colorUtils.skyAlpha(0.15),
+  labelTextColor: SQLI_COLORS.cream,
+  loopTextColor: SQLI_COLORS.cream,
+  noteBkgColor: colorUtils.skyAlpha(0.3),
   noteBorderColor: SQLI_COLORS.sky,
-  noteTextColor: SQLI_COLORS.sky,
-  activationBkgColor: colorUtils.skyAlpha(0.2),
+  noteTextColor: SQLI_COLORS.cream,
+  activationBkgColor: colorUtils.skyAlpha(0.35),
   activationBorderColor: SQLI_COLORS.sky,
   sequenceNumberColor: SQLI_COLORS.midnight,
 
   // State diagram
-  labelColor: SQLI_COLORS.sky,
-  altBackground: colorUtils.skyAlpha(0.05),
+  labelColor: SQLI_COLORS.cream,
+  altBackground: colorUtils.skyAlpha(0.1),
+  stateBkg: colorUtils.skyAlpha(0.15),
+  stateLabelColor: SQLI_COLORS.cream,
+  stateTextColor: SQLI_COLORS.cream,
+  transitionColor: SQLI_COLORS.sky,
+  transitionLabelColor: SQLI_COLORS.cream,
+  compositeBackground: colorUtils.skyAlpha(0.1),
+  compositeBorder: SQLI_COLORS.sky,
+  compositeTitleBackground: colorUtils.skyAlpha(0.2),
+  innerEndBackground: SQLI_COLORS.cream,
+  specialStateColor: SQLI_COLORS.sky,
 
   // Class diagram
-  classText: SQLI_COLORS.sky,
+  classText: SQLI_COLORS.cream,
 
   // ER diagram
-  entityBkg: colorUtils.skyAlpha(0.1),
+  entityBkg: colorUtils.skyAlpha(0.15),
   entityBorder: SQLI_COLORS.sky,
-  attributeBackgroundColorOdd: colorUtils.skyAlpha(0.08),
-  attributeBackgroundColorEven: colorUtils.skyAlpha(0.04),
+  attributeBackgroundColorOdd: colorUtils.skyAlpha(0.12),
+  attributeBackgroundColorEven: colorUtils.skyAlpha(0.06),
 
   // Gantt
   taskBkgColor: SQLI_COLORS.sky,
@@ -490,7 +510,7 @@ const preview = {
       parentSelector: 'html',
       attributeName: 'data-theme',
     }),
-    (Story, context) => {
+    (Story) => {
       const html = `
         <div class="sqli-story-wrapper">
           ${Story()}
@@ -502,17 +522,15 @@ const preview = {
         const mermaidElements = document.querySelectorAll('.mermaid:not([data-processed])');
         if (mermaidElements.length > 0) {
           try {
-            const isDark =
-              context?.globals?.theme === 'Dark Mode' ||
-              document.documentElement.classList.contains('dark');
+            // Detect theme from data-theme attribute (set by withThemeByDataAttribute)
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const isDark = currentTheme === 'sqli-dark';
 
-            // Update Mermaid theme based on current theme
-            if (isDark) {
-              mermaid.initialize({
-                ...mermaidBaseConfig,
-                themeVariables: mermaidDarkTheme,
-              });
-            }
+            // Always reinitialize Mermaid with the correct theme before rendering
+            mermaid.initialize({
+              ...mermaidBaseConfig,
+              themeVariables: isDark ? mermaidDarkTheme : mermaidLightTheme,
+            });
 
             await mermaid.run({
               nodes: mermaidElements,

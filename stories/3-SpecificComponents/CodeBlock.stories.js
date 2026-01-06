@@ -4,6 +4,38 @@
  * @see https://prismjs.com/
  */
 
+import Prism from 'prismjs';
+import 'prismjs/components/prism-clike';
+import 'prismjs/components/prism-markup';
+import 'prismjs/components/prism-javascript';
+import 'prismjs/components/prism-typescript';
+import 'prismjs/components/prism-markup-templating';
+import 'prismjs/components/prism-php';
+import 'prismjs/components/prism-java';
+import 'prismjs/components/prism-csharp';
+import 'prismjs/components/prism-python';
+import 'prismjs/components/prism-sql';
+import 'prismjs/components/prism-bash';
+import 'prismjs/components/prism-swift';
+import 'prismjs/components/prism-json';
+import './code-block.css';
+
+// Language mapping for Prism
+const LANG_MAP = {
+  javascript: 'javascript',
+  typescript: 'typescript',
+  php: 'php',
+  java: 'java',
+  csharp: 'csharp',
+  python: 'python',
+  sql: 'sql',
+  html: 'html',
+  css: 'css',
+  bash: 'bash',
+  swift: 'swift',
+  json: 'json',
+};
+
 // Code examples for different languages
 const CODE_EXAMPLES = {
   javascript: `// JavaScript example
@@ -141,7 +173,7 @@ func fetchUser(id: Int) async throws -> User {
 };
 
 export default {
-  title: 'Components/Data Display/Code Block',
+  title: 'SpecificComponents/Code Block',
   tags: ['autodocs'],
   parameters: {
     docs: {
@@ -175,13 +207,26 @@ JavaScript, TypeScript, PHP, Java, C#, Python, SQL, HTML, CSS, Bash, Swift, JSON
   },
 };
 
-// Helper to escape HTML
-const escapeHtml = (str) =>
-  str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+// Helper to highlight code using Prism
+const highlightCode = (code, langKey) => {
+  const prismLang = LANG_MAP[langKey] || 'javascript';
+  const grammar = Prism.languages[prismLang];
+
+  if (grammar) {
+    return Prism.highlight(code, grammar, prismLang);
+  }
+  // Fallback to escaped HTML if language not supported
+  return code
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+};
 
 // Helper to generate code block HTML
 const codeBlock = (code, lang, options = {}) => {
   const { showLineNumbers = false, showHeader = true } = options;
+  const langKey = lang.toLowerCase().replace('#', 'sharp');
   const lines = code.split('\n');
   const lineNumbersHtml = showLineNumbers
     ? `<div class="code-block-lines">${lines.map((_, i) => `<span>${i + 1}</span>`).join('\n')}</div>`
@@ -195,12 +240,14 @@ const codeBlock = (code, lang, options = {}) => {
     </div>`
     : '';
 
+  const highlightedCode = highlightCode(code, langKey);
+
   return `
 <div class="code-block">
   ${headerHtml}
   <div class="code-block-body ${showLineNumbers ? 'with-lines' : ''}">
     ${lineNumbersHtml}
-    <pre class="code-block-content"><code>${escapeHtml(code)}</code></pre>
+    <pre class="code-block-content"><code class="language-${langKey}">${highlightedCode}</code></pre>
   </div>
 </div>`;
 };
@@ -239,13 +286,14 @@ WithLineNumbers.storyName = 'With Line Numbers';
 export const Minimal = () => codeBlock(CODE_EXAMPLES.bash, 'Bash', { showHeader: false });
 Minimal.storyName = 'Minimal (No Header)';
 
-export const DarkMode = () => `
-  <div data-theme="sqli-dark" class="bg-base-100 p-6 rounded-lg">
-    <h3 class="text-lg font-medium text-base-content mb-4">Dark Mode (sqli-dark)</h3>
-    ${codeBlock(CODE_EXAMPLES.javascript, 'JavaScript')}
-  </div>
-`;
-DarkMode.storyName = 'Dark Mode';
-DarkMode.parameters = {
-  backgrounds: { default: 'dark' },
+export const OnDarkBackground = () => codeBlock(CODE_EXAMPLES.javascript, 'JavaScript');
+OnDarkBackground.storyName = 'On Dark Background';
+OnDarkBackground.parameters = {
+  themes: { themeOverride: 'Dark Mode' },
+  docs: {
+    description: {
+      story:
+        'The CodeBlock component maintains its dark appearance regardless of the page theme, ensuring consistent readability.',
+    },
+  },
 };

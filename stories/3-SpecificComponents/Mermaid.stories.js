@@ -19,113 +19,214 @@ import mermaid from 'mermaid';
 const sqliLightTheme = {
   theme: 'base',
   themeVariables: {
-    // Primary colors (main nodes)
-    primaryColor: '#0F0E2B',
-    primaryTextColor: '#FFFAF0',
-    primaryBorderColor: '#0F0E2B',
-
-    // Secondary colors (secondary nodes)
-    secondaryColor: '#1F24E9',
-    secondaryTextColor: '#FFFAF0',
-    secondaryBorderColor: '#1F24E9',
-
-    // Tertiary colors (highlights, accents)
-    tertiaryColor: '#6DA5FF',
-    tertiaryTextColor: '#0F0E2B',
-    tertiaryBorderColor: '#6DA5FF',
-
-    // Background and general text
+    // ==========================================================================
+    // Base colors - Consistent across all diagrams
+    // ==========================================================================
     background: '#FFFAF0',
     mainBkg: '#FFFAF0',
     textColor: '#0F0E2B',
     lineColor: '#0F0E2B',
-
-    // Typography
     fontFamily: '"TWK Everett", system-ui, -apple-system, sans-serif',
     fontSize: '14px',
 
-    // Node styling
+    // Primary - Cobalt filled (actors, decisions, main elements)
+    primaryColor: '#1F24E9',
+    primaryTextColor: '#FFFFFF',
+    primaryBorderColor: '#1F24E9',
+
+    // Secondary - Sky Blue filled (processes, secondary elements)
+    secondaryColor: '#6DA5FF',
+    secondaryTextColor: '#0F0E2B',
+    secondaryBorderColor: '#1F24E9',
+
+    // Tertiary - White with border (standard elements)
+    tertiaryColor: '#FFFFFF',
+    tertiaryTextColor: '#0F0E2B',
+    tertiaryBorderColor: '#0F0E2B',
+
+    // ==========================================================================
+    // Flowchart - Colorful nodes by type
+    // ==========================================================================
+    nodeBkg: '#FFFFFF',
     nodeBorder: '#0F0E2B',
     nodeTextColor: '#0F0E2B',
-
-    // Edge/Arrow styling
     edgeLabelBackground: '#FFFAF0',
+    clusterBkg: 'rgba(109, 165, 255, 0.15)',
+    clusterBorder: '#1F24E9',
+    defaultLinkColor: '#0F0E2B',
 
-    // Sequence diagram
-    actorBkg: '#FFFAF0',
-    actorBorder: '#0F0E2B',
-    actorTextColor: '#0F0E2B',
+    // Flowchart node colors (fill0-7 for different node types)
+    fill0: '#1F24E9', // Decision nodes - Cobalt
+    fill1: '#6DA5FF', // Process nodes - Sky
+    fill2: '#FFFFFF', // Standard nodes - White
+    fill3: 'rgba(109, 165, 255, 0.3)', // Alt nodes - Sky light
+    fill4: '#0F0E2B', // Terminal nodes - Midnight
+    fill5: 'rgba(31, 36, 233, 0.2)', // Background nodes - Cobalt light
+    fill6: '#FFFAF0', // Container nodes - Cream
+    fill7: 'rgba(109, 165, 255, 0.5)', // Highlight nodes - Sky medium
+
+    // ==========================================================================
+    // Sequence Diagram - Actors filled for visibility
+    // ==========================================================================
+    actorBkg: '#1F24E9',
+    actorBorder: '#1F24E9',
+    actorTextColor: '#FFFFFF',
+    actorLineColor: '#0F0E2B',
     signalColor: '#0F0E2B',
     signalTextColor: '#0F0E2B',
+    labelBoxBkgColor: '#FFFFFF',
+    labelBoxBorderColor: '#0F0E2B',
+    labelTextColor: '#0F0E2B',
+    loopTextColor: '#0F0E2B',
     activationBkgColor: '#6DA5FF',
     activationBorderColor: '#1F24E9',
-
-    // Notes
-    noteBkgColor: '#6DA5FF',
+    sequenceNumberColor: '#FFFFFF',
+    noteBkgColor: 'rgba(109, 165, 255, 0.25)',
     noteTextColor: '#0F0E2B',
     noteBorderColor: '#1F24E9',
 
-    // Class diagram - with filled backgrounds
+    // ==========================================================================
+    // Class Diagram - Clear class boxes with SQLI styling
+    // ==========================================================================
     classText: '#0F0E2B',
-    classTitleBkg: '#FFFAF0',
-    classLabelBkg: '#FFFAF0',
+    titleColor: '#0F0E2B',
+    // Class label (header) styling
+    labelBackground: '#1F24E9',
+    // Divider line
+    dividerStroke: '#0F0E2B',
+    // Member styling
+    memberColor: '#0F0E2B',
+    // Inheritance arrow
+    relationshipColor: '#0F0E2B',
+    relationshipLine: '#0F0E2B',
+    // Border
+    stroke: '#0F0E2B',
 
-    // State diagram
+    // ==========================================================================
+    // State Diagram - States with visual hierarchy
+    // ==========================================================================
     labelColor: '#0F0E2B',
+    altBackground: 'rgba(109, 165, 255, 0.1)',
+    // State colors
+    compositeBackground: 'rgba(109, 165, 255, 0.08)',
+    compositeBorder: '#1F24E9',
+    compositeTitleBackground: '#1F24E9',
+    innerEndBackground: '#0F0E2B',
+    specialStateColor: '#1F24E9',
 
-    // Git graph
-    git0: '#0F0E2B',
-    git1: '#1F24E9',
-    git2: '#6DA5FF',
-    git3: '#0F0E2B',
-    gitBranchLabel0: '#FFFAF0',
-    gitBranchLabel1: '#FFFAF0',
-    gitBranchLabel2: '#0F0E2B',
+    // ==========================================================================
+    // ER Diagram - Entities with alternating rows
+    // ==========================================================================
+    entityBkg: '#FFFFFF',
+    entityBorder: '#0F0E2B',
+    attributeBackgroundColorOdd: 'rgba(109, 165, 255, 0.15)',
+    attributeBackgroundColorEven: '#FFFFFF',
+    // Relation line colors
+    relationColor: '#0F0E2B',
+    relationLabelColor: '#0F0E2B',
+    relationLabelBackground: '#FFFAF0',
 
-    // Gantt
-    sectionBkgColor: '#FFFAF0',
-    altSectionBkgColor: '#F0EBE1',
-    gridColor: '#0F0E2B',
+    // ==========================================================================
+    // Git Graph - Colorful branches
+    // ==========================================================================
+    git0: '#1F24E9',
+    git1: '#6DA5FF',
+    git2: '#0F0E2B',
+    git3: 'rgba(31, 36, 233, 0.7)',
+    git4: 'rgba(109, 165, 255, 0.8)',
+    git5: 'rgba(31, 36, 233, 0.5)',
+    git6: 'rgba(109, 165, 255, 0.6)',
+    git7: 'rgba(31, 36, 233, 0.35)',
+    gitBranchLabel0: '#FFFFFF',
+    gitBranchLabel1: '#0F0E2B',
+    gitBranchLabel2: '#FFFFFF',
+    gitBranchLabel3: '#FFFFFF',
+    gitBranchLabel4: '#0F0E2B',
+    gitInv0: '#FFFFFF',
+    gitInv1: '#FFFFFF',
+    gitInv2: '#FFFFFF',
+    commitLabelColor: '#0F0E2B',
+    commitLabelBackground: '#FFFFFF',
+    commitLabelFontSize: '12px',
+    tagLabelColor: '#FFFFFF',
+    tagLabelBackground: '#1F24E9',
+    tagLabelBorder: '#1F24E9',
+
+    // ==========================================================================
+    // Gantt Chart - Tasks with status colors
+    // ==========================================================================
+    sectionBkgColor: 'rgba(109, 165, 255, 0.08)',
+    sectionBkgColor2: 'rgba(109, 165, 255, 0.15)',
+    altSectionBkgColor: 'rgba(31, 36, 233, 0.05)',
+    gridColor: 'rgba(0, 0, 0, 0.1)',
     todayLineColor: '#1F24E9',
+    // Task styling
+    taskBkgColor: '#1F24E9',
+    taskTextColor: '#FFFFFF',
+    taskTextDarkColor: '#0F0E2B',
+    taskTextLightColor: '#FFFFFF',
+    taskBorderColor: '#1F24E9',
+    taskTextOutsideColor: '#0F0E2B',
+    // Active tasks - Sky Blue
+    activeTaskBkgColor: '#6DA5FF',
+    activeTaskBorderColor: '#1F24E9',
+    // Done tasks - Faded Cobalt
+    doneTaskBkgColor: 'rgba(31, 36, 233, 0.4)',
+    doneTaskBorderColor: '#1F24E9',
+    // Critical tasks - Darker
+    critBkgColor: '#0F0E2B',
+    critBorderColor: '#0F0E2B',
+    // Milestone
+    milestoneColor: '#0F0E2B',
 
-    // ER diagram
-    attributeBackgroundColorOdd: '#FFFAF0',
-    attributeBackgroundColorEven: '#F0EBE1',
-
-    // Pie Chart styling - no border
-    pieStrokeColor: 'transparent',
-    pieStrokeWidth: '0',
+    // ==========================================================================
+    // Pie Chart - Distinct sections
+    // ==========================================================================
+    pieStrokeColor: '#FFFAF0',
+    pieStrokeWidth: '2px',
     pieOuterStrokeWidth: '0',
     pieOpacity: '1',
     pieLegendTextColor: '#0F0E2B',
-    pieSectionTextColor: '#FFFAF0',
+    pieTitleTextColor: '#0F0E2B',
+    pieSectionTextColor: '#FFFFFF',
+    pieLegendTextSize: '14px',
+    // Pie slices with good contrast
+    pie1: '#1F24E9',
+    pie2: '#6DA5FF',
+    pie3: '#0F0E2B',
+    pie4: 'rgba(31, 36, 233, 0.7)',
+    pie5: 'rgba(109, 165, 255, 0.8)',
+    pie6: 'rgba(31, 36, 233, 0.5)',
+    pie7: 'rgba(109, 165, 255, 0.6)',
+    pie8: 'rgba(31, 36, 233, 0.35)',
 
-    // Timeline - Cobalt accent on Cream background (matching SQLI brand)
-    // Pie Chart - Blue gradient
+    // ==========================================================================
+    // Timeline - Periods with visual distinction
+    // ==========================================================================
     cScale0: '#1F24E9',
-    cScaleLabel0: '#FFFAF0',
-    cScale1: '#1F24E9',
-    cScaleLabel1: '#FFFAF0',
-    cScale2: '#1F24E9',
-    cScaleLabel2: '#FFFAF0',
-    cScale3: '#1F24E9',
-    cScaleLabel3: '#FFFAF0',
-    cScale4: '#6DA5FF',
+    cScaleLabel0: '#FFFFFF',
+    cScale1: '#6DA5FF',
+    cScaleLabel1: '#0F0E2B',
+    cScale2: '#0F0E2B',
+    cScaleLabel2: '#FFFFFF',
+    cScale3: 'rgba(31, 36, 233, 0.7)',
+    cScaleLabel3: '#FFFFFF',
+    cScale4: 'rgba(109, 165, 255, 0.85)',
     cScaleLabel4: '#0F0E2B',
-    cScale5: '#6DA5FF',
-    cScaleLabel5: '#0F0E2B',
-    cScale6: '#0F0E2B',
-    cScaleLabel6: '#FFFAF0',
-    cScale7: '#0F0E2B',
-    cScaleLabel7: '#FFFAF0',
-    cScale8: '#A8CBFF',
+    cScale5: 'rgba(31, 36, 233, 0.5)',
+    cScaleLabel5: '#FFFFFF',
+    cScale6: 'rgba(109, 165, 255, 0.65)',
+    cScaleLabel6: '#0F0E2B',
+    cScale7: 'rgba(31, 36, 233, 0.35)',
+    cScaleLabel7: '#FFFFFF',
+    cScale8: 'rgba(109, 165, 255, 0.45)',
     cScaleLabel8: '#0F0E2B',
-    cScale9: '#A8CBFF',
-    cScaleLabel9: '#0F0E2B',
-    cScale10: '#3A4FD9',
-    cScaleLabel10: '#FFFAF0',
-    cScale11: '#5B8AE8',
-    cScaleLabel11: '#FFFAF0',
+    cScale9: '#1F24E9',
+    cScaleLabel9: '#FFFFFF',
+    cScale10: '#6DA5FF',
+    cScaleLabel10: '#0F0E2B',
+    cScale11: '#0F0E2B',
+    cScaleLabel11: '#FFFFFF',
   },
 };
 
@@ -137,111 +238,214 @@ const sqliLightTheme = {
 const sqliDarkTheme = {
   theme: 'base',
   themeVariables: {
-    // Primary colors (main nodes)
+    // ==========================================================================
+    // Base colors - Consistent across all diagrams (Dark Mode)
+    // ==========================================================================
+    background: '#0F0E2B',
+    mainBkg: '#0F0E2B',
+    textColor: '#FFFAF0',
+    lineColor: '#6DA5FF',
+    fontFamily: '"TWK Everett", system-ui, -apple-system, sans-serif',
+    fontSize: '14px',
+
+    // Primary - Sky filled (actors, decisions, main elements)
     primaryColor: '#6DA5FF',
     primaryTextColor: '#0F0E2B',
     primaryBorderColor: '#6DA5FF',
 
-    // Secondary colors
-    secondaryColor: '#FFFAF0',
-    secondaryTextColor: '#0F0E2B',
-    secondaryBorderColor: '#FFFAF0',
+    // Secondary - Cobalt accent (processes, secondary elements)
+    secondaryColor: 'rgba(31, 36, 233, 0.5)',
+    secondaryTextColor: '#FFFAF0',
+    secondaryBorderColor: '#6DA5FF',
 
-    // Tertiary colors
-    tertiaryColor: '#1F24E9',
+    // Tertiary - Transparent with border (standard elements)
+    tertiaryColor: 'rgba(109, 165, 255, 0.15)',
     tertiaryTextColor: '#FFFAF0',
-    tertiaryBorderColor: '#1F24E9',
+    tertiaryBorderColor: '#6DA5FF',
 
-    // Background and general text
-    background: '#0F0E2B',
-    mainBkg: '#0F0E2B',
-    textColor: '#FFFAF0',
-    lineColor: '#FFFAF0',
-
-    // Typography
-    fontFamily: '"TWK Everett", system-ui, -apple-system, sans-serif',
-    fontSize: '14px',
-
-    // Node styling
+    // ==========================================================================
+    // Flowchart - Colorful nodes by type (Dark Mode)
+    // ==========================================================================
+    nodeBkg: 'rgba(109, 165, 255, 0.2)',
     nodeBorder: '#6DA5FF',
     nodeTextColor: '#FFFAF0',
-
-    // Edge/Arrow styling
     edgeLabelBackground: '#0F0E2B',
+    clusterBkg: 'rgba(109, 165, 255, 0.12)',
+    clusterBorder: '#6DA5FF',
+    defaultLinkColor: '#6DA5FF',
 
-    // Sequence diagram
-    actorBkg: '#0F0E2B',
+    // Flowchart node colors (fill0-7 for different node types)
+    fill0: '#6DA5FF', // Decision nodes - Sky
+    fill1: 'rgba(31, 36, 233, 0.6)', // Process nodes - Cobalt
+    fill2: 'rgba(109, 165, 255, 0.2)', // Standard nodes - Sky light
+    fill3: 'rgba(109, 165, 255, 0.35)', // Alt nodes - Sky medium
+    fill4: '#FFFAF0', // Terminal nodes - Cream
+    fill5: 'rgba(31, 36, 233, 0.3)', // Background nodes - Cobalt light
+    fill6: 'rgba(109, 165, 255, 0.1)', // Container nodes
+    fill7: 'rgba(109, 165, 255, 0.5)', // Highlight nodes - Sky
+
+    // ==========================================================================
+    // Sequence Diagram - Actors filled for visibility (Dark Mode)
+    // ==========================================================================
+    actorBkg: '#6DA5FF',
     actorBorder: '#6DA5FF',
-    actorTextColor: '#FFFAF0',
-    signalColor: '#FFFAF0',
+    actorTextColor: '#0F0E2B',
+    actorLineColor: '#6DA5FF',
+    signalColor: '#6DA5FF',
     signalTextColor: '#FFFAF0',
-    activationBkgColor: '#1F24E9',
+    labelBoxBkgColor: 'rgba(109, 165, 255, 0.15)',
+    labelBoxBorderColor: '#6DA5FF',
+    labelTextColor: '#FFFAF0',
+    loopTextColor: '#FFFAF0',
+    activationBkgColor: 'rgba(109, 165, 255, 0.4)',
     activationBorderColor: '#6DA5FF',
-
-    // Notes
-    noteBkgColor: '#1F24E9',
+    sequenceNumberColor: '#0F0E2B',
+    noteBkgColor: 'rgba(109, 165, 255, 0.3)',
     noteTextColor: '#FFFAF0',
     noteBorderColor: '#6DA5FF',
 
-    // Class diagram
+    // ==========================================================================
+    // Class Diagram - Clear class boxes with SQLI styling (Dark Mode)
+    // ==========================================================================
     classText: '#FFFAF0',
+    titleColor: '#FFFAF0',
+    // Class label (header) styling
+    labelBackground: '#6DA5FF',
+    // Divider line
+    dividerStroke: '#6DA5FF',
+    // Member styling
+    memberColor: '#FFFAF0',
+    // Inheritance arrow
+    relationshipColor: '#6DA5FF',
+    relationshipLine: '#6DA5FF',
+    // Border
+    stroke: '#6DA5FF',
 
-    // State diagram
+    // ==========================================================================
+    // State Diagram - States with visual hierarchy (Dark Mode)
+    // ==========================================================================
     labelColor: '#FFFAF0',
+    altBackground: 'rgba(109, 165, 255, 0.1)',
+    // State colors
+    compositeBackground: 'rgba(109, 165, 255, 0.08)',
+    compositeBorder: '#6DA5FF',
+    compositeTitleBackground: '#6DA5FF',
+    innerEndBackground: '#FFFAF0',
+    specialStateColor: '#6DA5FF',
 
-    // Git graph
+    // ==========================================================================
+    // ER Diagram - Entities with alternating rows (Dark Mode)
+    // ==========================================================================
+    entityBkg: 'rgba(109, 165, 255, 0.15)',
+    entityBorder: '#6DA5FF',
+    attributeBackgroundColorOdd: 'rgba(109, 165, 255, 0.18)',
+    attributeBackgroundColorEven: 'rgba(109, 165, 255, 0.08)',
+    // Relation line colors
+    relationColor: '#6DA5FF',
+    relationLabelColor: '#FFFAF0',
+    relationLabelBackground: '#0F0E2B',
+
+    // ==========================================================================
+    // Git Graph - Colorful branches (Dark Mode)
+    // ==========================================================================
     git0: '#6DA5FF',
     git1: '#FFFAF0',
-    git2: '#1F24E9',
-    git3: '#6DA5FF',
+    git2: 'rgba(109, 165, 255, 0.7)',
+    git3: 'rgba(31, 36, 233, 0.8)',
+    git4: 'rgba(109, 165, 255, 0.5)',
+    git5: 'rgba(31, 36, 233, 0.6)',
+    git6: 'rgba(109, 165, 255, 0.35)',
+    git7: 'rgba(31, 36, 233, 0.4)',
     gitBranchLabel0: '#0F0E2B',
     gitBranchLabel1: '#0F0E2B',
-    gitBranchLabel2: '#FFFAF0',
+    gitBranchLabel2: '#0F0E2B',
+    gitBranchLabel3: '#FFFAF0',
+    gitBranchLabel4: '#0F0E2B',
+    gitInv0: '#0F0E2B',
+    gitInv1: '#0F0E2B',
+    gitInv2: '#0F0E2B',
+    commitLabelColor: '#FFFAF0',
+    commitLabelBackground: 'rgba(109, 165, 255, 0.2)',
+    commitLabelFontSize: '12px',
+    tagLabelColor: '#0F0E2B',
+    tagLabelBackground: '#6DA5FF',
+    tagLabelBorder: '#6DA5FF',
 
-    // Gantt
-    sectionBkgColor: '#0F0E2B',
-    altSectionBkgColor: '#1a1940',
-    gridColor: '#FFFAF0',
+    // ==========================================================================
+    // Gantt Chart - Tasks with status colors (Dark Mode)
+    // ==========================================================================
+    sectionBkgColor: 'rgba(109, 165, 255, 0.08)',
+    sectionBkgColor2: 'rgba(109, 165, 255, 0.15)',
+    altSectionBkgColor: 'rgba(109, 165, 255, 0.05)',
+    gridColor: 'rgba(255, 250, 240, 0.1)',
     todayLineColor: '#6DA5FF',
+    // Task styling
+    taskBkgColor: '#6DA5FF',
+    taskTextColor: '#0F0E2B',
+    taskTextDarkColor: '#FFFAF0',
+    taskTextLightColor: '#0F0E2B',
+    taskBorderColor: '#6DA5FF',
+    taskTextOutsideColor: '#FFFAF0',
+    // Active tasks
+    activeTaskBkgColor: 'rgba(109, 165, 255, 0.6)',
+    activeTaskBorderColor: '#6DA5FF',
+    // Done tasks
+    doneTaskBkgColor: 'rgba(109, 165, 255, 0.35)',
+    doneTaskBorderColor: '#6DA5FF',
+    // Critical tasks
+    critBkgColor: '#FFFAF0',
+    critBorderColor: '#FFFAF0',
+    // Milestone
+    milestoneColor: '#6DA5FF',
 
-    // ER diagram
-    attributeBackgroundColorOdd: '#0F0E2B',
-    attributeBackgroundColorEven: '#1a1940',
-
-    // Pie Chart styling
+    // ==========================================================================
+    // Pie Chart - Distinct sections (Dark Mode)
+    // ==========================================================================
     pieStrokeColor: '#0F0E2B',
-    pieStrokeWidth: '3px',
-    pieOuterStrokeWidth: '3px',
+    pieStrokeWidth: '2px',
+    pieOuterStrokeWidth: '0',
     pieOpacity: '1',
     pieLegendTextColor: '#FFFAF0',
+    pieTitleTextColor: '#FFFAF0',
     pieSectionTextColor: '#0F0E2B',
+    pieLegendTextSize: '14px',
+    // Pie slices with good contrast on dark
+    pie1: '#6DA5FF',
+    pie2: '#FFFAF0',
+    pie3: 'rgba(109, 165, 255, 0.7)',
+    pie4: 'rgba(31, 36, 233, 0.8)',
+    pie5: 'rgba(109, 165, 255, 0.5)',
+    pie6: 'rgba(31, 36, 233, 0.6)',
+    pie7: 'rgba(109, 165, 255, 0.35)',
+    pie8: 'rgba(31, 36, 233, 0.4)',
 
-    // Timeline & Pie - cScale for background, cScaleLabel for text
-    // Blue gradient from Sky to lighter tones
+    // ==========================================================================
+    // Timeline - Periods with visual distinction (Dark Mode)
+    // ==========================================================================
     cScale0: '#6DA5FF',
     cScaleLabel0: '#0F0E2B',
-    cScale1: '#A8CBFF',
+    cScale1: '#FFFAF0',
     cScaleLabel1: '#0F0E2B',
-    cScale2: '#FFFAF0',
+    cScale2: 'rgba(109, 165, 255, 0.75)',
     cScaleLabel2: '#0F0E2B',
-    cScale3: '#5B8AE8',
-    cScaleLabel3: '#FFFAF0',
-    cScale4: '#8AB4F5',
+    cScale3: 'rgba(31, 36, 233, 0.8)',
+    cScaleLabel3: '#FFFFFF',
+    cScale4: 'rgba(109, 165, 255, 0.55)',
     cScaleLabel4: '#0F0E2B',
-    cScale5: '#B8D4FF',
-    cScaleLabel5: '#0F0E2B',
-    cScale6: '#4A6FE0',
-    cScaleLabel6: '#FFFAF0',
-    cScale7: '#7AA0F0',
-    cScaleLabel7: '#0F0E2B',
-    cScale8: '#C8DEFF',
+    cScale5: 'rgba(31, 36, 233, 0.6)',
+    cScaleLabel5: '#FFFFFF',
+    cScale6: 'rgba(109, 165, 255, 0.4)',
+    cScaleLabel6: '#0F0E2B',
+    cScale7: 'rgba(31, 36, 233, 0.45)',
+    cScaleLabel7: '#FFFFFF',
+    cScale8: 'rgba(109, 165, 255, 0.3)',
     cScaleLabel8: '#0F0E2B',
-    cScale9: '#3A4FD9',
-    cScaleLabel9: '#FFFAF0',
-    cScale10: '#9BBEF8',
+    cScale9: '#6DA5FF',
+    cScaleLabel9: '#0F0E2B',
+    cScale10: 'rgba(109, 165, 255, 0.65)',
     cScaleLabel10: '#0F0E2B',
-    cScale11: '#D8E8FF',
-    cScaleLabel11: '#0F0E2B',
+    cScale11: '#1F24E9',
+    cScaleLabel11: '#FFFFFF',
   },
 };
 
@@ -273,6 +477,49 @@ const renderDiagram = async (definition, targetId, theme = 'light') => {
     suppressErrorRendering: true,
     securityLevel: 'loose',
     ...config,
+    // Diagram-specific configurations to prevent text truncation
+    er: {
+      useMaxWidth: false,
+      entityPadding: 15,
+      minEntityWidth: 200,
+      minEntityHeight: 75,
+      fontSize: 14,
+    },
+    class: {
+      useMaxWidth: false,
+      defaultRenderer: 'dagre-wrapper',
+    },
+    flowchart: {
+      useMaxWidth: false,
+      htmlLabels: true,
+      padding: 15,
+      nodeSpacing: 50,
+      rankSpacing: 50,
+    },
+    sequence: {
+      useMaxWidth: false,
+      boxMargin: 10,
+      boxTextMargin: 5,
+      noteMargin: 10,
+      messageMargin: 35,
+      actorMargin: 50,
+      width: 150,
+      height: 65,
+    },
+    state: {
+      useMaxWidth: false,
+      padding: 8,
+    },
+    gantt: {
+      useMaxWidth: false,
+      barHeight: 30,
+      barGap: 4,
+      topPadding: 50,
+      leftPadding: 120,
+      gridLineStartPadding: 35,
+      fontSize: 12,
+      sectionFontSize: 14,
+    },
   });
 
   const targetElement = document.getElementById(targetId);
@@ -396,29 +643,30 @@ const DIAGRAMS = {
 
     Note over A,D: Data is validated before storage`,
 
-  classDiagram: `classDiagram
+  classDiagram: `%%{init: {"class": {"useMaxWidth": false}}}%%
+classDiagram
     class Component {
         +String id
         +String className
-        +render() HTMLElement
+        +render() HTML
         +destroy() void
     }
 
     class Button {
         +String variant
         +String size
-        +Boolean disabled
+        +bool disabled
         +onClick() void
     }
 
     class Card {
         +String title
         +String image
-        +renderBody() HTMLElement
+        +renderBody() HTML
     }
 
     class Modal {
-        +Boolean isOpen
+        +bool isOpen
         +open() void
         +close() void
     }
@@ -426,7 +674,7 @@ const DIAGRAMS = {
     Component <|-- Button
     Component <|-- Card
     Component <|-- Modal
-    Card "1" *-- "0..*" Button : contains`,
+    Card "1" *-- "n" Button : has`,
 
   stateDiagram: `stateDiagram-v2
     [*] --> Draft
@@ -440,35 +688,36 @@ const DIAGRAMS = {
     Rejected --> Draft: Revise
     Completed --> [*]`,
 
-  erDiagram: `erDiagram
+  erDiagram: `%%{init: {"er": {"layoutDirection": "TB", "minEntityWidth": 100, "entityPadding": 10}}}%%
+erDiagram
     USER ||--o{ ORDER : places
     USER {
         int id PK
         string email
         string name
-        datetime created_at
+        date created
     }
-    ORDER ||--|{ ORDER_ITEM : contains
+    ORDER ||--|{ ITEM : contains
     ORDER {
         int id PK
-        int user_id FK
+        int userId FK
         string status
-        decimal total
-        datetime created_at
+        float total
+        date created
     }
-    ORDER_ITEM }|--|| PRODUCT : references
-    ORDER_ITEM {
+    ITEM }|--|| PRODUCT : refs
+    ITEM {
         int id PK
-        int order_id FK
-        int product_id FK
-        int quantity
-        decimal price
+        int orderId FK
+        int prodId FK
+        int qty
+        float price
     }
     PRODUCT {
         int id PK
         string name
-        string description
-        decimal price
+        text desc
+        float price
         int stock
     }`,
 
@@ -507,22 +756,23 @@ const DIAGRAMS = {
         Q1 : Specific Components
            : Mermaid Integration`,
 
-  gantt: `gantt
+  gantt: `%%{init: {"gantt": {"leftPadding": 150, "barHeight": 25, "fontSize": 12}}}%%
+gantt
     title Sprint 1 - Design System
     dateFormat YYYY-MM-DD
     section Design
-        Token Definition     :a1, 2025-01-01, 5d
-        Component Specs      :a2, after a1, 5d
-    section Development
-        Core Components      :b1, after a2, 10d
-        Form Components      :b2, after b1, 7d
-        Layout Components    :b3, after b1, 5d
-    section Testing
-        Unit Tests           :c1, after b2, 5d
-        Integration Tests    :c2, after c1, 3d
+        Tokens           :a1, 2025-01-01, 5d
+        Specs            :a2, after a1, 5d
+    section Dev
+        Core             :b1, after a2, 10d
+        Forms            :b2, after b1, 7d
+        Layout           :b3, after b1, 5d
+    section Test
+        Unit             :c1, after b2, 5d
+        E2E              :c2, after c1, 3d
     section Release
-        Documentation        :d1, after c2, 3d
-        Deployment           :d2, after d1, 1d`,
+        Docs             :d1, after c2, 3d
+        Deploy           :d2, after d1, 1d`,
 
   pie: `%%{init: {"pie": {"textPosition": 0.75}}}%%
 pie showData
@@ -548,12 +798,7 @@ pie showData
 const createSourceParams = (definition, title) => ({
   docs: {
     source: {
-      code: `<!-- Mermaid Diagram Definition -->
-<pre class="mermaid">
-${definition}
-</pre>
-
-<!-- Usage with SQLI Design System classes -->
+      code: `<!-- Usage with SQLI Design System classes -->
 <div class="p-6 bg-base-100 rounded-lg">
   <h3 class="text-lg font-medium mb-4 text-base-content">${title}</h3>
   <div class="mermaid-container">

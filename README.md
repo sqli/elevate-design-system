@@ -2,7 +2,14 @@
 
 Design system for SQLI applications built on **DaisyUI** with custom SQLI themes.
 
-**Current version: 0.5.0-alpha** - [View Changelog](stories/0-Governance/Changelog.mdx) | [View Storybook](https://sqli.gitlab.io/design-system)
+**Current version: 0.5.0-alpha** - [View Changelog](stories/0-Governance/Changelog.mdx)
+
+### Storybook
+
+| Environment | URL                                                      | Branch |
+| ----------- | -------------------------------------------------------- | ------ |
+| **Stable**  | https://main-bvxea6i-n3mp4dy5ud5ck.fr-3.platformsh.site/ | main   |
+| **Dev**     | https://dev-54ta5gq-n3mp4dy5ud5ck.fr-3.platformsh.site/  | dev    |
 
 ## Installation
 

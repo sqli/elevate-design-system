@@ -9,12 +9,20 @@ type: 'nodejs:22'
 build:
   flavor: none
 
+# Cache npm dependencies between builds
+mounts:
+  '/.npm':
+    source: local
+    source_path: npm-cache
+
 # Dependencies and build process
 hooks:
   build: |
     set -e
-    npm ci
-    npm run build-storybook
+    # Use cached npm packages when available
+    npm ci --cache .npm --prefer-offline
+    # Build Storybook without telemetry
+    STORYBOOK_DISABLE_TELEMETRY=1 npm run build-storybook
 
 # Web configuration - static site only
 web:
@@ -57,10 +65,10 @@ web:
       headers:
         Cache-Control: 'public, max-age=2592000'
 
-# Disk space allocation (minimum for static site)
-disk: 256
+# Disk space allocation (increased for npm cache)
+disk: 512
 
 # Resources sizing - increase memory for Storybook build
 resources:
-  base_memory: 256
-  memory_ratio: 256
+  base_memory: 512
+  memory_ratio: 512

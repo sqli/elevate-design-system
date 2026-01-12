@@ -3,15 +3,7 @@ const config = {
   stories: ['../stories/**/*.mdx', '../stories/**/*.stories.@(js|jsx|ts|tsx)'],
 
   addons: [
-    // Built-in Storybook 10 essentials
-    'storybook/viewport', // Viewport/responsive testing
-    'storybook/measure', // Measure tool
-    'storybook/outline', // Outline tool
-    {
-      name: 'storybook/backgrounds',
-      options: { disabled: true }, // Disabled - using theme toggle instead
-    },
-    // External addons
+    // External addons only - built-in essentials are auto-included
     '@storybook/addon-themes', // Theme switching support
     '@storybook/addon-a11y', // Accessibility testing
     '@storybook/addon-docs', // Enhanced documentation
@@ -25,6 +17,19 @@ const config = {
   staticDirs: ['../assets'],
 
   viteFinal: async (config) => {
+    // Optimize chunking for large dependencies
+    config.build = {
+      ...config.build,
+      rollupOptions: {
+        ...config.build?.rollupOptions,
+        output: {
+          ...config.build?.rollupOptions?.output,
+          manualChunks: {
+            mermaid: ['mermaid'],
+          },
+        },
+      },
+    };
     return config;
   },
 };

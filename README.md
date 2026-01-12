@@ -131,7 +131,7 @@ npm test                 # Run tests
 Full documentation available in Storybook:
 
 - [Getting Started](stories/0-Governance/GettingStarted.mdx) - 5-minute quick start
-- [Installation Guide](stories/0-Governance/Installation.mdx) - npm, CDN, frameworks
+- [Installation Guide](stories/0-Governance/Installation.mdx) - Git repository, Platform.sh, frameworks
 - [Design Tokens](stories/1-Foundations/DesignTokens.mdx) - CSS variables
 - [Component Index](stories/0-Governance/ComponentIndex.mdx) - All 65+ components
 

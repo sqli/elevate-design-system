@@ -5,10 +5,10 @@
  * Use this file when you only need the design tokens without DaisyUI components.
  *
  * Usage:
- *   @import '@sqli/elevate-design-system/tokens';
+ *   @import '@sqli/elevate-design-system/dist/tokens.css';
  *
- * Or via CDN:
- *   <link rel="stylesheet" href="https://unpkg.com/@sqli/elevate-design-system/dist/tokens.css" />
+ * Or via Platform.sh:
+ *   <link rel="stylesheet" href="https://main-bvxea6i-n3mp4dy5ud5ck.fr-3.platformsh.site/assets/tokens.css" />
  */
 
 :root {

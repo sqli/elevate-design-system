@@ -104,7 +104,7 @@ test:a11y:
     - if: $CI_MERGE_REQUEST_IID
     - if: $CI_COMMIT_BRANCH == "main"
 
-check:bundlesize:
+check:size:
   extends: .node_template
   stage: test
   script:

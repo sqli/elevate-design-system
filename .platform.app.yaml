@@ -14,8 +14,10 @@ hooks:
   build: |
     set -e
 
+    # Disable husky in CI (no .git directory)
+    export HUSKY=0
+
     # Use PLATFORM_CACHE_DIR for npm cache (persists between builds)
-    # This is the recommended approach per Platform.sh docs
     export npm_config_cache="$PLATFORM_CACHE_DIR/.npm"
 
     # Install dependencies with cache

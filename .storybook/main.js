@@ -1,3 +1,5 @@
+import react from '@vitejs/plugin-react';
+
 /** @type { import('@storybook/html-vite').StorybookConfig } */
 const config = {
   stories: ['../stories/**/*.mdx', '../stories/**/*.stories.@(js|jsx|ts|tsx)'],
@@ -17,6 +19,9 @@ const config = {
   staticDirs: ['../assets'],
 
   viteFinal: async (config) => {
+    // Add React plugin for JSX support in chart stories
+    config.plugins = [...(config.plugins || []), react()];
+
     // Optimize chunking for large dependencies
     config.build = {
       ...config.build,
@@ -26,6 +31,7 @@ const config = {
           ...config.build?.rollupOptions?.output,
           manualChunks: {
             mermaid: ['mermaid'],
+            recharts: ['recharts'],
           },
         },
       },

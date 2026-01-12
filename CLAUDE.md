@@ -102,6 +102,49 @@ The design system provides two DaisyUI themes:
 - **Standard**: Regular (400)
 - **Headings**: Medium (500)
 
+### Icons
+
+The design system provides **HeroIcons** (MIT-licensed icons from Tailwind Labs).
+
+```javascript
+// Import
+import { heroicon, HeroIcons } from '../utils/heroicons.js';
+
+// Function API
+heroicon('home'); // 24px outline (default)
+heroicon('home', { variant: 'solid' }); // 24px solid
+heroicon('home', { size: 20, variant: 'solid' }); // 20px mini
+heroicon('home', { size: 16, variant: 'solid' }); // 16px micro
+heroicon('home', { class: 'w-6 h-6 text-primary' }); // with classes
+
+// Pre-built exports
+HeroIcons.home; // 24px outline
+HeroIcons.homeSolid; // 24px solid
+HeroIcons.search; // alias for magnifying-glass
+HeroIcons.settings; // alias for cog-6-tooth
+```
+
+**Usage in HTML:**
+
+```html
+<!-- Button with icon -->
+<button class="btn btn-primary">${heroicon('plus', { class: 'w-5 h-5' })} Add Item</button>
+
+<!-- Alert with icon -->
+<div role="alert" class="alert alert-info">
+  ${heroicon('information-circle', { class: 'w-6 h-6' })}
+  <span>New update available</span>
+</div>
+
+<!-- Input with icon -->
+<label class="input input-bordered flex items-center gap-2">
+  ${heroicon('magnifying-glass', { class: 'w-5 h-5 opacity-50' })}
+  <input type="text" placeholder="Search..." />
+</label>
+```
+
+See Storybook **Foundations > Icons** for complete documentation.
+
 ### Logo
 
 - Logo "sqli" always in **lowercase**

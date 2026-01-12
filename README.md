@@ -2,11 +2,62 @@
 
 Design system for SQLI applications built on **DaisyUI** with custom SQLI themes.
 
-**Current version: 0.5.0-alpha** - [View Changelog](stories/0-Governance/Changelog.mdx) | [View Storybook](https://sqli.gitlab.io/design-system)
+**Current version: 0.5.0-alpha** - [View Changelog](stories/0-Governance/Changelog.mdx)
+
+### Storybook
+
+| Environment | URL                                                      | Branch |
+| ----------- | -------------------------------------------------------- | ------ |
+| **Stable**  | https://main-bvxea6i-n3mp4dy5ud5ck.fr-3.platformsh.site/ | main   |
+| **Dev**     | https://dev-54ta5gq-n3mp4dy5ud5ck.fr-3.platformsh.site/  | dev    |
 
 ## Installation
 
-### npm (Recommended)
+### Git Repository (Recommended)
+
+Install directly from GitLab Paris:
+
+```bash
+# Latest version (main branch)
+npm install git+https://gitlab-paris.sqli.com/SQLI/elevate-design-system.git
+
+# Specific version tag
+npm install git+https://gitlab-paris.sqli.com/SQLI/elevate-design-system.git#v1.0.0
+
+# Development branch
+npm install git+https://gitlab-paris.sqli.com/SQLI/elevate-design-system.git#dev
+```
+
+Then import in your CSS or JS:
+
+```css
+/* In your main CSS file */
+@import '@sqli/elevate-design-system/dist/sqli-design-system.css';
+
+/* Or minified version */
+@import '@sqli/elevate-design-system/dist/sqli-design-system.min.css';
+
+/* Include fonts (optional but recommended) */
+@import '@sqli/elevate-design-system/dist/fonts.css';
+```
+
+```javascript
+// In your JS entry point
+import '@sqli/elevate-design-system/dist/sqli-design-system.css';
+import '@sqli/elevate-design-system/dist/fonts.css';
+```
+
+Apply a theme to your HTML:
+
+```html
+<html data-theme="sqli-light">
+  <button class="btn btn-primary">Hello World</button>
+</html>
+```
+
+### npm Registry (Alternative)
+
+If published to GitLab npm registry:
 
 ```bash
 npm install @sqli/elevate-design-system
@@ -16,44 +67,17 @@ npm install @sqli/elevate-design-system
 @import '@sqli/elevate-design-system';
 ```
 
-```html
-<html data-theme="sqli-light">
-  <button class="btn btn-primary">Hello World</button>
-</html>
-```
+## Package Contents
 
-### CDN (unpkg)
-
-```html
-<link
-  rel="stylesheet"
-  href="https://unpkg.com/@sqli/elevate-design-system/dist/sqli-design-system.min.css"
-/>
-<link rel="stylesheet" href="https://unpkg.com/@sqli/elevate-design-system/dist/fonts.css" />
-```
-
-### CDN (jsDelivr)
-
-```html
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/@sqli/elevate-design-system/dist/sqli-design-system.min.css"
-/>
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/@sqli/elevate-design-system/dist/fonts.css"
-/>
-```
-
-## Package Exports
-
-| Export                                  | Description        | Usage                                                     |
-| --------------------------------------- | ------------------ | --------------------------------------------------------- |
-| `@sqli/elevate-design-system`           | Full CSS           | `@import '@sqli/elevate-design-system'`                   |
-| `@sqli/elevate-design-system/css/min`   | Minified CSS       | `@import '@sqli/elevate-design-system/css/min'`           |
-| `@sqli/elevate-design-system/tokens`    | CSS variables only | `@import '@sqli/elevate-design-system/tokens'`            |
-| `@sqli/elevate-design-system/fonts.css` | Font declarations  | `@import '@sqli/elevate-design-system/fonts.css'`         |
-| `@sqli/elevate-design-system/preset`    | Tailwind preset    | `import preset from '@sqli/elevate-design-system/preset'` |
+| File                              | Description               | Size    |
+| --------------------------------- | ------------------------- | ------- |
+| `dist/sqli-design-system.css`     | Full CSS (readable)       | ~267 KB |
+| `dist/sqli-design-system.min.css` | Minified CSS (production) | ~198 KB |
+| `dist/tokens.css`                 | CSS variables only        | ~3 KB   |
+| `dist/fonts.css`                  | @font-face declarations   | ~2 KB   |
+| `dist/fonts/`                     | TWK Everett font files    | -       |
+| `dist/logos/`                     | SQLI logos (SVG & PNG)    | -       |
+| `src/tailwind/preset.js`          | Tailwind CSS preset       | -       |
 
 ## Themes
 
@@ -107,7 +131,7 @@ npm test                 # Run tests
 Full documentation available in Storybook:
 
 - [Getting Started](stories/0-Governance/GettingStarted.mdx) - 5-minute quick start
-- [Installation Guide](stories/0-Governance/Installation.mdx) - npm, CDN, frameworks
+- [Installation Guide](stories/0-Governance/Installation.mdx) - Git repository, Platform.sh, frameworks
 - [Design Tokens](stories/1-Foundations/DesignTokens.mdx) - CSS variables
 - [Component Index](stories/0-Governance/ComponentIndex.mdx) - All 65+ components
 
@@ -117,5 +141,5 @@ Proprietary SQLI - Internal use only.
 
 ## Support
 
-- Repository: https://gitlab.paris.sqli.com/sqli/design-system
+- Repository: https://gitlab-paris.sqli.com/SQLI/elevate-design-system
 - Brand Guidelines: See [SQLI-BRAND-REFERENCE.md](SQLI-BRAND-REFERENCE.md)

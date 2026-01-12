@@ -21,18 +21,13 @@ Complete guide to integrate the Elevate Design System into your projects.
   </thead>
   <tbody>
     <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
-      <td style={{ padding: '0.75rem' }}><strong>npm</strong></td>
+      <td style={{ padding: '0.75rem' }}><strong>Git Repository</strong></td>
       <td style={{ padding: '0.75rem' }}>Production apps (React, Vue, Angular, Next.js)</td>
       <td style={{ padding: '0.75rem' }}>Yes</td>
     </tr>
     <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
-      <td style={{ padding: '0.75rem' }}><strong>CDN (unpkg)</strong></td>
+      <td style={{ padding: '0.75rem' }}><strong>Platform.sh</strong></td>
       <td style={{ padding: '0.75rem' }}>Prototypes, static sites, quick demos</td>
-      <td style={{ padding: '0.75rem' }}>No</td>
-    </tr>
-    <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
-      <td style={{ padding: '0.75rem' }}><strong>CDN (jsDelivr)</strong></td>
-      <td style={{ padding: '0.75rem' }}>Production static sites (better caching)</td>
       <td style={{ padding: '0.75rem' }}>No</td>
     </tr>
     <tr>
@@ -45,50 +40,49 @@ Complete guide to integrate the Elevate Design System into your projects.
 
 ---
 
-## Method 1: npm (Recommended)
+## Method 1: Git Repository (Recommended)
+
+Install directly from GitLab Paris repository using npm:
 
 ### Prerequisites
 
 - Node.js >= 22.0.0
 - npm >= 9.0.0
-- Access to SQLI GitLab registry
+- Access to SQLI GitLab Paris
 
-### Step 1: Configure npm Registry
-
-Create or modify `.npmrc` at your project root:
-
-```ini
-# @sqli scope configuration
-@sqli:registry=https://gitlab.paris.sqli.com/api/v4/projects/PROJECT_ID/packages/npm/
-
-# Authentication
-//gitlab.paris.sqli.com/api/v4/projects/PROJECT_ID/packages/npm/:_authToken=${GITLAB_TOKEN}
-```
-
-### Step 2: Set GitLab Token
+### Installation
 
 ```bash
-# Linux/macOS
-export GITLAB_TOKEN="your-gitlab-token"
+# Latest stable version (main branch)
+npm install git+https://gitlab-paris.sqli.com/SQLI/elevate-design-system.git
 
-# Windows PowerShell
-$env:GITLAB_TOKEN="your-gitlab-token"
+# Specific version tag
+npm install git+https://gitlab-paris.sqli.com/SQLI/elevate-design-system.git#v1.0.0
+
+# Development branch (latest features)
+npm install git+https://gitlab-paris.sqli.com/SQLI/elevate-design-system.git#dev
 ```
 
-### Step 3: Install
-
-```bash
-npm install @sqli/elevate-design-system
-```
-
-### Step 4: Import CSS
+### Import CSS
 
 ```css
 /* In your main CSS file */
-@import '@sqli/elevate-design-system';
+@import '@sqli/elevate-design-system/dist/sqli-design-system.css';
+
+/* Or minified version */
+@import '@sqli/elevate-design-system/dist/sqli-design-system.min.css';
+
+/* Include fonts (recommended) */
+@import '@sqli/elevate-design-system/dist/fonts.css';
 ```
 
-### Step 5: Apply Theme
+```javascript
+// In your JS entry point
+import '@sqli/elevate-design-system/dist/sqli-design-system.css';
+import '@sqli/elevate-design-system/dist/fonts.css';
+```
+
+### Apply Theme
 
 ```html
 <html data-theme="sqli-light">
@@ -98,9 +92,11 @@ npm install @sqli/elevate-design-system
 
 ---
 
-## Method 2: CDN (unpkg)
+## Method 2: Platform.sh (No build required)
 
-No build step required. Add directly to your HTML:
+Use the CSS directly from Platform.sh deployments. No build step required:
+
+### Stable Version (main branch)
 
 ```html
 <!DOCTYPE html>
@@ -112,11 +108,11 @@ No build step required. Add directly to your HTML:
 
   <!-- Elevate Design System CSS -->
   <link rel="stylesheet"
-        href="https://unpkg.com/@sqli/elevate-design-system@0.5.0-alpha/dist/sqli-design-system.min.css" />
+        href="https://main-bvxea6i-n3mp4dy5ud5ck.fr-3.platformsh.site/assets/sqli-design-system.min.css" />
 
   <!-- Fonts (required for TWK Everett) -->
   <link rel="stylesheet"
-        href="https://unpkg.com/@sqli/elevate-design-system@0.5.0-alpha/dist/fonts.css" />
+        href="https://main-bvxea6i-n3mp4dy5ud5ck.fr-3.platformsh.site/assets/fonts.css" />
 </head>
 <body class="bg-base-100 text-base-content">
   <button class="btn btn-primary">Hello World</button>
@@ -124,25 +120,30 @@ No build step required. Add directly to your HTML:
 </html>
 ```
 
----
+### Development Version (dev branch)
 
-## Method 3: CDN (jsDelivr)
-
-jsDelivr offers better global CDN coverage and caching:
+For testing latest features:
 
 ```html
 <!-- CSS -->
 <link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@sqli/elevate-design-system@0.5.0-alpha/dist/sqli-design-system.min.css" />
+      href="https://dev-54ta5gq-n3mp4dy5ud5ck.fr-3.platformsh.site/assets/sqli-design-system.min.css" />
 
 <!-- Fonts -->
 <link rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@sqli/elevate-design-system@0.5.0-alpha/dist/fonts.css" />
+      href="https://dev-54ta5gq-n3mp4dy5ud5ck.fr-3.platformsh.site/assets/fonts.css" />
 ```
+
+### Environment URLs
+
+| Environment | URL | Branch |
+|-------------|-----|--------|
+| **Stable** | https://main-bvxea6i-n3mp4dy5ud5ck.fr-3.platformsh.site/ | main |
+| **Dev** | https://dev-54ta5gq-n3mp4dy5ud5ck.fr-3.platformsh.site/ | dev |
 
 ---
 
-## Method 4: Direct Download
+## Method 3: Direct Download
 
 Download files directly for self-hosting:
 
@@ -204,11 +205,13 @@ your-project/
 Import only the CSS variables without DaisyUI components:
 
 ```css
-/* npm */
-@import '@sqli/elevate-design-system/tokens';
+/* Git repository install */
+@import '@sqli/elevate-design-system/dist/tokens.css';
+```
 
-/* CDN */
-<link rel="stylesheet" href="https://unpkg.com/@sqli/elevate-design-system/dist/tokens.css" />
+```html
+<!-- Platform.sh -->
+<link rel="stylesheet" href="https://main-bvxea6i-n3mp4dy5ud5ck.fr-3.platformsh.site/assets/tokens.css" />
 ```
 
 Available variables:
@@ -252,7 +255,8 @@ This adds:
 
 ```css
 /* app/globals.css */
-@import '@sqli/elevate-design-system';
+@import '@sqli/elevate-design-system/dist/sqli-design-system.css';
+@import '@sqli/elevate-design-system/dist/fonts.css';
 ```
 
 ```tsx
@@ -270,7 +274,8 @@ export default function RootLayout({ children }) {
 
 ```css
 /* src/index.css */
-@import '@sqli/elevate-design-system';
+@import '@sqli/elevate-design-system/dist/sqli-design-system.css';
+@import '@sqli/elevate-design-system/dist/fonts.css';
 ```
 
 ```tsx
@@ -292,7 +297,8 @@ createRoot(document.getElementById('root')!).render(
 
 ```css
 /* src/style.css */
-@import '@sqli/elevate-design-system';
+@import '@sqli/elevate-design-system/dist/sqli-design-system.css';
+@import '@sqli/elevate-design-system/dist/fonts.css';
 ```
 
 ```ts
@@ -309,7 +315,8 @@ createApp(App).mount('#app');
 
 ```css
 /* styles.css */
-@import '@sqli/elevate-design-system';
+@import '@sqli/elevate-design-system/dist/sqli-design-system.css';
+@import '@sqli/elevate-design-system/dist/fonts.css';
 ```
 
 ```json
@@ -382,10 +389,10 @@ document.documentElement.setAttribute('data-theme', theme);
 
 Fonts are loaded automatically via CSS. Ensure font files are accessible at `/fonts/` or configure your bundler.
 
-### Option 2: CDN Fonts
+### Option 2: Platform.sh Fonts
 
 ```html
-<link rel="stylesheet" href="https://unpkg.com/@sqli/elevate-design-system/dist/fonts.css" />
+<link rel="stylesheet" href="https://main-bvxea6i-n3mp4dy5ud5ck.fr-3.platformsh.site/assets/fonts.css" />
 ```
 
 ### Option 3: Self-Hosted
@@ -428,7 +435,7 @@ cp -r node_modules/@sqli/elevate-design-system/dist/fonts ./public/fonts
     <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
       <td style={{ padding: '0.75rem' }}>Fonts not loading</td>
       <td style={{ padding: '0.75rem' }}>Path issue</td>
-      <td style={{ padding: '0.75rem' }}>Use CDN or copy fonts locally</td>
+      <td style={{ padding: '0.75rem' }}>Use Platform.sh or copy fonts locally</td>
     </tr>
     <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
       <td style={{ padding: '0.75rem' }}>Theme not applying</td>

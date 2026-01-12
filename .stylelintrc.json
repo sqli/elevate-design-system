@@ -2,6 +2,7 @@
   "extends": ["stylelint-config-standard"],
   "plugins": ["stylelint-order"],
   "ignoreFiles": [
+    "dist/**/*",
     "src/css/tokens/_colors.css",
     ".storybook/preview.css",
     "src/css/main.css",

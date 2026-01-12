@@ -5,22 +5,22 @@ name: storybook
 
 type: 'nodejs:22'
 
-# Build configuration
+# Build configuration - disable default npm install (we use npm ci)
 build:
   flavor: none
-
-# Cache npm dependencies between builds
-mounts:
-  '/.npm':
-    source: local
-    source_path: npm-cache
 
 # Dependencies and build process
 hooks:
   build: |
     set -e
-    # Use cached npm packages when available
-    npm ci --cache .npm --prefer-offline
+
+    # Use PLATFORM_CACHE_DIR for npm cache (persists between builds)
+    # This is the recommended approach per Platform.sh docs
+    export npm_config_cache="$PLATFORM_CACHE_DIR/.npm"
+
+    # Install dependencies with cache
+    npm ci --prefer-offline
+
     # Build Storybook without telemetry
     STORYBOOK_DISABLE_TELEMETRY=1 npm run build-storybook
 
@@ -65,10 +65,11 @@ web:
       headers:
         Cache-Control: 'public, max-age=2592000'
 
-# Disk space allocation (increased for npm cache)
-disk: 512
+# Disk space allocation (minimal for static site output)
+# npm cache uses PLATFORM_CACHE_DIR which doesn't count against disk quota
+disk: 256
 
-# Resources sizing - increase memory for Storybook build
+# Resources sizing - increase memory for faster Vite builds
 resources:
   base_memory: 512
   memory_ratio: 512

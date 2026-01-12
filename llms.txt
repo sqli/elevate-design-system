@@ -1,0 +1,197 @@
+# Elevate Design System
+
+> SQLI's CSS-only design system built on DaisyUI with custom brand themes.
+
+## Overview
+
+Elevate Design System is a stateless CSS library providing themed components for SQLI applications. It does NOT include JavaScript framework integrations - those are the responsibility of consuming projects.
+
+## Quick Start
+
+```bash
+npm install git+https://gitlab-paris.sqli.com/SQLI/elevate-design-system.git
+```
+
+```css
+@import '@sqli/elevate-design-system/dist/sqli-design-system.css';
+@import '@sqli/elevate-design-system/dist/fonts.css';
+```
+
+```html
+<html data-theme="sqli-light">
+  <button class="btn btn-primary">Hello World</button>
+</html>
+```
+
+## Themes
+
+| Theme | Background | Primary | Usage |
+|-------|------------|---------|-------|
+| sqli-light | Cream (#FFFAF0) | Cobalt (#1F24E9) | Default |
+| sqli-dark | Midnight (#0F0E2B) | Sky (#6DA5FF) | Dark mode |
+
+## Brand Colors
+
+- **Cream**: #FFFAF0 - Light background
+- **Midnight**: #0F0E2B - Dark background, text
+- **Cobalt**: #1F24E9 - Primary (light mode)
+- **Sky**: #6DA5FF - Primary (dark mode)
+
+## Typography
+
+- **Font**: TWK Everett
+- **Weights**: Light (300), Regular (400), Medium (500), Bold (700)
+
+## Components (65+)
+
+All components use DaisyUI classes:
+
+### Actions
+- Button: `btn`, `btn-primary`, `btn-secondary`, `btn-accent`, `btn-ghost`
+- Dropdown: `dropdown`, `dropdown-content`
+- Modal: `modal`, `modal-box`
+- Swap: `swap`, `swap-rotate`
+
+### Data Display
+- Card: `card`, `card-body`, `card-title`
+- Badge: `badge`, `badge-primary`
+- Avatar: `avatar`
+- Table: `table`
+- Timeline: `timeline`
+
+### Data Input
+- Input: `input`, `input-bordered`
+- Select: `select`, `select-bordered`
+- Checkbox: `checkbox`, `checkbox-primary`
+- Toggle: `toggle`, `toggle-primary`
+- Radio: `radio`, `radio-primary`
+- Textarea: `textarea`
+- File Input: `file-input`
+- Range: `range`
+- Rating: `rating`
+
+### Feedback
+- Alert: `alert`, `alert-info`, `alert-success`, `alert-warning`, `alert-error`
+- Loading: `loading`, `loading-spinner`
+- Progress: `progress`, `progress-primary`
+- Toast: `toast`
+- Skeleton: `skeleton`
+
+### Layout
+- Divider: `divider`
+- Drawer: `drawer`
+- Hero: `hero`
+- Stack: `stack`
+- Artboard: `artboard`
+
+### Navigation
+- Tabs: `tabs`, `tab`, `tab-active`
+- Menu: `menu`
+- Navbar: `navbar`
+- Breadcrumbs: `breadcrumbs`
+- Pagination: `pagination`
+- Steps: `steps`
+- Bottom Navigation: `btm-nav`
+
+## Code Examples
+
+### Button Variants
+```html
+<button class="btn">Default</button>
+<button class="btn btn-primary">Primary</button>
+<button class="btn btn-secondary">Secondary</button>
+<button class="btn btn-accent">Accent</button>
+<button class="btn btn-ghost">Ghost</button>
+<button class="btn btn-link">Link</button>
+```
+
+### Button Sizes
+```html
+<button class="btn btn-xs">Extra Small</button>
+<button class="btn btn-sm">Small</button>
+<button class="btn btn-md">Medium</button>
+<button class="btn btn-lg">Large</button>
+```
+
+### Card
+```html
+<div class="card bg-base-100 shadow-xl">
+  <figure><img src="image.jpg" alt="Image" /></figure>
+  <div class="card-body">
+    <h2 class="card-title">Title</h2>
+    <p>Description</p>
+    <div class="card-actions justify-end">
+      <button class="btn btn-primary">Action</button>
+    </div>
+  </div>
+</div>
+```
+
+### Form Input with Label
+```html
+<label class="form-control w-full">
+  <div class="label">
+    <span class="label-text">Email</span>
+  </div>
+  <input type="email" class="input input-bordered" />
+</label>
+```
+
+### Alert
+```html
+<div role="alert" class="alert alert-info">
+  <span>Info message</span>
+</div>
+```
+
+### Tabs
+```html
+<div role="tablist" class="tabs tabs-bordered">
+  <a role="tab" class="tab">Tab 1</a>
+  <a role="tab" class="tab tab-active">Tab 2</a>
+  <a role="tab" class="tab">Tab 3</a>
+</div>
+```
+
+### Theme Switching
+```javascript
+// Toggle between themes
+document.documentElement.setAttribute('data-theme', 'sqli-dark');
+```
+
+```html
+<!-- DaisyUI theme controller -->
+<input type="checkbox" value="sqli-dark" class="toggle theme-controller" />
+```
+
+## Distribution
+
+| File | Description |
+|------|-------------|
+| dist/sqli-design-system.css | Full CSS (~267 KB) |
+| dist/sqli-design-system.min.css | Minified CSS (~198 KB) |
+| dist/tokens.css | CSS variables only (~3 KB) |
+| dist/fonts.css | Font declarations (~2 KB) |
+| dist/fonts/ | TWK Everett font files |
+| dist/logos/ | SQLI logos (SVG & PNG) |
+
+## Platform.sh CDN
+
+No build required:
+
+```html
+<link rel="stylesheet" href="https://main-bvxea6i-n3mp4dy5ud5ck.fr-3.platformsh.site/assets/sqli-design-system.min.css" />
+<link rel="stylesheet" href="https://main-bvxea6i-n3mp4dy5ud5ck.fr-3.platformsh.site/assets/fonts.css" />
+```
+
+## Resources
+
+- Storybook: https://main-bvxea6i-n3mp4dy5ud5ck.fr-3.platformsh.site/
+- Repository: https://gitlab-paris.sqli.com/SQLI/elevate-design-system
+- DaisyUI Docs: https://daisyui.com/components/
+
+## SQLI Brand Guidelines
+
+- Logo "sqli" always lowercase
+- In text, write "SQLI" uppercase
+- Promise: "Elevate. Digitally" (period only after "Elevate")

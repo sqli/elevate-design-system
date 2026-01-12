@@ -11,15 +11,16 @@ Get up and running with the Elevate Design System in 5 minutes.
 
 ## Quick Install
 
-### Option 1: npm (Recommended)
+### Option 1: Git Repository (Recommended)
 
 ```bash
-npm install @sqli/elevate-design-system
+npm install git+https://gitlab-paris.sqli.com/SQLI/elevate-design-system.git
 ```
 
 ```css
 /* In your main CSS file */
-@import '@sqli/elevate-design-system';
+@import '@sqli/elevate-design-system/dist/sqli-design-system.css';
+@import '@sqli/elevate-design-system/dist/fonts.css';
 ```
 
 ```html
@@ -27,14 +28,14 @@ npm install @sqli/elevate-design-system
 <html data-theme="sqli-light">
 ```
 
-### Option 2: CDN (No build required)
+### Option 2: Platform.sh (No build required)
 
 ```html
 <!DOCTYPE html>
 <html data-theme="sqli-light">
 <head>
-  <link rel="stylesheet" href="https://unpkg.com/@sqli/elevate-design-system/dist/sqli-design-system.min.css" />
-  <link rel="stylesheet" href="https://unpkg.com/@sqli/elevate-design-system/dist/fonts.css" />
+  <link rel="stylesheet" href="https://main-bvxea6i-n3mp4dy5ud5ck.fr-3.platformsh.site/assets/sqli-design-system.min.css" />
+  <link rel="stylesheet" href="https://main-bvxea6i-n3mp4dy5ud5ck.fr-3.platformsh.site/assets/fonts.css" />
 </head>
 <body>
   <button class="btn btn-primary">Hello World</button>
@@ -113,7 +114,7 @@ document.documentElement.setAttribute('data-theme', 'sqli-dark');
   <tbody>
     <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
       <td style={{ padding: '0.75rem', width: '30%' }}><strong>Full Installation Guide</strong></td>
-      <td style={{ padding: '0.75rem' }}><a href="?path=/docs/governance-installation--docs">Installation</a> - npm registry, CDN, frameworks, troubleshooting</td>
+      <td style={{ padding: '0.75rem' }}><a href="?path=/docs/governance-installation--docs">Installation</a> - Git repository, Platform.sh, frameworks, troubleshooting</td>
     </tr>
     <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
       <td style={{ padding: '0.75rem' }}><strong>Browse Components</strong></td>

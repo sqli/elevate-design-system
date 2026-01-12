@@ -1,0 +1,90 @@
+/**
+ * Elevate Design System - Standalone Tokens
+ *
+ * CSS custom properties for SQLI brand colors and typography.
+ * Use this file when you only need the design tokens without DaisyUI components.
+ *
+ * Usage:
+ *   @import '@sqli/elevate-design-system/tokens';
+ *
+ * Or via CDN:
+ *   <link rel="stylesheet" href="https://unpkg.com/@sqli/elevate-design-system/dist/tokens.css" />
+ */
+
+:root {
+  /* ==========================================================================
+     Brand Colors (HEX)
+     ========================================================================== */
+
+  /* Primary backgrounds */
+  --color-sqli-cream: #fffaf0;
+  --color-sqli-midnight: #0f0e2b;
+
+  /* Interactive colors */
+  --color-sqli-cobalt: #1f24e9;
+  --color-sqli-sky: #6da5ff;
+
+  /* Hover states */
+  --color-sqli-cobalt-hover: #1418c8;
+  --color-sqli-sky-hover: #5a96f0;
+
+  /* ==========================================================================
+     Brand Colors (OKLCH) - For advanced color manipulation
+     ========================================================================== */
+
+  --color-sqli-cream-oklch: oklch(98.5% 0.012 85);
+  --color-sqli-midnight-oklch: oklch(15% 0.04 270);
+  --color-sqli-cobalt-oklch: oklch(42% 0.28 265);
+  --color-sqli-sky-oklch: oklch(68% 0.14 250);
+
+  /* ==========================================================================
+     Typography
+     ========================================================================== */
+
+  /* Font families */
+  --font-family-sans: 'TWK Everett', system-ui, -apple-system, sans-serif;
+  --font-family-everett: 'TWK Everett', system-ui, sans-serif;
+
+  /* Font weights */
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+
+  /* ==========================================================================
+     Semantic Colors (Light Theme Defaults)
+     ========================================================================== */
+
+  --color-background: var(--color-sqli-cream);
+  --color-text: var(--color-sqli-midnight);
+  --color-primary: var(--color-sqli-cobalt);
+  --color-primary-hover: var(--color-sqli-cobalt-hover);
+  --color-accent: var(--color-sqli-sky);
+  --color-accent-hover: var(--color-sqli-sky-hover);
+}
+
+/* ==========================================================================
+   Dark Theme Override
+   ========================================================================== */
+
+[data-theme='sqli-dark'],
+[data-theme='dark'] {
+  --color-background: var(--color-sqli-midnight);
+  --color-text: var(--color-sqli-cream);
+  --color-primary: var(--color-sqli-sky);
+  --color-primary-hover: var(--color-sqli-sky-hover);
+  --color-accent: var(--color-sqli-cobalt);
+  --color-accent-hover: var(--color-sqli-cobalt-hover);
+}
+
+/* System preference support */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='sqli-light']):not([data-theme='light']) {
+    --color-background: var(--color-sqli-midnight);
+    --color-text: var(--color-sqli-cream);
+    --color-primary: var(--color-sqli-sky);
+    --color-primary-hover: var(--color-sqli-sky-hover);
+    --color-accent: var(--color-sqli-cobalt);
+    --color-accent-hover: var(--color-sqli-cobalt-hover);
+  }
+}

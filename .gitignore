@@ -3,7 +3,7 @@ node_modules/
 .npm/
 
 # Build output
-dist/
+# dist/ - Now committed for npm git URL installs
 storybook-static/
 
 # IDE

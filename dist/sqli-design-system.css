@@ -4257,6 +4257,24 @@
       grid-row-start: 2;
     }
   }
+  .container {
+    width: 100%;
+    @media (width >= 40rem) {
+      max-width: 40rem;
+    }
+    @media (width >= 48rem) {
+      max-width: 48rem;
+    }
+    @media (width >= 64rem) {
+      max-width: 64rem;
+    }
+    @media (width >= 80rem) {
+      max-width: 80rem;
+    }
+    @media (width >= 96rem) {
+      max-width: 96rem;
+    }
+  }
   .divider {
     @layer daisyui.l1.l2.l3 {
       display: flex;
@@ -4834,6 +4852,20 @@
       flex-shrink: 0;
     }
   }
+  .fieldset-label {
+    @layer daisyui.l1.l2.l3 {
+      display: flex;
+      align-items: center;
+      gap: calc(0.25rem * 1.5);
+      color: var(--color-base-content);
+      @supports (color: color-mix(in lab, red, red)) {
+        color: color-mix(in oklab, var(--color-base-content) 60%, transparent);
+      }
+      &:has(input) {
+        cursor: pointer;
+      }
+    }
+  }
   .carousel {
     @layer daisyui.l1.l2.l3 {
       display: inline-flex;
@@ -5037,6 +5069,9 @@
   .table {
     display: table;
   }
+  .aspect-16\/9 {
+    aspect-ratio: 16/9;
+  }
   .aspect-\[16\/9\] {
     aspect-ratio: 16/9;
   }
@@ -5170,6 +5205,10 @@
       width: var(--size);
       height: var(--size);
     }
+  }
+  .size-10 {
+    width: calc(var(--spacing) * 10);
+    height: calc(var(--spacing) * 10);
   }
   .size-\[1\.2em\] {
     width: 1.2em;
@@ -7591,6 +7630,13 @@
     @layer daisyui.l1.l2 {
       &, &:focus, &:focus-within {
         --input-color: var(--color-error);
+      }
+    }
+  }
+  .input-info {
+    @layer daisyui.l1.l2 {
+      &, &:focus, &:focus-within {
+        --input-color: var(--color-info);
       }
     }
   }

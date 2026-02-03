@@ -388,11 +388,33 @@ DarkMode.parameters = {
 
 ## Assets
 
-Assets are in the `assets/` folder:
+### Source Assets (Development)
+
+Source assets are in the `assets/` folder:
 
 - `fonts/` - TWK Everett font (WOFF, WOFF2, OTF, TTF)
 - `logos/` - SQLI logos and Ascenders (PNG and SVG)
 - `images/` - Photos for Storybook examples
+
+### Distributed Assets (npm Package)
+
+When installed as a dependency, assets are available in `dist/`:
+
+```javascript
+// Import logos in consuming projects
+import logoMidnight from '@sqli/elevate-design-system/dist/logos/Logo_midnight.svg';
+import logoCream from '@sqli/elevate-design-system/dist/logos/Logo_cream.svg';
+import ascendersCobalt from '@sqli/elevate-design-system/dist/logos/Ascenders-cobalt.svg';
+```
+
+**Available in `dist/logos/`:**
+
+- `Logo_cream.svg/.png`, `Logo_midnight.svg/.png`, `Logo_sky.svg/.png`
+- `Logo_*_with_exclusion.svg/.png` (with exclusion zones)
+- `Ascenders-*.svg/.png` (cobalt, cream, midnight, sky)
+- `favicon*.svg` (various color variants)
+
+**Fonts** are loaded via `dist/fonts.css` which references `dist/fonts/`.
 
 ## Versioning
 

@@ -100,6 +100,43 @@ document.documentElement.setAttribute('data-theme', 'sqli-dark');
 | Cobalt   | `#1F24E9` | Primary (light)  |
 | Sky      | `#6DA5FF` | Primary (dark)   |
 
+## Assets (Logos, Fonts)
+
+All brand assets are available in the `dist/` folder after installation:
+
+```javascript
+// Import paths for logos
+import logoMidnight from '@sqli/elevate-design-system/dist/logos/Logo_midnight.svg';
+import logoCream from '@sqli/elevate-design-system/dist/logos/Logo_cream.svg';
+import logoSky from '@sqli/elevate-design-system/dist/logos/Logo_sky.svg';
+
+// Ascenders
+import ascendersCobalt from '@sqli/elevate-design-system/dist/logos/Ascenders-cobalt.svg';
+
+// Favicons
+import favicon from '@sqli/elevate-design-system/dist/logos/favicon.svg';
+```
+
+```html
+<!-- Direct URL reference (adjust path based on your bundler) -->
+<img src="node_modules/@sqli/elevate-design-system/dist/logos/Logo_midnight.svg" alt="SQLI" />
+```
+
+**Available logos:**
+
+- `Logo_cream.svg/.png` - Light theme logo
+- `Logo_midnight.svg/.png` - Dark theme logo
+- `Logo_sky.svg/.png` - Alternative logo
+- `Logo_*_with_exclusion.svg/.png` - Logos with exclusion zone
+- `Ascenders-*.svg/.png` - Brand ascenders (cobalt, cream, midnight, sky)
+- `favicon*.svg` - Favicons for different themes
+
+**Fonts** are automatically loaded via `fonts.css`:
+
+```css
+@import '@sqli/elevate-design-system/dist/fonts.css';
+```
+
 ## Components
 
 65+ DaisyUI components with SQLI themes:

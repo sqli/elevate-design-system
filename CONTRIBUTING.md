@@ -6,7 +6,7 @@ Guide for contributing to the Elevate Design System.
 
 ```bash
 # Clone the repository
-git clone https://gitlab.paris.sqli.com/sqli/design-system.git
+git clone https://github.com/sqli/elevate-design-system.git
 cd design-system
 
 # Install dependencies

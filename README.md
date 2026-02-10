@@ -15,17 +15,17 @@ Design system for SQLI applications built on **DaisyUI** with custom SQLI themes
 
 ### Git Repository (Recommended)
 
-Install directly from GitLab Paris:
+Install directly from GitHub:
 
 ```bash
 # Latest version (main branch)
-npm install git+https://gitlab-paris.sqli.com/SQLI/elevate-design-system.git
+npm install git+https://github.com/sqli/elevate-design-system.git
 
 # Specific version tag
-npm install git+https://gitlab-paris.sqli.com/SQLI/elevate-design-system.git#v1.0.0
+npm install git+https://github.com/sqli/elevate-design-system.git#v1.0.0
 
 # Development branch
-npm install git+https://gitlab-paris.sqli.com/SQLI/elevate-design-system.git#dev
+npm install git+https://github.com/sqli/elevate-design-system.git#dev
 ```
 
 Then import in your CSS or JS:
@@ -57,7 +57,7 @@ Apply a theme to your HTML:
 
 ### npm Registry (Alternative)
 
-If published to GitLab npm registry:
+If published to npm registry:
 
 ```bash
 npm install @sqli/elevate-design-system
@@ -178,5 +178,5 @@ Proprietary SQLI - Internal use only.
 
 ## Support
 
-- Repository: https://gitlab-paris.sqli.com/SQLI/elevate-design-system
+- Repository: https://github.com/sqli/elevate-design-system
 - Brand Guidelines: See [SQLI-BRAND-REFERENCE.md](SQLI-BRAND-REFERENCE.md)

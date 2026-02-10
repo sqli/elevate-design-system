@@ -13,7 +13,7 @@ This document provides instructions for setting up and developing the Elevate De
 
 ```bash
 # Clone the repository
-git clone https://gitlab.paris.sqli.com/sqli/design-system.git
+git clone https://github.com/sqli/elevate-design-system.git
 cd design-system
 
 # Install dependencies

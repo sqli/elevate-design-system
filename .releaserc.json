@@ -53,9 +53,8 @@
       }
     ],
     [
-      "@semantic-release/gitlab",
+      "@semantic-release/github",
       {
-        "gitlabUrl": "https://gitlab-paris.sqli.com",
         "assets": [
           {
             "path": "dist/sqli-design-system.min.css",

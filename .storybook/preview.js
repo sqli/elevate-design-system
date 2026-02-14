@@ -1,6 +1,7 @@
 import { withThemeByDataAttribute } from '@storybook/addon-themes';
 import { MINIMAL_VIEWPORTS } from 'storybook/viewport';
 import mermaid from 'mermaid';
+import { colors } from '../src/tokens/colors.js';
 import '../src/css/main.css';
 import './preview.css';
 
@@ -14,11 +15,11 @@ import './preview.css';
  * These match the tokens defined in src/css/tokens/_colors.css
  */
 const SQLI_COLORS = {
-  // Primary brand colors
-  cream: '#FFFAF0',
-  midnight: '#0F0E2B',
-  sky: '#6DA5FF',
-  cobalt: '#1F24E9',
+  // Brand colors (from SSOT)
+  cream: colors.cream.hex,
+  midnight: colors.midnight.hex,
+  sky: colors.sky.hex,
+  cobalt: colors.cobalt.hex,
 
   // Utility colors
   white: '#FFFFFF',

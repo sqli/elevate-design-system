@@ -1,4 +1,5 @@
 import { create } from 'storybook/theming/create';
+import { colors } from '../src/tokens/colors.js';
 
 export default create({
   base: 'light',
@@ -11,31 +12,31 @@ export default create({
   brandTarget: '_self',
 
   // Colors
-  colorPrimary: '#1F24E9',
-  colorSecondary: '#6DA5FF',
+  colorPrimary: colors.cobalt.hex,
+  colorSecondary: colors.sky.hex,
 
   // UI
-  appBg: '#FFFAF0',
+  appBg: colors.cream.hex,
   appContentBg: '#FFFFFF',
-  appPreviewBg: '#FFFAF0',
-  appBorderColor: '#0F0E2B20',
+  appPreviewBg: colors.cream.hex,
+  appBorderColor: `${colors.midnight.hex}20`,
   appBorderRadius: 8,
 
   // Text colors
-  textColor: '#0F0E2B',
-  textInverseColor: '#FFFAF0',
-  textMutedColor: '#0F0E2B99',
+  textColor: colors.midnight.hex,
+  textInverseColor: colors.cream.hex,
+  textMutedColor: `${colors.midnight.hex}99`,
 
   // Toolbar
-  barTextColor: '#0F0E2B',
-  barSelectedColor: '#1F24E9',
-  barHoverColor: '#1F24E9',
-  barBg: '#FFFAF0',
+  barTextColor: colors.midnight.hex,
+  barSelectedColor: colors.cobalt.hex,
+  barHoverColor: colors.cobalt.hex,
+  barBg: colors.cream.hex,
 
   // Form colors
   inputBg: '#FFFFFF',
-  inputBorder: '#0F0E2B30',
-  inputTextColor: '#0F0E2B',
+  inputBorder: `${colors.midnight.hex}30`,
+  inputTextColor: colors.midnight.hex,
   inputBorderRadius: 4,
 
   // Font

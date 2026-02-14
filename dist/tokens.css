@@ -5,10 +5,9 @@
  * Use this file when you only need the design tokens without DaisyUI components.
  *
  * Usage:
- *   @import '@sqli/elevate-design-system/dist/tokens.css';
+ *   @import '@sqli/elevate-design-system/tokens';
  *
- * Or via Platform.sh:
- *   <link rel="stylesheet" href="https://main-bvxea6i-n3mp4dy5ud5ck.fr-3.platformsh.site/assets/tokens.css" />
+ * Generated from src/tokens/colors.js - DO NOT EDIT MANUALLY.
  */
 
 :root {
@@ -32,10 +31,10 @@
      Brand Colors (OKLCH) - For advanced color manipulation
      ========================================================================== */
 
-  --color-sqli-cream-oklch: oklch(98.5% 0.012 85deg);
-  --color-sqli-midnight-oklch: oklch(15% 0.04 270deg);
-  --color-sqli-cobalt-oklch: oklch(42% 0.28 265deg);
-  --color-sqli-sky-oklch: oklch(68% 0.14 250deg);
+  --color-sqli-cream-oklch: oklch(98.5% 0.012 85);
+  --color-sqli-midnight-oklch: oklch(15% 0.04 270);
+  --color-sqli-cobalt-oklch: oklch(42% 0.28 265);
+  --color-sqli-sky-oklch: oklch(68% 0.14 250);
 
   /* ==========================================================================
      Typography

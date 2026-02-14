@@ -398,23 +398,40 @@ Source assets are in the `assets/` folder:
 
 ### Distributed Assets (npm Package)
 
-When installed as a dependency, assets are available in `dist/`:
+When installed as a dependency, assets are accessible via the `./assets` export:
 
 ```javascript
-// Import logos in consuming projects
-import logoMidnight from '@sqli/elevate-design-system/dist/logos/Logo_midnight.svg';
-import logoCream from '@sqli/elevate-design-system/dist/logos/Logo_cream.svg';
-import ascendersCobalt from '@sqli/elevate-design-system/dist/logos/Ascenders-cobalt.svg';
+// Recommended: use the assets module for autocompletion and discoverability
+import { logos, ascenders, favicons, fonts, resolve } from '@sqli/elevate-design-system/assets';
+
+// Logos - use the variant matching your theme
+logos.midnight.svg; // 'logos/Logo_midnight.svg'  (for light backgrounds)
+logos.cream.svg; // 'logos/Logo_cream.svg'      (for dark backgrounds)
+logos.sky.svg; // 'logos/Logo_sky.svg'         (for accent contexts)
+
+// Ascenders (sqli text mark)
+ascenders.cobalt.svg; // 'logos/Ascenders-cobalt.svg'
+
+// Favicons
+favicons.default; // 'logos/favicon.svg'
+favicons.midnight; // 'logos/favicon-midnight.svg'
+
+// Font files (for preloading)
+fonts.regular.woff2; // 'fonts/TWKEverett-Regular.woff2'
+
+// Resolve to absolute filesystem path (for build scripts)
+resolve(logos.midnight.svg); // '/absolute/path/to/dist/logos/Logo_midnight.svg'
 ```
 
-**Available in `dist/logos/`:**
+Direct imports also work via named exports:
 
-- `Logo_cream.svg/.png`, `Logo_midnight.svg/.png`, `Logo_sky.svg/.png`
-- `Logo_*_with_exclusion.svg/.png` (with exclusion zones)
-- `Ascenders-*.svg/.png` (cobalt, cream, midnight, sky)
-- `favicon*.svg` (various color variants)
+```javascript
+// Direct file import (works with Vite, Webpack, Next.js)
+import logoMidnight from '@sqli/elevate-design-system/logos/Logo_midnight.svg';
+import logoCream from '@sqli/elevate-design-system/logos/Logo_cream.svg';
+```
 
-**Fonts** are loaded via `dist/fonts.css` which references `dist/fonts/`.
+**Fonts** are loaded via `@sqli/elevate-design-system/fonts` which references font files with relative paths.
 
 ## Versioning
 

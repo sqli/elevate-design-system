@@ -1,4 +1,3 @@
-/* global process */
 /**
  * Theme Integration Tests
  *
@@ -9,8 +8,8 @@
  */
 
 import { describe, it, expect, beforeAll } from 'vitest';
-import fs from 'fs';
-import path from 'path';
+import * as fs from 'fs';
+import * as path from 'path';
 
 /**
  * Load all CSS source files and concatenate them
@@ -21,8 +20,8 @@ function loadAllSourceCSS() {
     'main.css',
     '_fonts.css',
     '_tokens.css',
-    '_themes.css',
     '_customizations.css',
+    '_code-block.css',
     '_utilities.css',
   ];
 

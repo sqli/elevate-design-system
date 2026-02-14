@@ -6,8 +6,8 @@
  */
 
 import { JSDOM } from 'jsdom';
-import fs from 'fs';
-import path from 'path';
+import * as fs from 'fs';
+import * as path from 'path';
 
 // CSS content cache
 let cssContent = null;
@@ -17,7 +17,6 @@ let cssContent = null;
  */
 export function loadCSS() {
   if (!cssContent) {
-    // eslint-disable-next-line no-undef
     const distPath = path.resolve(process.cwd(), 'dist/sqli-design-system.css');
 
     if (fs.existsSync(distPath)) {

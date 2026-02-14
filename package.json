@@ -10,26 +10,45 @@
     "./css": "./dist/sqli-design-system.css",
     "./css/min": "./dist/sqli-design-system.min.css",
     "./tokens": "./dist/tokens.css",
+    "./fonts": "./dist/fonts.css",
     "./fonts.css": "./dist/fonts.css",
-    "./preset": "./src/tailwind/preset.js",
-    "./charts": "./src/charts/index.js",
+    "./preset": {
+      "types": "./dist/types/preset.d.ts",
+      "default": "./src/tailwind/preset.js"
+    },
+    "./charts": {
+      "types": "./dist/types/charts.d.ts",
+      "default": "./src/charts/index.js"
+    },
+    "./assets": {
+      "types": "./dist/types/assets.d.ts",
+      "default": "./src/assets/index.js"
+    },
+    "./types": {
+      "types": "./dist/types/index.d.ts"
+    },
+    "./logos/*": "./dist/logos/*",
+    "./favicons/*": "./dist/logos/favicon*",
     "./dist/*": "./dist/*"
   },
   "unpkg": "dist/sqli-design-system.min.css",
   "jsdelivr": "dist/sqli-design-system.min.css",
   "files": [
     "dist/",
+    "src/tokens/",
     "src/tailwind/",
     "src/charts/",
+    "src/assets/",
     "README.md"
   ],
   "scripts": {
     "dev": "concurrently \"npm run watch:css\" \"npm run storybook\"",
-    "build": "npm run build:css && npm run build:tokens && npm run build:fonts-css && npm run build:fonts && npm run build:logos",
+    "build": "npm run build:css && npm run build:tokens && npm run build:types && npm run build:fonts-css && npm run build:fonts && npm run build:logos",
+    "build:types": "node scripts/generate-types.js",
     "build:css": "postcss ./src/css/main.css -o ./dist/sqli-design-system.css && node scripts/minify-css.js",
     "build:fonts": "cp -r ./assets/fonts ./dist/",
     "build:logos": "cp -r ./assets/logos ./dist/",
-    "build:tokens": "cp ./src/css/_tokens-standalone.css ./dist/tokens.css",
+    "build:tokens": "node scripts/build-tokens-standalone.js",
     "build:fonts-css": "node scripts/build-fonts-css.js",
     "watch:css": "postcss ./src/css/main.css -o ./dist/sqli-design-system.css --watch",
     "storybook": "storybook dev -p 6006",
@@ -74,7 +93,20 @@
     ]
   },
   "peerDependencies": {
-    "tailwindcss": "^4.1.0"
+    "tailwindcss": "^4.1.0",
+    "daisyui": "^5.0.0",
+    "recharts": "^3.0.0"
+  },
+  "peerDependenciesMeta": {
+    "tailwindcss": {
+      "optional": true
+    },
+    "daisyui": {
+      "optional": true
+    },
+    "recharts": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@axe-core/cli": "^4.11.0",
@@ -98,18 +130,24 @@
     "@vitest/ui": "^3.2.4",
     "autoprefixer": "^10.4.20",
     "concurrently": "^9.1.0",
+    "daisyui": "^5.5.14",
     "cssnano": "^7.0.6",
     "cssnano-preset-default": "^7.0.10",
     "eslint": "^9.39.2",
     "eslint-plugin-storybook": "10.1.11",
     "globals": "^16.5.0",
+    "heroicons": "^2.2.0",
     "husky": "^9.1.7",
     "jsdom": "^27.0.1",
     "lint-staged": "^16.2.7",
+    "mermaid": "^11.12.2",
     "postcss": "^8.4.49",
     "postcss-cli": "^11.0.0",
+    "prettier": "^3.7.4",
+    "prismjs": "^1.30.0",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
+    "recharts": "^3.6.0",
     "semantic-release": "^21.1.2",
     "size-limit": "^11.2.0",
     "storybook": "^10.1.11",
@@ -140,14 +178,7 @@
   },
   "license": "UNLICENSED",
   "author": "SQLI",
-  "dependencies": {
-    "daisyui": "^5.5.14",
-    "heroicons": "^2.2.0",
-    "mermaid": "^11.12.2",
-    "prettier": "^3.7.4",
-    "prismjs": "^1.30.0",
-    "recharts": "^3.6.0"
-  },
+  "dependencies": {},
   "size-limit": [
     {
       "path": "dist/sqli-design-system.min.css",

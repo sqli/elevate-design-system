@@ -2,6 +2,7 @@
  * SQLI Chart Theme for Recharts
  *
  * This module provides SQLI brand colors and configurations for Recharts.
+ * Colors are imported from the single source of truth (src/tokens/colors.js).
  *
  * Usage:
  *   import { sqliChartTheme, sqliColors } from '@sqli/elevate-design-system/charts';
@@ -15,27 +16,29 @@
  *   const colors = isDarkMode ? sqliChartTheme.dark : sqliChartTheme.light;
  */
 
-// SQLI Brand Colors
+import { colors } from '../tokens/colors.js';
+
+// SQLI Brand Colors for charts
 export const sqliColors = {
   // Primary colors
-  cream: '#FFFAF0',
-  midnight: '#0F0E2B',
-  cobalt: '#1F24E9',
-  sky: '#6DA5FF',
+  cream: colors.cream.hex,
+  midnight: colors.midnight.hex,
+  cobalt: colors.cobalt.hex,
+  sky: colors.sky.hex,
 
   // Hover states
-  cobaltHover: '#1418C8',
-  skyHover: '#5A96F0',
+  cobaltHover: colors.cobaltHover.hex,
+  skyHover: colors.skyHover.hex,
 
   // Semantic aliases
-  primary: '#1F24E9', // Cobalt (light mode)
-  primaryDark: '#6DA5FF', // Sky (dark mode)
+  primary: colors.cobalt.hex,
+  primaryDark: colors.sky.hex,
 
   // Chart-specific palette (for multiple series)
   palette: [
-    '#1F24E9', // Cobalt
-    '#6DA5FF', // Sky
-    '#0F0E2B', // Midnight
+    colors.cobalt.hex,
+    colors.sky.hex,
+    colors.midnight.hex,
     '#3B3A5C', // Midnight lighter
     '#8B8AA8', // Muted purple
     '#C4C3D8', // Light purple
@@ -45,68 +48,56 @@ export const sqliColors = {
   success: '#22C55E',
   warning: '#F59E0B',
   error: '#EF4444',
-  info: '#6DA5FF',
+  info: colors.sky.hex,
 };
 
 // Light theme configuration
 export const lightTheme = {
-  // Background and text
   background: sqliColors.cream,
   text: sqliColors.midnight,
   textMuted: '#6B7280',
 
-  // Axis and grid
   axis: sqliColors.midnight,
   grid: '#E5E7EB',
   gridStroke: '#E5E7EB',
 
-  // Primary chart colors
   primary: sqliColors.cobalt,
   secondary: sqliColors.midnight,
   tertiary: sqliColors.sky,
 
-  // Tooltip
   tooltipBackground: '#FFFFFF',
   tooltipBorder: '#E5E7EB',
   tooltipText: sqliColors.midnight,
 
-  // Legend
   legendText: sqliColors.midnight,
 
-  // Color palette for multiple series
   colors: sqliColors.palette,
 };
 
 // Dark theme configuration
 export const darkTheme = {
-  // Background and text
   background: sqliColors.midnight,
   text: sqliColors.cream,
   textMuted: '#9CA3AF',
 
-  // Axis and grid
   axis: sqliColors.cream,
   grid: '#374151',
   gridStroke: '#374151',
 
-  // Primary chart colors
   primary: sqliColors.sky,
   secondary: sqliColors.cream,
   tertiary: sqliColors.cobalt,
 
-  // Tooltip
   tooltipBackground: '#1F2937',
   tooltipBorder: '#374151',
   tooltipText: sqliColors.cream,
 
-  // Legend
   legendText: sqliColors.cream,
 
-  // Color palette for multiple series (adjusted for dark)
   colors: [
-    '#6DA5FF', // Sky
+    colors.sky.hex,
     '#8B9FFF', // Light cobalt
-    '#FFFAF0', // Cream
+    colors.cream.hex,
     '#A5B4FC', // Indigo light
     '#C4C3D8', // Light purple
     '#818CF8', // Indigo

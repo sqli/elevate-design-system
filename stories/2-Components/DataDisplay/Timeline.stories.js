@@ -3,6 +3,8 @@
  * @description DaisyUI Timeline component with SQLI theme
  * @see https://daisyui.com/components/timeline/
  */
+import { heroicon } from '../../utils/heroicons.js';
+
 export default {
   title: 'Components/Data Display/Timeline',
   tags: ['autodocs'],
@@ -40,9 +42,7 @@ export const Default = () => `
     <li>
       <div class="timeline-start">1984</div>
       <div class="timeline-middle">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
-          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
-        </svg>
+        ${heroicon('check-circle', { variant: 'solid', class: 'h-5 w-5' })}
       </div>
       <div class="timeline-end timeline-box">First Macintosh computer</div>
       <hr />
@@ -51,9 +51,7 @@ export const Default = () => `
       <hr />
       <div class="timeline-start">1998</div>
       <div class="timeline-middle">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
-          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
-        </svg>
+        ${heroicon('check-circle', { variant: 'solid', class: 'h-5 w-5' })}
       </div>
       <div class="timeline-end timeline-box">iMac</div>
       <hr />
@@ -62,9 +60,7 @@ export const Default = () => `
       <hr />
       <div class="timeline-start">2001</div>
       <div class="timeline-middle">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
-          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
-        </svg>
+        ${heroicon('check-circle', { variant: 'solid', class: 'h-5 w-5' })}
       </div>
       <div class="timeline-end timeline-box">iPod</div>
       <hr />
@@ -73,9 +69,7 @@ export const Default = () => `
       <hr />
       <div class="timeline-start">2007</div>
       <div class="timeline-middle">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
-          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
-        </svg>
+        ${heroicon('check-circle', { variant: 'solid', class: 'h-5 w-5' })}
       </div>
       <div class="timeline-end timeline-box">iPhone</div>
     </li>
@@ -87,9 +81,7 @@ export const Vertical = () => `
     <li>
       <div class="timeline-start timeline-box">Q1 2024</div>
       <div class="timeline-middle">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="text-primary h-5 w-5">
-          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
-        </svg>
+        ${heroicon('check-circle', { variant: 'solid', class: 'text-primary h-5 w-5' })}
       </div>
       <div class="timeline-end">Project kickoff</div>
       <hr class="bg-primary" />
@@ -98,9 +90,7 @@ export const Vertical = () => `
       <hr class="bg-primary" />
       <div class="timeline-start timeline-box">Q2 2024</div>
       <div class="timeline-middle">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="text-primary h-5 w-5">
-          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
-        </svg>
+        ${heroicon('check-circle', { variant: 'solid', class: 'text-primary h-5 w-5' })}
       </div>
       <div class="timeline-end">Design phase</div>
       <hr class="bg-primary" />
@@ -109,9 +99,7 @@ export const Vertical = () => `
       <hr class="bg-primary" />
       <div class="timeline-start timeline-box">Q3 2024</div>
       <div class="timeline-middle">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
-          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
-        </svg>
+        ${heroicon('check-circle', { variant: 'solid', class: 'h-5 w-5' })}
       </div>
       <div class="timeline-end">Development</div>
       <hr />
@@ -120,9 +108,7 @@ export const Vertical = () => `
       <hr />
       <div class="timeline-start timeline-box">Q4 2024</div>
       <div class="timeline-middle">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
-          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
-        </svg>
+        ${heroicon('check-circle', { variant: 'solid', class: 'h-5 w-5' })}
       </div>
       <div class="timeline-end">Launch</div>
     </li>
@@ -133,9 +119,7 @@ export const BottomAligned = () => `
   <ul class="timeline">
     <li>
       <div class="timeline-middle">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
-          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
-        </svg>
+        ${heroicon('check-circle', { variant: 'solid', class: 'h-5 w-5' })}
       </div>
       <div class="timeline-end timeline-box">First step</div>
       <hr />
@@ -143,9 +127,7 @@ export const BottomAligned = () => `
     <li>
       <hr />
       <div class="timeline-middle">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
-          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
-        </svg>
+        ${heroicon('check-circle', { variant: 'solid', class: 'h-5 w-5' })}
       </div>
       <div class="timeline-end timeline-box">Second step</div>
       <hr />
@@ -153,9 +135,7 @@ export const BottomAligned = () => `
     <li>
       <hr />
       <div class="timeline-middle">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
-          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
-        </svg>
+        ${heroicon('check-circle', { variant: 'solid', class: 'h-5 w-5' })}
       </div>
       <div class="timeline-end timeline-box">Third step</div>
     </li>
@@ -168,9 +148,7 @@ export const Colored = () => `
     <li>
       <div class="timeline-start timeline-box bg-primary text-primary-content">Start</div>
       <div class="timeline-middle">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="text-primary h-5 w-5">
-          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
-        </svg>
+        ${heroicon('check-circle', { variant: 'solid', class: 'text-primary h-5 w-5' })}
       </div>
       <hr class="bg-primary" />
     </li>
@@ -178,9 +156,7 @@ export const Colored = () => `
       <hr class="bg-primary" />
       <div class="timeline-start timeline-box bg-secondary text-secondary-content">Middle</div>
       <div class="timeline-middle">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="text-secondary h-5 w-5">
-          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
-        </svg>
+        ${heroicon('check-circle', { variant: 'solid', class: 'text-secondary h-5 w-5' })}
       </div>
       <hr class="bg-secondary" />
     </li>
@@ -188,9 +164,7 @@ export const Colored = () => `
       <hr class="bg-secondary" />
       <div class="timeline-start timeline-box bg-accent text-accent-content">End</div>
       <div class="timeline-middle">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="text-accent h-5 w-5">
-          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
-        </svg>
+        ${heroicon('check-circle', { variant: 'solid', class: 'text-accent h-5 w-5' })}
       </div>
     </li>
   </ul>
@@ -203,9 +177,7 @@ export const DarkMode = () => `
       <li>
         <div class="timeline-start timeline-box">Jan</div>
         <div class="timeline-middle">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="text-primary h-5 w-5">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
-          </svg>
+          ${heroicon('check-circle', { variant: 'solid', class: 'text-primary h-5 w-5' })}
         </div>
         <div class="timeline-end">Phase 1 Complete</div>
         <hr class="bg-primary" />
@@ -214,9 +186,7 @@ export const DarkMode = () => `
         <hr class="bg-primary" />
         <div class="timeline-start timeline-box">Feb</div>
         <div class="timeline-middle">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
-            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
-          </svg>
+          ${heroicon('check-circle', { variant: 'solid', class: 'h-5 w-5' })}
         </div>
         <div class="timeline-end">Phase 2 in progress</div>
       </li>

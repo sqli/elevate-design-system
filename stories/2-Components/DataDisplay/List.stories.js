@@ -3,6 +3,8 @@
  * @description DaisyUI List component with SQLI theme
  * @see https://daisyui.com/components/list/
  */
+import { heroicon } from '../../utils/heroicons.js';
+
 export default {
   title: 'Components/Data Display/List',
   tags: ['autodocs'],
@@ -38,11 +40,7 @@ export const Default = () => `
         Lost in the echoes of a fsatisfying meeting, the band takes listeners on a journey through the icy winds.
       </p>
       <button class="btn btn-square btn-ghost">
-        <svg class="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none" stroke="currentColor">
-            <path d="M6 3L20 12 6 21 6 3z"></path>
-          </g>
-        </svg>
+        ${heroicon('play', { class: 'size-[1.2em]' })}
       </button>
     </li>
     <li class="list-row">
@@ -55,11 +53,7 @@ export const Default = () => `
         A vibrant track that feels like a sonic journey through kaleidoscopic emotions and dreamlike landscapes.
       </p>
       <button class="btn btn-square btn-ghost">
-        <svg class="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-          <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none" stroke="currentColor">
-            <path d="M6 3L20 12 6 21 6 3z"></path>
-          </g>
-        </svg>
+        ${heroicon('play', { class: 'size-[1.2em]' })}
       </button>
     </li>
   </ul>

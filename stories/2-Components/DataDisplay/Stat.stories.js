@@ -3,6 +3,8 @@
  * @description DaisyUI Stat component with SQLI theme
  * @see https://daisyui.com/components/stat/
  */
+import { heroicon } from '../../utils/heroicons.js';
+
 export default {
   title: 'Components/Data Display/Stat',
   tags: ['autodocs'],
@@ -49,9 +51,7 @@ export const WithIconsAndDesc = () => `
   <div class="stats shadow">
     <div class="stat">
       <div class="stat-figure text-primary">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block h-8 w-8 stroke-current">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
-        </svg>
+        ${heroicon('heart', { class: 'inline-block h-8 w-8 stroke-current' })}
       </div>
       <div class="stat-title">Total Likes</div>
       <div class="stat-value text-primary">25.6K</div>
@@ -159,9 +159,7 @@ export const DarkMode = () => `
     <div class="stats shadow bg-base-200">
       <div class="stat">
         <div class="stat-figure text-primary">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block h-8 w-8 stroke-current">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-          </svg>
+          ${heroicon('information-circle', { class: 'inline-block h-8 w-8 stroke-current' })}
         </div>
         <div class="stat-title">Page Views</div>
         <div class="stat-value text-primary">31K</div>

@@ -3,6 +3,8 @@
  * @description Data table pattern with toolbar, sortable headers, status badges, and pagination
  * @see https://daisyui.com/components/table/
  */
+import { heroicon } from '../utils/heroicons.js';
+
 export default {
   title: 'Patterns/Data Table',
   tags: ['autodocs'],
@@ -43,9 +45,7 @@ const tableHTML = (theme) => {
       <div class="flex gap-2 items-center">
         <div class="relative">
           <input type="text" placeholder="Search orders..." class="input input-bordered input-sm w-64 pl-9" />
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 absolute left-3 top-1/2 -translate-y-1/2 text-base-content/40" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
+          ${heroicon('magnifying-glass', { class: 'h-4 w-4 absolute left-3 top-1/2 -translate-y-1/2 text-base-content/40' })}
         </div>
         <select class="select select-bordered select-sm">
           <option disabled selected>Filter by status</option>
@@ -72,25 +72,19 @@ const tableHTML = (theme) => {
             <th>
               <div class="flex items-center gap-1 cursor-pointer select-none">
                 Order ID
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11l5-5m0 0l5 5m-5-5v12" />
-                </svg>
+                ${heroicon('arrow-up', { class: 'h-3 w-3 opacity-50' })}
               </div>
             </th>
             <th>
               <div class="flex items-center gap-1 cursor-pointer select-none">
                 Customer
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
-                </svg>
+                ${heroicon('chevron-down', { class: 'h-3 w-3 opacity-50' })}
               </div>
             </th>
             <th>
               <div class="flex items-center gap-1 cursor-pointer select-none">
                 Date
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 opacity-50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
-                </svg>
+                ${heroicon('chevron-down', { class: 'h-3 w-3 opacity-50' })}
               </div>
             </th>
             <th>Amount</th>

@@ -3,6 +3,8 @@
  * @description DaisyUI Join component with SQLI theme
  * @see https://daisyui.com/components/join/
  */
+import { heroicon } from '../../utils/heroicons.js';
+
 export default {
   title: 'Components/Layout/Join',
   tags: ['autodocs'],
@@ -81,9 +83,7 @@ export const WithDropdown = () => `
     <button class="btn join-item">Action</button>
     <div class="dropdown dropdown-end">
       <div tabindex="0" role="button" class="btn join-item">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4 w-4">
-          <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-        </svg>
+        ${heroicon('chevron-down', { class: 'h-4 w-4' })}
       </div>
       <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow">
         <li><a>Item 1</a></li>

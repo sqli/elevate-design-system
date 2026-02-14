@@ -3,6 +3,8 @@
  * @description DaisyUI Drawer/Sidebar component with SQLI theme
  * @see https://daisyui.com/components/drawer/
  */
+import { heroicon } from '../../utils/heroicons.js';
+
 export default {
   title: 'Components/Layout/Drawer',
   tags: ['autodocs'],
@@ -80,9 +82,7 @@ export const WithNavbar = () => `
       <div class="navbar bg-base-300 w-full">
         <div class="flex-none lg:hidden">
           <label for="drawer-navbar" aria-label="open sidebar" class="btn btn-square btn-ghost">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block h-6 w-6 stroke-current">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
+            ${heroicon('bars-3', { class: 'inline-block h-6 w-6 stroke-current' })}
           </label>
         </div>
         <div class="mx-2 flex-1 px-2">SQLI</div>

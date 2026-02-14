@@ -3,49 +3,30 @@
 /**
  * Color Validation Script
  *
- * Validates that CSS colors match the brand reference in SQLI-BRAND-REFERENCE.md.
- * Checks both _tokens.css (HEX values) and _themes.css (OKLCH values).
+ * Validates that CSS colors across the codebase match the single source of truth
+ * defined in src/tokens/colors.js and the brand reference in SQLI-BRAND-REFERENCE.md.
+ *
+ * Checks:
+ * - _tokens.css HEX values match colors.js
+ * - main.css OKLCH values match colors.js
+ * - SQLI-BRAND-REFERENCE.md HEX values match colors.js
  *
  * Run with: npm run validate:colors
  *
- * @since v0.10.0-alpha
+ * @since v0.7.0-alpha
  */
 import { readFile } from 'fs/promises';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
+import { colors } from '../src/tokens/colors.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const ROOT = join(__dirname, '..');
 
-// Brand colors from SQLI-BRAND-REFERENCE.md
-const BRAND_COLORS = {
-  cream: {
-    hex: '#FFFAF0',
-    oklch: 'oklch(98.5% 0.012 85)',
-    name: 'Cream',
-  },
-  midnight: {
-    hex: '#0F0E2B',
-    oklch: 'oklch(15% 0.04 270)',
-    name: 'Midnight Blue',
-  },
-  sky: {
-    hex: '#6DA5FF',
-    oklch: 'oklch(68% 0.14 250)',
-    name: 'Sky Blue',
-  },
-  cobalt: {
-    hex: '#1F24E9',
-    oklch: 'oklch(42% 0.28 265)',
-    name: 'Cobalt Blue',
-  },
-};
-
-// Files to validate
 const FILES = {
   tokens: 'src/css/_tokens.css',
-  themes: 'src/css/_themes.css',
+  main: 'src/css/main.css',
   brand: 'SQLI-BRAND-REFERENCE.md',
 };
 
@@ -53,7 +34,7 @@ let errors = [];
 let warnings = [];
 
 /**
- * Extract HEX color from content
+ * Extract HEX color from CSS content by variable name
  */
 function extractHex(content, varName) {
   const regex = new RegExp(`--color-sqli-${varName}:\\s*(#[a-fA-F0-9]{6})`, 'i');
@@ -62,11 +43,12 @@ function extractHex(content, varName) {
 }
 
 /**
- * Check if OKLCH value exists in theme content
+ * Check if OKLCH value exists in content
  */
 function hasOklch(content, oklchValue) {
-  // Normalize spaces for comparison
-  const normalized = oklchValue.replace(/\s+/g, '\\s*');
+  // Escape regex special chars (parentheses, dots, percent) then allow flexible whitespace
+  const escaped = oklchValue.replace(/[.*+?^${}()|[\]\\%]/g, '\\$&');
+  const normalized = escaped.replace(/\s+/g, '\\s*');
   const regex = new RegExp(normalized, 'i');
   return regex.test(content);
 }
@@ -75,119 +57,129 @@ function hasOklch(content, oklchValue) {
  * Extract HEX colors from brand reference markdown
  */
 function extractBrandColors(content) {
-  const colors = {};
+  const brandColors = {};
   const lines = content.split('\n');
 
   for (const line of lines) {
-    // Match table rows like: | **Cream** | `#FFFAF0` |
     const match = line.match(/\|\s*\*\*(\w+(?:\s+\w+)?)\*\*\s*\|\s*`(#[a-fA-F0-9]{6})`/);
     if (match) {
       const name = match[1].toLowerCase().replace(/\s+blue$/, '');
-      colors[name] = match[2].toLowerCase();
+      brandColors[name] = match[2].toLowerCase();
     }
   }
 
-  return colors;
+  return brandColors;
 }
 
 /**
- * Main validation function
+ * Map colors.js keys to CSS variable names
  */
+const COLOR_MAP = {
+  cream: { cssVar: 'cream', name: 'Cream' },
+  midnight: { cssVar: 'midnight', name: 'Midnight Blue' },
+  sky: { cssVar: 'sky', name: 'Sky Blue' },
+  cobalt: { cssVar: 'cobalt', name: 'Cobalt Blue' },
+  cobaltHover: { cssVar: 'cobalt-hover', name: 'Cobalt Hover' },
+  skyHover: { cssVar: 'sky-hover', name: 'Sky Hover' },
+};
+
 async function validate() {
-  console.log('🔍 Validating SQLI brand colors...\n');
+  console.log('Validating SQLI brand colors...\n');
+  console.log('Source of truth: src/tokens/colors.js\n');
 
   try {
-    // Read files
-    const [tokensContent, themesContent, brandContent] = await Promise.all([
+    const filesToRead = [
       readFile(join(ROOT, FILES.tokens), 'utf8'),
-      readFile(join(ROOT, FILES.themes), 'utf8'),
+      readFile(join(ROOT, FILES.main), 'utf8'),
       readFile(join(ROOT, FILES.brand), 'utf8'),
-    ]);
+    ];
 
-    // Extract brand colors from markdown
-    const brandColors = extractBrandColors(brandContent);
+    const [tokensContent, mainContent, brandContent] = await Promise.all(filesToRead);
 
-    console.log('📋 Brand Reference Colors:');
-    for (const [name, hex] of Object.entries(brandColors)) {
-      console.log(`   ${name}: ${hex}`);
+    // Show reference colors from SSOT
+    console.log('Reference colors (colors.js):');
+    for (const [key, value] of Object.entries(colors)) {
+      console.log(`   ${key}: ${value.hex} / ${value.oklch}`);
     }
     console.log('');
 
     // Validate _tokens.css HEX values
-    console.log('📄 Checking _tokens.css...');
-    for (const [key, color] of Object.entries(BRAND_COLORS)) {
-      const tokenHex = extractHex(tokensContent, key);
-      const brandHex = brandColors[key] || color.hex.toLowerCase();
+    console.log('Checking _tokens.css...');
+    for (const [key, { cssVar, name }] of Object.entries(COLOR_MAP)) {
+      const tokenHex = extractHex(tokensContent, cssVar);
+      const expectedHex = colors[key].hex.toLowerCase();
 
       if (!tokenHex) {
-        errors.push(`Missing --color-sqli-${key} in _tokens.css`);
-      } else if (tokenHex !== brandHex.toLowerCase()) {
+        errors.push(`Missing --color-sqli-${cssVar} in _tokens.css`);
+      } else if (tokenHex !== expectedHex) {
         errors.push(
-          `Color mismatch for ${color.name}: ` +
-            `_tokens.css has ${tokenHex}, brand reference has ${brandHex}`
+          `Color mismatch for ${name}: _tokens.css has ${tokenHex}, colors.js has ${expectedHex}`
         );
       } else {
-        console.log(`   ✓ --color-sqli-${key}: ${tokenHex}`);
+        console.log(`   OK --color-sqli-${cssVar}: ${tokenHex}`);
       }
     }
     console.log('');
 
-    // Validate _themes.css OKLCH values
-    console.log('📄 Checking _themes.css OKLCH values...');
-    for (const color of Object.values(BRAND_COLORS)) {
-      // Check if the OKLCH pattern exists in themes
-      if (!hasOklch(themesContent, color.oklch)) {
-        warnings.push(`OKLCH value for ${color.name} (${color.oklch}) not found in _themes.css`);
+    // Validate main.css OKLCH values (DaisyUI theme definitions)
+    console.log('Checking main.css OKLCH values...');
+    for (const [key, color] of Object.entries(colors)) {
+      if (hasOklch(mainContent, color.oklch)) {
+        console.log(`   OK ${COLOR_MAP[key]?.name || key}: ${color.oklch}`);
       } else {
-        console.log(`   ✓ ${color.name}: ${color.oklch}`);
+        warnings.push(
+          `OKLCH value for ${COLOR_MAP[key]?.name || key} (${color.oklch}) not found in main.css`
+        );
       }
     }
     console.log('');
 
-    // Check for hardcoded HEX in themes (should use OKLCH)
-    console.log('📄 Checking for hardcoded HEX in _themes.css...');
-    const hexInThemes = themesContent.match(/#[a-fA-F0-9]{6}/g) || [];
-    if (hexInThemes.length > 0) {
-      warnings.push(
-        `Found ${hexInThemes.length} HEX color(s) in _themes.css. ` +
-          `Consider using OKLCH for theme definitions.`
-      );
-      console.log(`   ⚠ Found ${hexInThemes.length} HEX values (use OKLCH for themes)`);
-    } else {
-      console.log('   ✓ No HEX colors in theme definitions');
+    // Validate brand reference matches SSOT
+    const brandColors = extractBrandColors(brandContent);
+    if (Object.keys(brandColors).length > 0) {
+      console.log('Checking SQLI-BRAND-REFERENCE.md...');
+      for (const [brandKey, brandHex] of Object.entries(brandColors)) {
+        const ssotColor = colors[brandKey];
+        if (ssotColor && ssotColor.hex.toLowerCase() !== brandHex) {
+          errors.push(
+            `Brand reference mismatch for ${brandKey}: SQLI-BRAND-REFERENCE.md has ${brandHex}, colors.js has ${ssotColor.hex.toLowerCase()}`
+          );
+        } else if (ssotColor) {
+          console.log(`   OK ${brandKey}: ${brandHex}`);
+        }
+      }
+      console.log('');
     }
-    console.log('');
 
     // Report results
     if (errors.length > 0) {
-      console.log('❌ ERRORS:');
-      errors.forEach((e) => console.log(`   • ${e}`));
+      console.log('ERRORS:');
+      errors.forEach((e) => console.log(`   - ${e}`));
       console.log('');
     }
 
     if (warnings.length > 0) {
-      console.log('⚠️  WARNINGS:');
-      warnings.forEach((w) => console.log(`   • ${w}`));
+      console.log('WARNINGS:');
+      warnings.forEach((w) => console.log(`   - ${w}`));
       console.log('');
     }
 
     if (errors.length === 0 && warnings.length === 0) {
-      console.log('✅ All colors validated successfully!\n');
+      console.log('All colors validated successfully!\n');
       return 0;
     } else if (errors.length === 0) {
-      console.log('✅ Validation passed with warnings.\n');
+      console.log('Validation passed with warnings.\n');
       return 0;
     } else {
-      console.log('❌ Validation failed. Please fix the errors above.\n');
+      console.log('Validation failed. Please fix the errors above.\n');
       return 1;
     }
   } catch (error) {
-    console.error('❌ Validation error:', error.message);
+    console.error('Validation error:', error.message);
     return 1;
   }
 }
 
-// Run validation
 validate().then((exitCode) => {
   process.exit(exitCode);
 });

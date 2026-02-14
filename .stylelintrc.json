@@ -3,14 +3,9 @@
   "plugins": ["stylelint-order"],
   "ignoreFiles": [
     "dist/**/*",
-    "src/css/tokens/_colors.css",
     ".storybook/preview.css",
-    "src/css/main.css",
-    "src/css/_fonts.css",
-    "src/css/_tokens.css",
-    "src/css/_themes.css",
-    "src/css/_customizations.css",
-    "src/css/_utilities.css"
+    "src/css/_tokens-standalone.css",
+    "src/css/main.css"
   ],
   "rules": {
     "at-rule-no-unknown": [
@@ -23,18 +18,20 @@
           "config",
           "theme",
           "utility",
-          "custom-variant"
+          "custom-variant",
+          "plugin",
+          "import"
         ]
       }
     ],
     "function-no-unknown": [
       true,
       {
-        "ignoreFunctions": ["theme", "rgb"]
+        "ignoreFunctions": ["theme", "rgb", "oklch"]
       }
     ],
     "selector-class-pattern": [
-      "^(sqli-[a-z0-9]+(-[a-z0-9]+)*(__[a-z0-9]+(-[a-z0-9]+)*)?(--[a-z0-9]+(-[a-z0-9]+)*)?|dark|light|mermaid|node|nodeLabel|edgeLabel|edgePath|flowchart-link|cluster|actor|actor-line|messageLine[0-9]|messageText|note|noteText|activation[0-9]|loopText|loopLine|labelBox|labelText|classGroup|statediagram-state|state-start|state-end|stateGroup|stateLabel|label-container|label|relation|cardinality|marker|hljs[a-z-]*|token|language-[a-z]+|prose|prose-[a-z]+|markdown-body|col-span-[0-9]+|grid-cols-[0-9]+|key-figure-[a-z]+|is-[a-z]+)$",
+      "^(sqli-[a-z0-9]+(-[a-z0-9]+)*(__[a-z0-9]+(-[a-z0-9]+)*)?(--[a-z0-9]+(-[a-z0-9]+)*)?|dark|light|mermaid|node|nodeLabel|edgeLabel|edgePath|flowchart-link|cluster|actor|actor-line|messageLine[0-9]|messageText|note|noteText|activation[0-9]|loopText|loopLine|labelBox|labelText|classGroup|statediagram-state|state-start|state-end|stateGroup|stateLabel|label-container|label|relation|cardinality|marker|hljs[a-z-]*|token|language-[a-z]+|prose|prose-[a-z]+|markdown-body|col-span-[0-9]+|grid-cols-[0-9]+|key-figure-[a-z]+|is-[a-z]+|code-block[a-z-]*|diff-resizer|input[a-z-]*|select[a-z-]*|textarea|file-input|btn|checkbox|radio|toggle|range|rating|join|link[a-z-]*|with-lines|style|comment|prolog|doctype|cdata|punctuation|namespace|property|tag|constant|symbol|deleted|boolean|number|selector|attr-name|string|char|builtin|inserted|operator|entity|url|variable|atrule|attr-value|function|class-name|keyword|regex|important|bold|italic|sql-keyword|php-tag)$",
       {
         "message": "Les classes doivent suivre BEM avec préfixe sqli- (ex: sqli-block__element--modifier)"
       }

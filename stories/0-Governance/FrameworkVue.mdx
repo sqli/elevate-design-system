@@ -1,0 +1,559 @@
+{/* FrameworkVue.mdx */}
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Governance/Framework - Vue" />
+
+# Framework Guide -- Vue
+
+Integrate the Elevate Design System into Vue 3 projects. This guide covers Vite + Vue 3 and Nuxt 3 setups with Composition API.
+
+---
+
+## Prerequisites
+
+- Node.js >= 22.0.0
+- npm >= 9.0.0
+
+```bash
+npm install git+https://github.com/sqli/elevate-design-system.git
+```
+
+---
+
+## Setup with Vite + Vue 3
+
+### 1. Create the project
+
+```bash
+npm create vite@latest my-app -- --template vue-ts
+cd my-app
+npm install
+npm install git+https://github.com/sqli/elevate-design-system.git
+```
+
+### 2. Import CSS
+
+**Option A: In your CSS file**
+
+```css
+/* src/style.css */
+@import '@sqli/elevate-design-system';
+@import '@sqli/elevate-design-system/fonts';
+```
+
+**Option B: In your JS entry point**
+
+```ts
+// src/main.ts
+import '@sqli/elevate-design-system';
+import '@sqli/elevate-design-system/fonts';
+import { createApp } from 'vue';
+import App from './App.vue';
+
+createApp(App).mount('#app');
+```
+
+### 3. Configure the theme
+
+Set the `data-theme` attribute on the `<html>` element in `index.html`:
+
+```html
+<!doctype html>
+<html lang="en" data-theme="sqli-light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My App</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
+```
+
+---
+
+## Setup with Nuxt 3
+
+### 1. Create the project
+
+```bash
+npx nuxi@latest init my-app
+cd my-app
+npm install
+npm install git+https://github.com/sqli/elevate-design-system.git
+```
+
+### 2. Configure nuxt.config.ts
+
+```ts
+// nuxt.config.ts
+export default defineNuxtConfig({
+  css: [
+    '@sqli/elevate-design-system',
+    '@sqli/elevate-design-system/fonts',
+  ],
+  app: {
+    head: {
+      htmlAttrs: {
+        'data-theme': 'sqli-light',
+        lang: 'en',
+      },
+    },
+  },
+});
+```
+
+With this configuration, Nuxt handles the CSS imports and HTML attributes automatically. No additional setup is needed.
+
+### 3. Verify the setup
+
+Create a test page to confirm the design system is loaded:
+
+```vue
+<!-- pages/index.vue -->
+<template>
+  <div class="min-h-screen bg-base-100 text-base-content p-8">
+    <h1 class="text-3xl font-bold mb-4">Elevate Design System</h1>
+    <button class="btn btn-primary">It works</button>
+  </div>
+</template>
+```
+
+---
+
+## Wrapper Components
+
+The design system is CSS-only. You apply DaisyUI class names directly in your templates. The following wrapper components provide a typed API using `defineProps` for the most common patterns.
+
+### EButton
+
+```vue
+<!-- src/components/EButton.vue -->
+<script setup lang="ts">
+type ButtonVariant = 'primary' | 'secondary' | 'accent' | 'ghost' | 'link' | 'outline';
+type ButtonSize = 'lg' | 'md' | 'sm' | 'xs';
+
+const props = withDefaults(
+  defineProps<{
+    variant?: ButtonVariant;
+    size?: ButtonSize;
+    loading?: boolean;
+    wide?: boolean;
+    disabled?: boolean;
+  }>(),
+  {
+    variant: 'primary',
+    size: 'md',
+    loading: false,
+    wide: false,
+    disabled: false,
+  }
+);
+
+const variantClasses: Record<ButtonVariant, string> = {
+  primary: 'btn-primary',
+  secondary: 'btn-secondary',
+  accent: 'btn-accent',
+  ghost: 'btn-ghost',
+  link: 'btn-link',
+  outline: 'btn-outline',
+};
+
+const sizeClasses: Record<ButtonSize, string> = {
+  lg: 'btn-lg',
+  md: 'btn-md',
+  sm: 'btn-sm',
+  xs: 'btn-xs',
+};
+</script>
+
+<template>
+  <button
+    class="btn"
+    :class="[
+      variantClasses[props.variant],
+      sizeClasses[props.size],
+      { 'loading': props.loading, 'btn-wide': props.wide },
+    ]"
+    :disabled="props.disabled || props.loading"
+  >
+    <slot />
+  </button>
+</template>
+```
+
+**Usage:**
+
+```vue
+<EButton variant="primary" size="lg">Save Changes</EButton>
+<EButton variant="ghost" size="sm">Cancel</EButton>
+<EButton variant="outline" :loading="true">Submitting</EButton>
+```
+
+### ECard
+
+```vue
+<!-- src/components/ECard.vue -->
+<script setup lang="ts">
+type CardVariant = 'default' | 'bordered' | 'compact';
+
+const props = withDefaults(
+  defineProps<{
+    title?: string;
+    image?: string;
+    imageAlt?: string;
+    variant?: CardVariant;
+  }>(),
+  {
+    title: undefined,
+    image: undefined,
+    imageAlt: '',
+    variant: 'default',
+  }
+);
+</script>
+
+<template>
+  <div
+    class="card bg-base-100 shadow-xl"
+    :class="{
+      'card-bordered': props.variant === 'bordered',
+      'card-compact': props.variant === 'compact',
+    }"
+  >
+    <figure v-if="props.image">
+      <img :src="props.image" :alt="props.imageAlt" />
+    </figure>
+    <div class="card-body">
+      <h2 v-if="props.title" class="card-title">{{ props.title }}</h2>
+      <slot />
+      <div v-if="$slots.actions" class="card-actions justify-end">
+        <slot name="actions" />
+      </div>
+    </div>
+  </div>
+</template>
+```
+
+**Usage:**
+
+```vue
+<ECard title="Project Update" image="/cover.jpg" image-alt="Project cover">
+  <p>The latest release includes performance improvements.</p>
+  <template #actions>
+    <EButton variant="primary">View Details</EButton>
+  </template>
+</ECard>
+
+<ECard variant="bordered" title="Quick Note">
+  <p>Bordered cards work well for secondary content.</p>
+</ECard>
+```
+
+### EAlert
+
+```vue
+<!-- src/components/EAlert.vue -->
+<script setup lang="ts">
+type AlertType = 'info' | 'success' | 'warning' | 'error';
+
+const props = withDefaults(
+  defineProps<{
+    type?: AlertType;
+  }>(),
+  {
+    type: 'info',
+  }
+);
+
+const typeClasses: Record<AlertType, string> = {
+  info: 'alert-info',
+  success: 'alert-success',
+  warning: 'alert-warning',
+  error: 'alert-error',
+};
+
+const icons: Record<AlertType, string> = {
+  info: 'M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+  success: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z',
+  warning: 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z',
+  error: 'M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z',
+};
+</script>
+
+<template>
+  <div class="alert" :class="typeClasses[props.type]" role="alert">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-6 w-6 shrink-0 stroke-current"
+      fill="none"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        :d="icons[props.type]"
+      />
+    </svg>
+    <span><slot /></span>
+  </div>
+</template>
+```
+
+**Usage:**
+
+```vue
+<EAlert type="success">Your changes have been saved.</EAlert>
+<EAlert type="warning">This action cannot be undone.</EAlert>
+<EAlert type="error">Failed to connect to the server.</EAlert>
+```
+
+---
+
+## Theme Switching with Vue Composable
+
+### useTheme Composable
+
+```ts
+// src/composables/useTheme.ts
+import { ref, watch, onMounted } from 'vue';
+
+type Theme = 'sqli-light' | 'sqli-dark';
+
+const STORAGE_KEY = 'elevate-theme';
+
+const theme = ref<Theme>('sqli-light');
+
+function applyTheme(value: Theme) {
+  document.documentElement.setAttribute('data-theme', value);
+  localStorage.setItem(STORAGE_KEY, value);
+}
+
+function getInitialTheme(): Theme {
+  const stored = localStorage.getItem(STORAGE_KEY);
+  if (stored === 'sqli-light' || stored === 'sqli-dark') return stored;
+
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  return prefersDark ? 'sqli-dark' : 'sqli-light';
+}
+
+export function useTheme() {
+  onMounted(() => {
+    theme.value = getInitialTheme();
+    applyTheme(theme.value);
+
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    mediaQuery.addEventListener('change', (e) => {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (!stored) {
+        theme.value = e.matches ? 'sqli-dark' : 'sqli-light';
+      }
+    });
+  });
+
+  watch(theme, (newTheme) => {
+    applyTheme(newTheme);
+  });
+
+  function toggleTheme() {
+    theme.value = theme.value === 'sqli-light' ? 'sqli-dark' : 'sqli-light';
+  }
+
+  function setTheme(value: Theme) {
+    theme.value = value;
+  }
+
+  const isDark = ref(false);
+  watch(theme, (val) => {
+    isDark.value = val === 'sqli-dark';
+  }, { immediate: true });
+
+  return { theme, isDark, toggleTheme, setTheme };
+}
+```
+
+### ThemeToggle Component
+
+```vue
+<!-- src/components/ThemeToggle.vue -->
+<script setup lang="ts">
+import { useTheme } from '../composables/useTheme';
+
+const { isDark, toggleTheme } = useTheme();
+</script>
+
+<template>
+  <label class="swap swap-rotate">
+    <input
+      type="checkbox"
+      :checked="isDark"
+      aria-label="Toggle theme"
+      @change="toggleTheme"
+    />
+    <svg
+      class="swap-off h-6 w-6 fill-current"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+    >
+      <path d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z" />
+    </svg>
+    <svg
+      class="swap-on h-6 w-6 fill-current"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+    >
+      <path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13ZM14,19.05A8.14,8.14,0,0,1,6,13a8.06,8.06,0,0,1,4.26-7.09,10.28,10.28,0,0,0,8.83,8.83A8.17,8.17,0,0,1,14,19.05Z" />
+    </svg>
+  </label>
+</template>
+```
+
+### Usage in App
+
+```vue
+<!-- src/App.vue -->
+<script setup lang="ts">
+import ThemeToggle from './components/ThemeToggle.vue';
+import EButton from './components/EButton.vue';
+import ECard from './components/ECard.vue';
+import EAlert from './components/EAlert.vue';
+</script>
+
+<template>
+  <div class="min-h-screen bg-base-100 text-base-content">
+    <div class="navbar bg-base-200">
+      <div class="flex-1">
+        <span class="text-xl font-bold">My App</span>
+      </div>
+      <div class="flex-none">
+        <ThemeToggle />
+      </div>
+    </div>
+
+    <main class="container mx-auto p-8">
+      <EAlert type="info">Welcome to the Elevate Design System.</EAlert>
+
+      <div class="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
+        <ECard title="Getting Started">
+          <p>Use DaisyUI class names with SQLI themes.</p>
+        </ECard>
+        <ECard variant="bordered" title="Components">
+          <p>65+ components ready to use.</p>
+        </ECard>
+      </div>
+
+      <div class="mt-6 flex gap-4">
+        <EButton variant="primary">Primary</EButton>
+        <EButton variant="secondary">Secondary</EButton>
+        <EButton variant="ghost">Ghost</EButton>
+      </div>
+    </main>
+  </div>
+</template>
+```
+
+### Nuxt 3: useTheme as a Nuxt Composable
+
+For Nuxt 3, place the composable in the `composables/` directory for auto-import:
+
+```ts
+// composables/useTheme.ts
+export function useTheme() {
+  type Theme = 'sqli-light' | 'sqli-dark';
+  const STORAGE_KEY = 'elevate-theme';
+
+  const theme = useState<Theme>('elevate-theme', () => 'sqli-light');
+
+  function applyTheme(value: Theme) {
+    if (import.meta.client) {
+      document.documentElement.setAttribute('data-theme', value);
+      localStorage.setItem(STORAGE_KEY, value);
+    }
+  }
+
+  onMounted(() => {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored === 'sqli-light' || stored === 'sqli-dark') {
+      theme.value = stored;
+    } else {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      theme.value = prefersDark ? 'sqli-dark' : 'sqli-light';
+    }
+    applyTheme(theme.value);
+  });
+
+  watch(theme, (newTheme) => applyTheme(newTheme));
+
+  function toggleTheme() {
+    theme.value = theme.value === 'sqli-light' ? 'sqli-dark' : 'sqli-light';
+  }
+
+  const isDark = computed(() => theme.value === 'sqli-dark');
+
+  return { theme, isDark, toggleTheme };
+}
+```
+
+---
+
+## Using the Tailwind Preset
+
+If your Vue project uses Tailwind CSS 4, you can extend it with SQLI brand tokens.
+
+```bash
+npm install -D tailwindcss@^4.1.0
+```
+
+```javascript
+// tailwind.config.js
+import sqliPreset from '@sqli/elevate-design-system/preset';
+
+export default {
+  presets: [sqliPreset],
+  content: ['./index.html', './src/**/*.{vue,js,ts}'],
+};
+```
+
+For Nuxt 3 with the `@nuxtjs/tailwindcss` module:
+
+```ts
+// tailwind.config.ts
+import sqliPreset from '@sqli/elevate-design-system/preset';
+
+export default {
+  presets: [sqliPreset],
+  content: [],
+};
+```
+
+This adds the following utilities to your Tailwind classes:
+
+| Utility | Example Class | Value |
+|---------|---------------|-------|
+| Colors | `bg-sqli-cobalt`, `text-sqli-cream` | SQLI brand colors |
+| Font Family | `font-sans`, `font-everett` | TWK Everett |
+| Border Radius | `rounded-sqli-sm`, `rounded-sqli-lg` | Brand-consistent rounding |
+| Shadows | `shadow-sqli-md` | Brand shadows |
+| Animations | `animate-sqli-fade-in` | Brand transitions |
+
+```vue
+<template>
+  <div class="bg-sqli-cream text-sqli-midnight font-everett">
+    <h1 class="text-sqli-cobalt">Branded Heading</h1>
+    <div class="rounded-sqli-lg shadow-sqli-md p-6">
+      <button class="btn btn-primary">DaisyUI Button</button>
+    </div>
+  </div>
+</template>
+```
+
+---
+
+## Next Steps
+
+- Browse the [Component Index](?path=/docs/governance-component-index--docs) for all available DaisyUI components
+- See [Design Tokens](?path=/docs/foundations-design-tokens--docs) for CSS variables and color values
+- Check [Installation](?path=/docs/governance-installation--docs) for alternative setup methods

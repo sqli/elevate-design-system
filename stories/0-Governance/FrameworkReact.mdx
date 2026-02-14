@@ -1,0 +1,661 @@
+{/* FrameworkReact.mdx */}
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Governance/Framework - React" />
+
+# Framework Guide -- React
+
+Integrate the Elevate Design System into React projects. This guide covers Vite + React and Next.js App Router setups with TypeScript.
+
+---
+
+## Prerequisites
+
+- Node.js >= 22.0.0
+- npm >= 9.0.0
+
+```bash
+npm install git+https://github.com/sqli/elevate-design-system.git
+```
+
+---
+
+## Setup with Vite + React
+
+### 1. Create the project
+
+```bash
+npm create vite@latest my-app -- --template react-ts
+cd my-app
+npm install
+npm install git+https://github.com/sqli/elevate-design-system.git
+```
+
+### 2. Import CSS
+
+You can import the design system CSS in your stylesheet or in your JS entry point.
+
+**Option A: In your CSS file**
+
+```css
+/* src/index.css */
+@import '@sqli/elevate-design-system';
+@import '@sqli/elevate-design-system/fonts';
+```
+
+**Option B: In your JS entry point**
+
+```tsx
+// src/main.tsx
+import '@sqli/elevate-design-system';
+import '@sqli/elevate-design-system/fonts';
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import App from './App';
+
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <App />
+  </StrictMode>
+);
+```
+
+### 3. Configure the theme
+
+Set the `data-theme` attribute on the `<html>` element in `index.html`:
+
+```html
+<!doctype html>
+<html lang="en" data-theme="sqli-light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My App</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+```
+
+---
+
+## Setup with Next.js App Router
+
+### 1. Create the project
+
+```bash
+npx create-next-app@latest my-app --typescript --app
+cd my-app
+npm install git+https://github.com/sqli/elevate-design-system.git
+```
+
+### 2. Import CSS
+
+```css
+/* app/globals.css */
+@import '@sqli/elevate-design-system';
+@import '@sqli/elevate-design-system/fonts';
+```
+
+### 3. Configure the root layout
+
+```tsx
+// app/layout.tsx
+import './globals.css';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'My App',
+  description: 'Built with Elevate Design System',
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <html lang="en" data-theme="sqli-light" suppressHydrationWarning>
+      <body className="bg-base-100 text-base-content">{children}</body>
+    </html>
+  );
+}
+```
+
+The `suppressHydrationWarning` attribute prevents React hydration warnings when the theme is updated on the client side (for example, from localStorage).
+
+---
+
+## Wrapper Components
+
+The design system is CSS-only. You apply DaisyUI class names directly in your markup. The following TypeScript wrapper components provide a typed API for the most common patterns.
+
+### Button
+
+```tsx
+// src/components/Button.tsx
+import { type ButtonHTMLAttributes } from 'react';
+
+type ButtonVariant = 'primary' | 'secondary' | 'accent' | 'ghost' | 'link' | 'outline';
+type ButtonSize = 'lg' | 'md' | 'sm' | 'xs';
+
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+  loading?: boolean;
+  wide?: boolean;
+}
+
+const variantClasses: Record<ButtonVariant, string> = {
+  primary: 'btn-primary',
+  secondary: 'btn-secondary',
+  accent: 'btn-accent',
+  ghost: 'btn-ghost',
+  link: 'btn-link',
+  outline: 'btn-outline',
+};
+
+const sizeClasses: Record<ButtonSize, string> = {
+  lg: 'btn-lg',
+  md: 'btn-md',
+  sm: 'btn-sm',
+  xs: 'btn-xs',
+};
+
+export function Button({
+  variant = 'primary',
+  size = 'md',
+  loading = false,
+  wide = false,
+  className = '',
+  children,
+  disabled,
+  ...props
+}: ButtonProps) {
+  const classes = [
+    'btn',
+    variantClasses[variant],
+    sizeClasses[size],
+    loading ? 'loading' : '',
+    wide ? 'btn-wide' : '',
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ');
+
+  return (
+    <button className={classes} disabled={disabled || loading} {...props}>
+      {children}
+    </button>
+  );
+}
+```
+
+**Usage:**
+
+```tsx
+<Button variant="primary" size="lg">Save Changes</Button>
+<Button variant="ghost" size="sm">Cancel</Button>
+<Button variant="outline" loading>Submitting</Button>
+```
+
+### Card
+
+```tsx
+// src/components/Card.tsx
+import { type ReactNode, type HTMLAttributes } from 'react';
+
+type CardVariant = 'default' | 'bordered' | 'compact';
+
+interface CardProps extends HTMLAttributes<HTMLDivElement> {
+  title?: string;
+  image?: string;
+  imageAlt?: string;
+  variant?: CardVariant;
+  actions?: ReactNode;
+  children: ReactNode;
+}
+
+export function Card({
+  title,
+  image,
+  imageAlt = '',
+  variant = 'default',
+  actions,
+  className = '',
+  children,
+  ...props
+}: CardProps) {
+  const cardClasses = [
+    'card bg-base-100 shadow-xl',
+    variant === 'bordered' ? 'card-bordered' : '',
+    variant === 'compact' ? 'card-compact' : '',
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ');
+
+  return (
+    <div className={cardClasses} {...props}>
+      {image && (
+        <figure>
+          <img src={image} alt={imageAlt} />
+        </figure>
+      )}
+      <div className="card-body">
+        {title && <h2 className="card-title">{title}</h2>}
+        {children}
+        {actions && <div className="card-actions justify-end">{actions}</div>}
+      </div>
+    </div>
+  );
+}
+```
+
+**Usage:**
+
+```tsx
+<Card
+  title="Project Update"
+  image="/cover.jpg"
+  imageAlt="Project cover"
+  actions={<Button variant="primary">View Details</Button>}
+>
+  <p>The latest release includes performance improvements and bug fixes.</p>
+</Card>
+
+<Card variant="bordered" title="Quick Note">
+  <p>Bordered cards work well for secondary content.</p>
+</Card>
+```
+
+### Alert
+
+```tsx
+// src/components/Alert.tsx
+import { type ReactNode, type HTMLAttributes } from 'react';
+
+type AlertType = 'info' | 'success' | 'warning' | 'error';
+
+interface AlertProps extends HTMLAttributes<HTMLDivElement> {
+  type?: AlertType;
+  children: ReactNode;
+}
+
+const typeClasses: Record<AlertType, string> = {
+  info: 'alert-info',
+  success: 'alert-success',
+  warning: 'alert-warning',
+  error: 'alert-error',
+};
+
+const icons: Record<AlertType, string> = {
+  info: 'M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+  success: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z',
+  warning: 'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z',
+  error: 'M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z',
+};
+
+export function Alert({
+  type = 'info',
+  className = '',
+  children,
+  ...props
+}: AlertProps) {
+  return (
+    <div className={`alert ${typeClasses[type]} ${className}`} role="alert" {...props}>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        className="h-6 w-6 shrink-0 stroke-current"
+        fill="none"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="2"
+          d={icons[type]}
+        />
+      </svg>
+      <span>{children}</span>
+    </div>
+  );
+}
+```
+
+**Usage:**
+
+```tsx
+<Alert type="success">Your changes have been saved.</Alert>
+<Alert type="warning">This action cannot be undone.</Alert>
+<Alert type="error">Failed to connect to the server.</Alert>
+```
+
+---
+
+## Theme Switching with React State and localStorage
+
+### useTheme Hook
+
+```tsx
+// src/hooks/useTheme.ts
+import { useState, useEffect, useCallback } from 'react';
+
+type Theme = 'sqli-light' | 'sqli-dark';
+
+const STORAGE_KEY = 'elevate-theme';
+
+function getInitialTheme(): Theme {
+  if (typeof window === 'undefined') return 'sqli-light';
+
+  const stored = localStorage.getItem(STORAGE_KEY);
+  if (stored === 'sqli-light' || stored === 'sqli-dark') return stored;
+
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  return prefersDark ? 'sqli-dark' : 'sqli-light';
+}
+
+export function useTheme() {
+  const [theme, setThemeState] = useState<Theme>(getInitialTheme);
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem(STORAGE_KEY, theme);
+  }, [theme]);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleChange = (e: MediaQueryListEvent) => {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (!stored) {
+        setThemeState(e.matches ? 'sqli-dark' : 'sqli-light');
+      }
+    };
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
+  const toggleTheme = useCallback(() => {
+    setThemeState((current) => (current === 'sqli-light' ? 'sqli-dark' : 'sqli-light'));
+  }, []);
+
+  const isDark = theme === 'sqli-dark';
+
+  return { theme, isDark, toggleTheme, setTheme: setThemeState };
+}
+```
+
+### ThemeToggle Component
+
+```tsx
+// src/components/ThemeToggle.tsx
+import { useTheme } from '../hooks/useTheme';
+
+export function ThemeToggle() {
+  const { isDark, toggleTheme } = useTheme();
+
+  return (
+    <label className="swap swap-rotate">
+      <input
+        type="checkbox"
+        checked={isDark}
+        onChange={toggleTheme}
+        aria-label="Toggle theme"
+      />
+      <svg
+        className="swap-off h-6 w-6 fill-current"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+      >
+        <path d="M5.64,17l-.71.71a1,1,0,0,0,0,1.41,1,1,0,0,0,1.41,0l.71-.71A1,1,0,0,0,5.64,17ZM5,12a1,1,0,0,0-1-1H3a1,1,0,0,0,0,2H4A1,1,0,0,0,5,12Zm7-7a1,1,0,0,0,1-1V3a1,1,0,0,0-2,0V4A1,1,0,0,0,12,5ZM5.64,7.05a1,1,0,0,0,.7.29,1,1,0,0,0,.71-.29,1,1,0,0,0,0-1.41l-.71-.71A1,1,0,0,0,4.93,6.34Zm12,.29a1,1,0,0,0,.7-.29l.71-.71a1,1,0,1,0-1.41-1.41L17,5.64a1,1,0,0,0,0,1.41A1,1,0,0,0,17.66,7.34ZM21,11H20a1,1,0,0,0,0,2h1a1,1,0,0,0,0-2Zm-9,8a1,1,0,0,0-1,1v1a1,1,0,0,0,2,0V20A1,1,0,0,0,12,19ZM18.36,17A1,1,0,0,0,17,18.36l.71.71a1,1,0,0,0,1.41,0,1,1,0,0,0,0-1.41ZM12,6.5A5.5,5.5,0,1,0,17.5,12,5.51,5.51,0,0,0,12,6.5Zm0,9A3.5,3.5,0,1,1,15.5,12,3.5,3.5,0,0,1,12,15.5Z" />
+      </svg>
+      <svg
+        className="swap-on h-6 w-6 fill-current"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+      >
+        <path d="M21.64,13a1,1,0,0,0-1.05-.14,8.05,8.05,0,0,1-3.37.73A8.15,8.15,0,0,1,9.08,5.49a8.59,8.59,0,0,1,.25-2A1,1,0,0,0,8,2.36,10.14,10.14,0,1,0,22,14.05,1,1,0,0,0,21.64,13ZM14,19.05A8.14,8.14,0,0,1,6,13a8.06,8.06,0,0,1,4.26-7.09,10.28,10.28,0,0,0,8.83,8.83A8.17,8.17,0,0,1,14,19.05Z" />
+      </svg>
+    </label>
+  );
+}
+```
+
+### Usage in App
+
+```tsx
+// src/App.tsx
+import { ThemeToggle } from './components/ThemeToggle';
+import { Button } from './components/Button';
+import { Card } from './components/Card';
+import { Alert } from './components/Alert';
+
+export default function App() {
+  return (
+    <div className="min-h-screen bg-base-100 text-base-content">
+      <div className="navbar bg-base-200">
+        <div className="flex-1">
+          <span className="text-xl font-bold">My App</span>
+        </div>
+        <div className="flex-none">
+          <ThemeToggle />
+        </div>
+      </div>
+
+      <main className="container mx-auto p-8">
+        <Alert type="info">Welcome to the Elevate Design System.</Alert>
+
+        <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-2">
+          <Card title="Getting Started">
+            <p>Use DaisyUI class names with SQLI themes.</p>
+          </Card>
+          <Card title="Components" variant="bordered">
+            <p>65+ components ready to use.</p>
+          </Card>
+        </div>
+
+        <div className="mt-6 flex gap-4">
+          <Button variant="primary">Primary</Button>
+          <Button variant="secondary">Secondary</Button>
+          <Button variant="ghost">Ghost</Button>
+        </div>
+      </main>
+    </div>
+  );
+}
+```
+
+---
+
+## Using the Tailwind Preset
+
+If your React project uses Tailwind CSS 4, you can extend it with SQLI brand tokens using the preset.
+
+```bash
+npm install -D tailwindcss@^4.1.0
+```
+
+```javascript
+// tailwind.config.js
+import sqliPreset from '@sqli/elevate-design-system/preset';
+
+export default {
+  presets: [sqliPreset],
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+};
+```
+
+This adds the following utilities to your Tailwind classes:
+
+| Utility | Example Class | Value |
+|---------|---------------|-------|
+| Colors | `bg-sqli-cobalt`, `text-sqli-cream` | SQLI brand colors |
+| Font Family | `font-sans`, `font-everett` | TWK Everett |
+| Border Radius | `rounded-sqli-sm`, `rounded-sqli-lg` | Brand-consistent rounding |
+| Shadows | `shadow-sqli-md` | Brand shadows |
+| Animations | `animate-sqli-fade-in` | Brand transitions |
+
+```tsx
+// Using preset utilities alongside DaisyUI
+<div className="bg-sqli-cream text-sqli-midnight font-everett">
+  <h1 className="text-sqli-cobalt">Branded Heading</h1>
+  <div className="rounded-sqli-lg shadow-sqli-md p-6">
+    <button className="btn btn-primary">DaisyUI Button</button>
+  </div>
+</div>
+```
+
+---
+
+## Using Charts with Recharts
+
+The design system provides a Recharts theme with SQLI brand colors. Install Recharts as a peer dependency:
+
+```bash
+npm install recharts@^3.0.0
+```
+
+### Basic Bar Chart
+
+```tsx
+// src/components/SalesChart.tsx
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+  ResponsiveContainer,
+} from 'recharts';
+import {
+  sqliColors,
+  defaultAxisProps,
+  defaultTooltipProps,
+  defaultGridProps,
+  defaultLegendProps,
+} from '@sqli/elevate-design-system/charts';
+import { useTheme } from '../hooks/useTheme';
+
+const data = [
+  { month: 'Jan', revenue: 4000, target: 3500 },
+  { month: 'Feb', revenue: 3200, target: 3500 },
+  { month: 'Mar', revenue: 5100, target: 4000 },
+  { month: 'Apr', revenue: 4800, target: 4000 },
+  { month: 'May', revenue: 6200, target: 5000 },
+  { month: 'Jun', revenue: 5900, target: 5000 },
+];
+
+export function SalesChart() {
+  const { isDark } = useTheme();
+  const mode = isDark ? 'dark' : 'light';
+
+  return (
+    <ResponsiveContainer width="100%" height={400}>
+      <BarChart data={data}>
+        <CartesianGrid {...defaultGridProps[mode]} />
+        <XAxis dataKey="month" {...defaultAxisProps[mode]} />
+        <YAxis {...defaultAxisProps[mode]} />
+        <Tooltip {...defaultTooltipProps[mode]} />
+        <Legend {...defaultLegendProps[mode]} />
+        <Bar dataKey="revenue" fill={sqliColors.cobalt} name="Revenue" radius={[4, 4, 0, 0]} />
+        <Bar dataKey="target" fill={sqliColors.sky} name="Target" radius={[4, 4, 0, 0]} />
+      </BarChart>
+    </ResponsiveContainer>
+  );
+}
+```
+
+### Theme-Aware Line Chart
+
+```tsx
+// src/components/TrendChart.tsx
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from 'recharts';
+import {
+  sqliChartTheme,
+  defaultAxisProps,
+  defaultTooltipProps,
+  defaultGridProps,
+} from '@sqli/elevate-design-system/charts';
+import { useTheme } from '../hooks/useTheme';
+
+interface DataPoint {
+  name: string;
+  value: number;
+}
+
+interface TrendChartProps {
+  data: DataPoint[];
+  title?: string;
+}
+
+export function TrendChart({ data, title }: TrendChartProps) {
+  const { isDark } = useTheme();
+  const mode = isDark ? 'dark' : 'light';
+  const theme = sqliChartTheme[mode];
+
+  return (
+    <div>
+      {title && (
+        <h3 className="mb-4 text-lg font-medium" style={{ color: theme.text }}>
+          {title}
+        </h3>
+      )}
+      <ResponsiveContainer width="100%" height={300}>
+        <LineChart data={data}>
+          <CartesianGrid {...defaultGridProps[mode]} />
+          <XAxis dataKey="name" {...defaultAxisProps[mode]} />
+          <YAxis {...defaultAxisProps[mode]} />
+          <Tooltip {...defaultTooltipProps[mode]} />
+          <Line
+            type="monotone"
+            dataKey="value"
+            stroke={theme.primary}
+            strokeWidth={2}
+            dot={{ fill: theme.primary, r: 4 }}
+            activeDot={{ r: 6, fill: theme.primary }}
+          />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
+  );
+}
+```
+
+### Using the Color Palette for Multiple Series
+
+```tsx
+import { sqliColors } from '@sqli/elevate-design-system/charts';
+
+// Access individual colors
+<Bar fill={sqliColors.cobalt} />
+<Bar fill={sqliColors.sky} />
+
+// Use the palette array for dynamic series
+{series.map((s, i) => (
+  <Line
+    key={s.key}
+    dataKey={s.key}
+    stroke={sqliColors.palette[i % sqliColors.palette.length]}
+  />
+))}
+```
+
+---
+
+## Next Steps
+
+- Browse the [Component Index](?path=/docs/governance-component-index--docs) for all available DaisyUI components
+- See [Design Tokens](?path=/docs/foundations-design-tokens--docs) for CSS variables and color values
+- Check [Installation](?path=/docs/governance-installation--docs) for alternative setup methods

@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* global process */
 /**
  * Color Validation Script
  *

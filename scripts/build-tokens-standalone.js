@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* global process */
 /**
  * Build Tokens Standalone CSS
  *

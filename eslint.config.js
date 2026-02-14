@@ -15,6 +15,10 @@ export default defineConfig([
     languageOptions: { globals: globals.browser },
   },
   {
+    files: ['scripts/**/*.js', 'tests/**/*.js'],
+    languageOptions: { globals: globals.node },
+  },
+  {
     files: ['**/*.stories.@(js|jsx|mjs|ts|tsx)'],
     plugins: { storybook },
     extends: ['storybook/recommended'],

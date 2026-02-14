@@ -55,7 +55,7 @@
     "build-storybook": "storybook build -o storybook-static",
     "lint": "npm run lint:css && npm run lint:js",
     "lint:css": "stylelint 'src/**/*.css'",
-    "lint:js": "eslint 'stories/**/*.js' '.storybook/**/*.js'",
+    "lint:js": "eslint 'src/**/*.js' 'scripts/**/*.js' 'tests/**/*.js' 'stories/**/*.js' '.storybook/**/*.js'",
     "lint:fix": "npm run lint:css -- --fix && npm run lint:js -- --fix",
     "format": "prettier --check '**/*.{js,json,md,css}'",
     "format:fix": "prettier --write '**/*.{js,json,md,css}'",

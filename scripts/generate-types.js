@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* global process */
 /**
  * TypeScript Definition Generator
  *

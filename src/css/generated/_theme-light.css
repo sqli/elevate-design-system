@@ -1,0 +1,54 @@
+/**
+ * SQLI Light Theme - Generated from src/tokens/tokens.json
+ * DO NOT EDIT MANUALLY - Run: npm run build:tokens
+ */
+
+:root,
+[data-theme='sqli-light'] {
+  color-scheme: light;
+
+  --color-base-100: oklch(98.5% 0.012 85);
+  --color-base-200: oklch(96% 0.012 85);
+  --color-base-300: oklch(93% 0.012 85);
+  --color-base-content: oklch(15% 0.04 270);
+  --color-primary: oklch(42% 0.28 265);
+  --color-primary-content: oklch(98% 0.005 85);
+  --color-primary-hover: oklch(38% 0.26 265);
+  --color-secondary: oklch(15% 0.04 270);
+  --color-secondary-content: oklch(68% 0.14 250);
+  --color-accent: oklch(38% 0.26 265);
+  --color-accent-content: oklch(98% 0.005 85);
+  --color-neutral: oklch(15% 0.04 270);
+  --color-neutral-content: oklch(98% 0.005 85);
+  --color-info: oklch(68% 0.14 250);
+  --color-info-content: oklch(15% 0.04 270);
+  --color-success: oklch(65% 0.2 145);
+  --color-success-content: oklch(98% 0.005 145);
+  --color-warning: oklch(80% 0.18 85);
+  --color-warning-content: oklch(20% 0.05 85);
+  --color-error: oklch(60% 0.25 25);
+  --color-error-content: oklch(98% 0.005 25);
+  --color-border: oklch(90% 0.01 85);
+  --color-surface: oklch(99% 0.005 85);
+  --color-panel-solid: oklch(98.5% 0.012 85);
+  --color-panel-translucent: oklch(98.5% 0.012 85 / 80%);
+  --color-overlay: rgba(15, 14, 43, 0.50);
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-full: 9999px;
+
+  --color-focus: var(--color-primary);
+  --ring-color: var(--color-focus);
+  --ring-offset: 2px;
+
+  --shadow-1: inset 0 0 0 1px rgba(15, 14, 43, 0.05);
+  --shadow-2: 0 1px 3px 0 rgba(15, 14, 43, 0.08), 0 1px 2px -1px rgba(15, 14, 43, 0.08);
+  --shadow-3: 0 4px 6px -1px rgba(15, 14, 43, 0.08), 0 2px 4px -2px rgba(15, 14, 43, 0.06);
+  --shadow-4: 0 10px 15px -3px rgba(15, 14, 43, 0.08), 0 4px 6px -4px rgba(15, 14, 43, 0.06);
+  --shadow-5: 0 20px 25px -5px rgba(15, 14, 43, 0.08), 0 8px 10px -6px rgba(15, 14, 43, 0.06);
+  --shadow-6: 0 25px 50px -12px rgba(15, 14, 43, 0.20);
+
+  font-family: 'TWK Everett', system-ui, -apple-system, sans-serif;
+}

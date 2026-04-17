@@ -3,7 +3,6 @@
  * @description Recharts integration with SQLI theme
  * @see https://recharts.org/
  */
-import React from 'react';
 import { createRoot } from 'react-dom/client';
 import {
   BarChart,
@@ -34,7 +33,7 @@ import {
   defaultTooltipProps,
   defaultGridProps,
   defaultLegendProps,
-} from '../../../src/charts/sqli-chart-theme.js';
+} from '../../../src/charts/sqli-chart-theme';
 
 // Sample data
 const barData = [

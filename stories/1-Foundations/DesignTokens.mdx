@@ -12,12 +12,12 @@ The Elevate Design System uses a modular CSS architecture for maintainability:
 
 ```
 src/css/
-├── main.css              # Entry point (imports only)
-├── _fonts.css            # TWK Everett font declarations
-├── _tokens.css           # Design tokens (colors, typography)
-├── _themes.css           # DaisyUI themes (sqli-light, sqli-dark)
-├── _customizations.css   # Component overrides
-└── _utilities.css        # Custom utilities (sqli-sr-only)
+├── main.css                # Entry point + themes (sqli-light, sqli-dark)
+├── _fonts.css              # TWK Everett font declarations
+├── _tokens.css             # Design tokens (brand colors, typography)
+├── _tokens-standalone.css  # Standalone tokens (HEX, no Tailwind dependency)
+├── _customizations.css     # Component overrides (focus, links, toggles)
+└── _utilities.css          # Custom utilities (sr-only, reduced motion)
 ```
 
 ### Module Responsibilities
@@ -31,6 +31,10 @@ src/css/
   </thead>
   <tbody>
     <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+      <td style={{ padding: '0.75rem' }}><strong>main.css</strong></td>
+      <td style={{ padding: '0.75rem' }}>Entry point, Tailwind import, theme definitions (sqli-light, sqli-dark) with OKLCH colors</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
       <td style={{ padding: '0.75rem' }}><strong>_fonts.css</strong></td>
       <td style={{ padding: '0.75rem' }}><code>@font-face</code> declarations for TWK Everett (Light, Regular, Medium, Bold)</td>
     </tr>
@@ -39,12 +43,12 @@ src/css/
       <td style={{ padding: '0.75rem' }}>CSS custom properties for colors and typography</td>
     </tr>
     <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
-      <td style={{ padding: '0.75rem' }}><strong>_themes.css</strong></td>
-      <td style={{ padding: '0.75rem' }}>DaisyUI theme configurations with OKLCH colors</td>
+      <td style={{ padding: '0.75rem' }}><strong>_tokens-standalone.css</strong></td>
+      <td style={{ padding: '0.75rem' }}>Standalone tokens in HEX format, usable without Tailwind</td>
     </tr>
     <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
       <td style={{ padding: '0.75rem' }}><strong>_customizations.css</strong></td>
-      <td style={{ padding: '0.75rem' }}>Overrides for focus states, links, toggles</td>
+      <td style={{ padding: '0.75rem' }}>Overrides for focus states, links, toggles, code blocks</td>
     </tr>
     <tr>
       <td style={{ padding: '0.75rem' }}><strong>_utilities.css</strong></td>
@@ -145,7 +149,7 @@ These are the primary SQLI brand colors, available as CSS custom properties:
 ### Using Color Tokens
 
 ```css
-/* Direct use with Tailwind utilities */
+/* Direct use with CSS variables */
 .my-element {
   background-color: var(--color-sqli-cream);
   color: var(--color-sqli-midnight);
@@ -156,6 +160,95 @@ These are the primary SQLI brand colors, available as CSS custom properties:
   Content
 </div>
 ```
+
+---
+
+## Semantic Tokens (v0.12.0)
+
+New semantic tokens added in v0.12.0-alpha for component-level styling:
+
+### Shadow Scale
+
+<table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '1.5rem' }}>
+  <thead>
+    <tr style={{ borderBottom: '2px solid #e5e7eb' }}>
+      <th style={{ textAlign: 'left', padding: '0.75rem' }}>Token</th>
+      <th style={{ textAlign: 'left', padding: '0.75rem' }}>Usage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+      <td style={{ padding: '0.75rem' }}><code>--shadow-1</code></td>
+      <td style={{ padding: '0.75rem' }}>Subtle elevation (cards at rest)</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+      <td style={{ padding: '0.75rem' }}><code>--shadow-2</code></td>
+      <td style={{ padding: '0.75rem' }}>Light elevation (hover states)</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+      <td style={{ padding: '0.75rem' }}><code>--shadow-3</code></td>
+      <td style={{ padding: '0.75rem' }}>Medium elevation (dropdowns)</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+      <td style={{ padding: '0.75rem' }}><code>--shadow-4</code></td>
+      <td style={{ padding: '0.75rem' }}>High elevation (modals)</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+      <td style={{ padding: '0.75rem' }}><code>--shadow-5</code></td>
+      <td style={{ padding: '0.75rem' }}>Very high elevation (popovers)</td>
+    </tr>
+    <tr>
+      <td style={{ padding: '0.75rem' }}><code>--shadow-6</code></td>
+      <td style={{ padding: '0.75rem' }}>Maximum elevation (toasts)</td>
+    </tr>
+  </tbody>
+</table>
+
+### Surface & Panel
+
+<table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '1.5rem' }}>
+  <thead>
+    <tr style={{ borderBottom: '2px solid #e5e7eb' }}>
+      <th style={{ textAlign: 'left', padding: '0.75rem' }}>Token</th>
+      <th style={{ textAlign: 'left', padding: '0.75rem' }}>Usage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+      <td style={{ padding: '0.75rem' }}><code>--color-surface</code></td>
+      <td style={{ padding: '0.75rem' }}>Default surface background</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+      <td style={{ padding: '0.75rem' }}><code>--color-panel-solid</code></td>
+      <td style={{ padding: '0.75rem' }}>Opaque panel background</td>
+    </tr>
+    <tr>
+      <td style={{ padding: '0.75rem' }}><code>--color-panel-translucent</code></td>
+      <td style={{ padding: '0.75rem' }}>Semi-transparent panel background (glass effect)</td>
+    </tr>
+  </tbody>
+</table>
+
+### Overlay & Focus
+
+<table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '1.5rem' }}>
+  <thead>
+    <tr style={{ borderBottom: '2px solid #e5e7eb' }}>
+      <th style={{ textAlign: 'left', padding: '0.75rem' }}>Token</th>
+      <th style={{ textAlign: 'left', padding: '0.75rem' }}>Usage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+      <td style={{ padding: '0.75rem' }}><code>--color-overlay</code></td>
+      <td style={{ padding: '0.75rem' }}>Dialog/modal backdrop overlay</td>
+    </tr>
+    <tr>
+      <td style={{ padding: '0.75rem' }}><code>--color-focus</code></td>
+      <td style={{ padding: '0.75rem' }}>Focus ring color for interactive elements</td>
+    </tr>
+  </tbody>
+</table>
 
 ---
 
@@ -209,16 +302,16 @@ Use [oklch.com](https://oklch.com) to convert between HEX and OKLCH.
 
 ---
 
-## DaisyUI Semantic Colors
+## Theme Semantic Colors
 
-The themes map brand colors to DaisyUI semantic colors:
+The themes map brand colors to semantic colors:
 
 ### Light Theme (sqli-light)
 
 <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '1.5rem' }}>
   <thead>
     <tr style={{ borderBottom: '2px solid #e5e7eb' }}>
-      <th style={{ textAlign: 'left', padding: '0.75rem' }}>DaisyUI Token</th>
+      <th style={{ textAlign: 'left', padding: '0.75rem' }}>Token</th>
       <th style={{ textAlign: 'left', padding: '0.75rem' }}>Brand Color</th>
       <th style={{ textAlign: 'left', padding: '0.75rem' }}>Usage</th>
     </tr>
@@ -257,7 +350,7 @@ The themes map brand colors to DaisyUI semantic colors:
 <table style={{ width: '100%', borderCollapse: 'collapse', marginBottom: '1.5rem' }}>
   <thead>
     <tr style={{ borderBottom: '2px solid #e5e7eb' }}>
-      <th style={{ textAlign: 'left', padding: '0.75rem' }}>DaisyUI Token</th>
+      <th style={{ textAlign: 'left', padding: '0.75rem' }}>Token</th>
       <th style={{ textAlign: 'left', padding: '0.75rem' }}>Brand Color</th>
       <th style={{ textAlign: 'left', padding: '0.75rem' }}>Usage</th>
     </tr>
@@ -388,12 +481,16 @@ For detailed implementation, see these source files:
   </thead>
   <tbody>
     <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
+      <td style={{ padding: '0.75rem' }}><code>src/css/main.css</code></td>
+      <td style={{ padding: '0.75rem' }}>Entry point + theme definitions (sqli-light, sqli-dark)</td>
+    </tr>
+    <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
       <td style={{ padding: '0.75rem' }}><code>src/css/_tokens.css</code></td>
       <td style={{ padding: '0.75rem' }}>Design token definitions</td>
     </tr>
     <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
-      <td style={{ padding: '0.75rem' }}><code>src/css/_themes.css</code></td>
-      <td style={{ padding: '0.75rem' }}>DaisyUI theme configurations</td>
+      <td style={{ padding: '0.75rem' }}><code>src/css/_tokens-standalone.css</code></td>
+      <td style={{ padding: '0.75rem' }}>Standalone tokens (HEX format, no Tailwind)</td>
     </tr>
     <tr>
       <td style={{ padding: '0.75rem' }}><code>SQLI-BRAND-REFERENCE.md</code></td>
@@ -416,7 +513,7 @@ For detailed implementation, see these source files:
 
 ### Adding New Tokens
 
-1. Define the token in `_tokens.css`
+1. Define the token in `_tokens.css` (or `main.css` for theme-specific tokens)
 2. Document it in this page
 3. Update `SQLI-BRAND-REFERENCE.md` if it's a brand color
 4. Run `npm run validate:colors` to verify consistency
@@ -427,5 +524,5 @@ When changing brand colors:
 
 1. Update the HEX value in `SQLI-BRAND-REFERENCE.md`
 2. Convert to OKLCH using [oklch.com](https://oklch.com)
-3. Update both `_tokens.css` (HEX) and `_themes.css` (OKLCH)
+3. Update `_tokens.css` (HEX) and `main.css` (OKLCH theme values)
 4. Run validation to ensure consistency

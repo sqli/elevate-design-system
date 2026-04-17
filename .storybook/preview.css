@@ -2,10 +2,10 @@
  * Storybook Preview Styles
  *
  * Storybook-specific styles for component display
- * Updated for DaisyUI theme system (data-theme attribute)
+ * Uses CSS variables from the SQLI theme system (data-theme attribute)
  */
 
-/* Story wrapper - uses DaisyUI theme variables */
+/* Story wrapper - uses SQLI theme variables */
 .sqli-story-wrapper {
   font-family:
     'TWK Everett',
@@ -22,24 +22,13 @@
     color 200ms ease;
 }
 
-/* Storybook Docs canvas background - Light theme (default) */
+/* Storybook Docs canvas background - uses theme variables */
 .docs-story {
-  background-color: oklch(98.5% 0.012 85) !important; /* Cream */
+  background-color: var(--color-base-100) !important;
 }
 
 #storybook-root {
-  background-color: oklch(98.5% 0.012 85); /* Cream */
-}
-
-/* Storybook canvas background override for dark theme */
-[data-theme='sqli-dark'] .docs-story,
-html[data-theme='sqli-dark'] .docs-story {
-  background-color: oklch(15% 0.04 270) !important; /* Midnight */
-}
-
-[data-theme='sqli-dark'] #storybook-root,
-html[data-theme='sqli-dark'] #storybook-root {
-  background-color: oklch(15% 0.04 270); /* Midnight */
+  background-color: var(--color-base-100);
 }
 
 /* Smooth theme transition */
@@ -47,105 +36,21 @@ html {
   transition: background-color 0.2s ease;
 }
 
-/* Dark theme - Midnight background */
+/* Dark theme */
 html[data-theme='sqli-dark'] {
-  background-color: oklch(15% 0.04 270);
+  background-color: var(--color-base-100);
   color-scheme: dark;
 }
 
-/* Light theme - Cream background */
+/* Light theme */
 html[data-theme='sqli-light'] {
-  background-color: oklch(98.5% 0.012 85);
+  background-color: var(--color-base-100);
   color-scheme: light;
 }
 
 /* ==========================================================================
-   Mermaid Class Diagram Styling - SQLI Theme
+   Mermaid Diagram Rendering Fixes
    ========================================================================== */
-
-/* Light Mode - Class Diagram */
-.classGroup rect {
-  fill: #ffffff !important;
-  stroke: #0f0e2b !important;
-  stroke-width: 1.5px !important;
-}
-
-.classGroup .title {
-  fill: #0f0e2b !important;
-}
-
-.classGroup line {
-  stroke: #0f0e2b !important;
-}
-
-.classGroup text {
-  fill: #0f0e2b !important;
-}
-
-/* Class label (header) - Cobalt background */
-.classGroup .label {
-  fill: #1f24e9 !important;
-}
-
-.classGroup .label .title {
-  fill: #ffffff !important;
-}
-
-/* Relation arrows */
-.relation {
-  stroke: #0f0e2b !important;
-}
-
-.relationLabel {
-  fill: #0f0e2b !important;
-}
-
-/* Dark Mode - Class Diagram */
-[data-theme='sqli-dark'] .classGroup rect {
-  fill: rgba(109, 165, 255, 0.15) !important;
-  stroke: #6da5ff !important;
-}
-
-[data-theme='sqli-dark'] .classGroup .title {
-  fill: #fffaf0 !important;
-}
-
-[data-theme='sqli-dark'] .classGroup line {
-  stroke: #6da5ff !important;
-}
-
-[data-theme='sqli-dark'] .classGroup text {
-  fill: #fffaf0 !important;
-}
-
-[data-theme='sqli-dark'] .classGroup .label {
-  fill: #6da5ff !important;
-}
-
-[data-theme='sqli-dark'] .classGroup .label .title {
-  fill: #0f0e2b !important;
-}
-
-[data-theme='sqli-dark'] .relation {
-  stroke: #6da5ff !important;
-}
-
-[data-theme='sqli-dark'] .relationLabel {
-  fill: #fffaf0 !important;
-}
-
-/* ==========================================================================
-   Mermaid General Fixes - Prevent text truncation
-   ========================================================================== */
-
-/* ER Diagram - Wider entities to prevent text truncation */
-.entityBox {
-  min-width: 180px !important;
-}
-
-.er.entityBox {
-  min-width: 180px !important;
-}
 
 /* Ensure SVG containers don't clip content */
 .mermaid-container svg,
@@ -154,127 +59,11 @@ html[data-theme='sqli-light'] {
   max-width: 100% !important;
 }
 
-/* ER Diagram entity text */
-.er.entityLabel {
-  font-size: 14px !important;
-}
-
-/* Ensure attribute text is visible */
-.er.attributeBoxOdd,
-.er.attributeBoxEven {
-  min-width: 150px !important;
-}
-
-/* Class Diagram - Wider boxes */
-.classGroup rect {
-  min-width: 160px !important;
-}
-
-/* Flowchart nodes - minimum width */
-.node rect,
-.node polygon,
-.node circle {
-  min-width: 80px !important;
-}
-
-/* ==========================================================================
-   Mermaid State Diagram Styling - SQLI Theme
-   ========================================================================== */
-
-/* Light Mode - State Diagram */
-.statediagram-state rect {
-  min-width: 100px !important;
-  fill: #ffffff !important;
-  stroke: #0f0e2b !important;
-  stroke-width: 1.5px !important;
-}
-
-.statediagram-state .state-title,
-.statediagram-state text,
-.state-title {
-  fill: #0f0e2b !important;
-  font-size: 14px !important;
-}
-
-/* State diagram text labels */
-.stateLabel text,
-.statediagram text,
-.stateLabel .nodeLabel,
-g.stateGroup text {
-  fill: #0f0e2b !important;
-}
-
-/* State transitions */
-.transition {
-  stroke: #0f0e2b !important;
-}
-
-/* Start/End nodes */
-.start-state,
-.statediagram-state circle.start {
-  fill: #1f24e9 !important;
-}
-
-.end-state-outer {
-  stroke: #0f0e2b !important;
-  fill: transparent !important;
-}
-
-.end-state-inner {
-  fill: #0f0e2b !important;
-}
-
-/* Dark Mode - State Diagram */
-[data-theme='sqli-dark'] .statediagram-state rect {
-  fill: rgba(109, 165, 255, 0.15) !important;
-  stroke: #6da5ff !important;
-}
-
-[data-theme='sqli-dark'] .statediagram-state .state-title,
-[data-theme='sqli-dark'] .statediagram-state text,
-[data-theme='sqli-dark'] .state-title {
-  fill: #fffaf0 !important;
-}
-
-[data-theme='sqli-dark'] .stateLabel text,
-[data-theme='sqli-dark'] .statediagram text,
-[data-theme='sqli-dark'] .stateLabel .nodeLabel,
-[data-theme='sqli-dark'] g.stateGroup text {
-  fill: #fffaf0 !important;
-}
-
-[data-theme='sqli-dark'] .transition {
-  stroke: #6da5ff !important;
-}
-
-[data-theme='sqli-dark'] .start-state,
-[data-theme='sqli-dark'] .statediagram-state circle.start {
-  fill: #6da5ff !important;
-}
-
-[data-theme='sqli-dark'] .end-state-outer {
-  stroke: #6da5ff !important;
-}
-
-[data-theme='sqli-dark'] .end-state-inner {
-  fill: #6da5ff !important;
-}
-
-/* General text visibility */
+/* General text font */
 .mermaid text {
   font-family:
     'TWK Everett',
     system-ui,
     -apple-system,
     sans-serif !important;
-}
-
-/* Gantt chart - ensure task labels are visible */
-.taskText {
-  font-size: 12px !important;
-}
-
-/* Timeline sections */
-.timeline-section {
-  min-width: 120px !important;
 }

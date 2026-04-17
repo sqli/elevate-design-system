@@ -36,8 +36,14 @@ This runs concurrently:
 ### Build
 
 ```bash
-# Build CSS and assets
+# Build all (components + CSS + assets)
 npm run build
+
+# Build React components only (tsup)
+npm run build:components
+
+# Build CSS only
+npm run build:css
 
 # Build Storybook static site
 npm run build-storybook
@@ -48,25 +54,53 @@ npm run build-storybook
 ```
 elevate-design-system/
 ├── assets/
-│   ├── fonts/          # TWK Everett font files
-│   ├── logos/          # SQLI logos and ascenders
-│   └── images/         # Demo images for Storybook
-├── dist/               # Built CSS output
+│   ├── fonts/              # TWK Everett font files
+│   ├── logos/              # SQLI logos and ascenders
+│   └── images/             # Demo images for Storybook
+├── dist/                   # Built output
+│   ├── index.js            # ESM React components
+│   ├── index.cjs           # CJS React components
+│   ├── index.d.ts          # TypeScript declarations
+│   ├── sqli-design-system.css
+│   ├── sqli-design-system.min.css
+│   ├── tokens.css
+│   ├── fonts.css
+│   ├── fonts/
+│   └── logos/
 ├── src/
-│   └── css/
-│       └── main.css    # DaisyUI themes + custom overrides
-├── stories/            # Storybook stories
-│   ├── 0-Governance/   # Documentation, changelog
-│   ├── 1-Foundations/  # Colors, typography, theming
-│   └── 2-Components/   # DaisyUI component stories
-│       ├── Actions/
-│       ├── DataDisplay/
-│       ├── DataInput/
-│       ├── Feedback/
-│       ├── Layout/
-│       ├── Navigation/
-│       └── Mockup/
-└── tests/              # Unit tests
+│   ├── components/         # React components (25 modules)
+│   │   ├── Button/
+│   │   ├── Dialog/
+│   │   ├── Select/
+│   │   └── ...
+│   ├── lib/
+│   │   └── utils.ts        # cn() utility
+│   ├── css/
+│   │   ├── main.css        # Entry point + themes
+│   │   ├── _fonts.css
+│   │   ├── _tokens.css
+│   │   ├── _tokens-standalone.css
+│   │   ├── _customizations.css
+│   │   └── _utilities.css
+│   ├── charts/             # Recharts integration
+│   ├── tokens/             # Token exports
+│   ├── tailwind/           # Tailwind preset
+│   └── index.ts            # Barrel export
+├── stories/                # Storybook stories
+│   ├── 0-Governance/       # Documentation, changelog
+│   ├── 1-Foundations/      # Colors, typography, theming
+│   ├── 2-Components/       # Component stories (TSX)
+│   │   ├── Actions/
+│   │   ├── DataDisplay/
+│   │   ├── DataInput/
+│   │   ├── Feedback/
+│   │   ├── Layout/
+│   │   ├── Navigation/
+│   │   └── Mockup/
+│   └── 3-SpecificComponents/
+├── tsconfig.json           # TypeScript config
+├── tsup.config.ts          # Component build config
+└── tests/                  # Unit tests
 ```
 
 ## Available Scripts
@@ -74,10 +108,12 @@ elevate-design-system/
 | Script                    | Description                          |
 | ------------------------- | ------------------------------------ |
 | `npm run dev`             | Start development mode               |
-| `npm run build`           | Build CSS and assets                 |
+| `npm run build`           | Build all (components + CSS + assets)|
+| `npm run build:components`| Build React components (tsup)        |
 | `npm run build:css`       | Build CSS only                       |
 | `npm run storybook`       | Start Storybook                      |
 | `npm run build-storybook` | Build Storybook static               |
+| `npm run typecheck`       | TypeScript type checking             |
 | `npm run lint`            | Run all linters                      |
 | `npm run lint:css`        | Lint CSS files                       |
 | `npm run lint:js`         | Lint JavaScript files                |
@@ -94,85 +130,97 @@ elevate-design-system/
 | `npm run clean`           | Remove build artifacts               |
 | `npm run reset`           | Clean + reinstall dependencies       |
 
+## Technology Stack
+
+| Tool              | Version | Usage                        |
+| ----------------- | ------- | ---------------------------- |
+| React             | 19.x    | Component framework          |
+| Radix UI          | latest  | Accessible UI primitives     |
+| CVA               | latest  | Type-safe variant management |
+| TypeScript        | 5.x     | Type safety                  |
+| Tailwind CSS      | 4.x     | CSS framework                |
+| tsup              | latest  | Component build (ESM + CJS)  |
+| Storybook         | 10.x    | Documentation                |
+| Vite              | 6.x     | Bundler                      |
+| Vitest            | 3.x     | Testing                      |
+
 ## CSS Architecture
-
-### Technology Stack
-
-| Tool         | Version | Usage             |
-| ------------ | ------- | ----------------- |
-| Tailwind CSS | 4.x     | CSS framework     |
-| DaisyUI      | 5.x     | Component library |
-| Storybook    | 10.x    | Documentation     |
-| Vite         | 6.x     | Bundler           |
-| Vitest       | 3.x     | Testing           |
 
 ### Main CSS File
 
 The design system CSS is in `src/css/main.css`:
 
 ```css
-/* Tailwind CSS 4 + DaisyUI */
+/* Tailwind CSS 4 */
 @import 'tailwindcss';
-@plugin "daisyui";
 
 /* TWK Everett Font Face Declarations */
-@font-face {
-  /* ... */
-}
+@import './_fonts.css';
 
-/* SQLI Light Theme */
+/* Design Tokens */
+@import './_tokens.css';
+
+/* SQLI Light Theme (default) */
 @plugin "daisyui/theme" {
   name: 'sqli-light';
   default: true;
-  /* ... theme variables */
+  /* ... OKLCH theme variables */
 }
 
 /* SQLI Dark Theme */
 @plugin "daisyui/theme" {
   name: 'sqli-dark';
   prefersdark: true;
-  /* ... theme variables */
+  /* ... OKLCH theme variables */
 }
 
-/* Custom Focus Styles */
-/* Link Styles */
-/* Toggle Styles */
-/* Accessibility */
+/* Custom Overrides */
+@import './_customizations.css';
+@import './_utilities.css';
 ```
 
-### DaisyUI Components
+### React Components
 
-Components use DaisyUI classes (not `sqli-*` classes):
+Components use CVA for type-safe variants:
+
+```tsx
+import { Button, Card, CardBody, Alert } from '@sqli/elevate-design-system';
+
+<Button variant="primary" size="lg">Action</Button>
+<Card><CardBody>Content</CardBody></Card>
+<Alert variant="info">Information</Alert>
+```
+
+CSS classes are also available for non-React usage:
 
 ```html
-<!-- Buttons -->
-<button class="btn">Default</button>
-<button class="btn btn-primary">Primary</button>
-
-<!-- Cards -->
+<button class="btn btn-primary">Button</button>
 <div class="card bg-base-100 shadow-xl">
   <div class="card-body">Content</div>
 </div>
-
-<!-- Inputs -->
-<input type="text" class="input input-bordered" />
 ```
 
 ### Theme System
 
-Themes are applied via `data-theme` attribute:
+Themes are applied via `data-theme` attribute or the `ElevateTheme` provider:
+
+```tsx
+// React - ElevateTheme provider
+import { ElevateTheme } from '@sqli/elevate-design-system';
+
+<ElevateTheme defaultTheme="sqli-light">
+  <App />
+</ElevateTheme>
+```
 
 ```html
-<!-- Light theme (default) -->
+<!-- HTML - data-theme attribute -->
 <html data-theme="sqli-light">
-  <!-- Dark theme -->
-  <html data-theme="sqli-dark">
-    <!-- Scoped theme -->
-    <div data-theme="sqli-dark" class="bg-base-100 text-base-content">
-      Dark section within light page
-    </div>
-  </html>
-</html>
+
+<!-- Scoped theme -->
+<div data-theme="sqli-dark" class="bg-base-100 text-base-content">
+  Dark section within light page
+</div>
 ```
 
 ### Color System
@@ -188,7 +236,7 @@ The design system uses **OKLCH** color format for all theme definitions:
 
 **Why OKLCH?**
 
-- DaisyUI 5.x uses OKLCH natively for better perceptual uniformity
+- Perceptual uniformity for better color consistency
 - Color manipulation (lightness, saturation) is more intuitive
 - Consistent contrast ratios across color palette
 
@@ -196,21 +244,22 @@ The design system uses **OKLCH** color format for all theme definitions:
 
 Add CSS overrides in `src/css/main.css` after theme definitions.
 
-**Important:** Always use DaisyUI CSS variables, never hardcode values:
+**Important:** Always use CSS variables, never hardcode values:
 
 ```css
-/* ✅ Correct - Use DaisyUI variables */
+/* Correct - Use CSS variables */
 .input:focus {
-  border-color: var(--color-primary) !important;
+  border-color: var(--color-focus) !important;
 }
 
-/* ✅ Correct - Use semantic colors */
+/* Correct - Use semantic colors */
 .custom-element {
-  background-color: var(--color-base-200);
+  background-color: var(--color-surface);
   color: var(--color-base-content);
+  box-shadow: var(--shadow-2);
 }
 
-/* ❌ Avoid - Hardcoded color values */
+/* Avoid - Hardcoded color values */
 .input:focus {
   border-color: oklch(42% 0.28 265) !important; /* Don't do this */
 }
@@ -247,10 +296,10 @@ npm run test:a11y
 
 ### Pre-commit Hooks
 
-Husky runs lint-staged on commit:
+lint-staged runs on commit:
 
 - CSS files: Stylelint + Prettier
-- JS files: ESLint + Prettier
+- JS/TS files: ESLint + Prettier
 - JSON/MD files: Prettier
 
 ### Commit Messages

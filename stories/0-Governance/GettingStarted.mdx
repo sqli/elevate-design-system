@@ -14,7 +14,7 @@ Get up and running with the Elevate Design System in 5 minutes.
 ### Option 1: Git Repository (Recommended)
 
 ```bash
-npm install git+https://github.com/sqli/elevate-design-system.git
+npm install git+https://gitlab-paris.sqli.com/SQLI/elevate-design-system.git
 ```
 
 ```css
@@ -28,43 +28,46 @@ npm install git+https://github.com/sqli/elevate-design-system.git
 <html data-theme="sqli-light">
 ```
 
-### Option 2: Platform.sh (No build required)
-
-```html
-<!DOCTYPE html>
-<html data-theme="sqli-light">
-<head>
-  <link rel="stylesheet" href="https://main-bvxea6i-n3mp4dy5ud5ck.fr-3.platformsh.site/assets/sqli-design-system.min.css" />
-  <link rel="stylesheet" href="https://main-bvxea6i-n3mp4dy5ud5ck.fr-3.platformsh.site/assets/fonts.css" />
-</head>
-<body>
-  <button class="btn btn-primary">Hello World</button>
-</body>
-</html>
-```
-
 ---
 
 ## Your First Component
 
-Once installed, you can use any DaisyUI component with SQLI themes:
+Once installed, import React components from the library:
+
+```tsx
+import { Button, Card, CardBody, CardTitle, Alert } from '@sqli/elevate-design-system';
+import '@sqli/elevate-design-system/css';
+
+function App() {
+  return (
+    <div data-theme="sqli-light">
+      {/* Buttons */}
+      <Button variant="primary">Primary</Button>
+      <Button variant="secondary">Secondary</Button>
+
+      {/* Card */}
+      <Card>
+        <CardBody>
+          <CardTitle>Hello World</CardTitle>
+          <p>Welcome to the Elevate Design System!</p>
+        </CardBody>
+      </Card>
+
+      {/* Alert */}
+      <Alert variant="info">You're all set!</Alert>
+    </div>
+  );
+}
+```
+
+CSS-only usage is also supported with HTML classes:
 
 ```html
-<!-- Buttons -->
 <button class="btn btn-primary">Primary</button>
-<button class="btn btn-secondary">Secondary</button>
-
-<!-- Card -->
 <div class="card bg-base-100 shadow-xl">
   <div class="card-body">
     <h2 class="card-title">Hello World</h2>
-    <p>Welcome to the Elevate Design System!</p>
   </div>
-</div>
-
-<!-- Alert -->
-<div class="alert alert-info">
-  <span>You're all set!</span>
 </div>
 ```
 
@@ -99,7 +102,30 @@ Two themes are available:
   </tbody>
 </table>
 
-Switch themes by changing the `data-theme` attribute:
+### Using ElevateTheme Provider (React)
+
+```tsx
+import { ElevateTheme, useTheme } from '@sqli/elevate-design-system';
+
+function App() {
+  return (
+    <ElevateTheme defaultTheme="sqli-light">
+      <MyApp />
+    </ElevateTheme>
+  );
+}
+
+function ThemeToggle() {
+  const { theme, setTheme } = useTheme();
+  return (
+    <button onClick={() => setTheme(theme === 'sqli-light' ? 'sqli-dark' : 'sqli-light')}>
+      Toggle Theme
+    </button>
+  );
+}
+```
+
+### Using data-theme Attribute (HTML)
 
 ```javascript
 // Toggle theme
@@ -114,11 +140,11 @@ document.documentElement.setAttribute('data-theme', 'sqli-dark');
   <tbody>
     <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
       <td style={{ padding: '0.75rem', width: '30%' }}><strong>Full Installation Guide</strong></td>
-      <td style={{ padding: '0.75rem' }}><a href="?path=/docs/governance-installation--docs">Installation</a> - Git repository, Platform.sh, frameworks, troubleshooting</td>
+      <td style={{ padding: '0.75rem' }}><a href="?path=/docs/governance-installation--docs">Installation</a> - Git repository, frameworks, troubleshooting</td>
     </tr>
     <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
       <td style={{ padding: '0.75rem' }}><strong>Browse Components</strong></td>
-      <td style={{ padding: '0.75rem' }}><a href="?path=/docs/components-actions-button--docs">Components</a> - 65+ DaisyUI components with SQLI themes</td>
+      <td style={{ padding: '0.75rem' }}><a href="?path=/docs/components-actions-button--docs">Components</a> - 25 React components with SQLI themes</td>
     </tr>
     <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
       <td style={{ padding: '0.75rem' }}><strong>Design Tokens</strong></td>
@@ -126,7 +152,7 @@ document.documentElement.setAttribute('data-theme', 'sqli-dark');
     </tr>
     <tr>
       <td style={{ padding: '0.75rem' }}><strong>Theming</strong></td>
-      <td style={{ padding: '0.75rem' }}><a href="?path=/docs/foundations-theming--docs">Theming</a> - Light/dark mode, theme switching</td>
+      <td style={{ padding: '0.75rem' }}><a href="?path=/docs/foundations-theming--docs">Theming</a> - Light/dark mode, ElevateTheme provider</td>
     </tr>
   </tbody>
 </table>
@@ -137,4 +163,4 @@ document.documentElement.setAttribute('data-theme', 'sqli-dark');
 
 - Browse the [Component Index](?path=/docs/governance-component-index--docs) for all available components
 - Check the [Contribution Guide](?path=/docs/governance-contribution-guide--docs) for development setup
-- See [DaisyUI documentation](https://daisyui.com/components/) for complete class references
+- See the [Radix UI documentation](https://www.radix-ui.com/primitives) for primitive component references

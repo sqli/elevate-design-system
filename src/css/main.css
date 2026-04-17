@@ -1,31 +1,28 @@
 /**
  * Elevate Design System
  *
- * SQLI's design system built on DaisyUI + Tailwind CSS 4.
+ * SQLI's design system built on Radix UI + Tailwind CSS 4.
  * Provides sqli-light and sqli-dark themes with brand-compliant styling.
  *
  * ARCHITECTURE:
- * This file is the entry point that imports CSS modules.
- * Note: @plugin directives must be inline (not imported).
+ * This file is the entry point that imports CSS modules and defines themes.
  *
- * - _fonts.css          → TWK Everett font face declarations
- * - _tokens.css         → Design tokens (colors, typography)
- * - _customizations.css → Component overrides for brand compliance
- * - _utilities.css      → Custom utility classes
+ * - _fonts.css          -> TWK Everett font face declarations
+ * - generated/          -> Generated from src/tokens/tokens.json (DTCG)
+ * - _customizations.css -> Component overrides for brand compliance
+ * - _utilities.css      -> Custom utility classes
  *
- * @version 0.14.0-alpha
+ * @version 0.12.0-alpha
  * @author SQLI
  * @see SQLI-BRAND-REFERENCE.md for brand guidelines
- * @see https://daisyui.com for component documentation
  */
 
 /* ==========================================================================
    Core Framework
-   Tailwind CSS 4 with DaisyUI plugin
+   Tailwind CSS 4
    ========================================================================== */
 
 @import 'tailwindcss';
-@plugin "daisyui";
 
 /* ==========================================================================
    Typography: TWK Everett font family
@@ -34,157 +31,38 @@
 @import './_fonts.css';
 
 /* ==========================================================================
-   Design Tokens: brand colors, spacing, typography variables
+   Design Tokens: brand colors for Tailwind theme layer
+   Generated from src/tokens/tokens.json (W3C DTCG format)
    ========================================================================== */
 
-@import './_tokens.css';
+@import './generated/_tokens-tw.css';
 
 /* ==========================================================================
-   SQLI Light Theme
-   Default theme for light mode interfaces
+   SQLI Themes (light, dark, auto-dark)
+   Generated from src/tokens/tokens.json (W3C DTCG format)
 
-   Background: Cream (#FFFAF0)
-   Text: Midnight (#0F0E2B)
-   Interactions: Cobalt (#1F24E9)
-
-   COLOR FORMAT: OKLCH
-   - Perceptually uniform colors
-   - Better accessibility calculations
-   - Modern CSS standard
-
-   CONVERSION REFERENCE:
-   | Brand Color | HEX       | OKLCH                  |
-   |-------------|-----------|------------------------|
-   | Cream       | #FFFAF0   | oklch(98.5% 0.012 85)  |
-   | Midnight    | #0F0E2B   | oklch(15% 0.04 270)    |
-   | Cobalt      | #1F24E9   | oklch(42% 0.28 265)    |
-   | Sky         | #6DA5FF   | oklch(68% 0.14 250)    |
+   Source: src/tokens/tokens.json
+   Generator: scripts/build-tokens.mjs
 
    @see https://oklch.com - Interactive OKLCH picker
    @see SQLI-BRAND-REFERENCE.md - Brand color definitions
    ========================================================================== */
 
-@plugin "daisyui/theme" {
-  name: 'sqli-light';
-  default: true;
-  color-scheme: light;
-
-  /* Base Colors */
-  --color-base-100: oklch(98.5% 0.012 85);
-  --color-base-200: oklch(96% 0.012 85);
-  --color-base-300: oklch(93% 0.012 85);
-  --color-base-content: oklch(15% 0.04 270);
-
-  /* Primary - Cobalt Blue */
-  --color-primary: oklch(42% 0.28 265);
-  --color-primary-content: oklch(98% 0.005 85);
-
-  /* Secondary - Midnight + Sky */
-  --color-secondary: oklch(15% 0.04 270);
-  --color-secondary-content: oklch(68% 0.14 250);
-
-  /* Accent - Darker Cobalt */
-  --color-accent: oklch(38% 0.26 265);
-  --color-accent-content: oklch(98% 0.005 85);
-
-  /* Neutral - Midnight Blue */
-  --color-neutral: oklch(15% 0.04 270);
-  --color-neutral-content: oklch(98% 0.005 85);
-
-  /* Status Colors */
-  --color-info: oklch(68% 0.14 250);
-  --color-info-content: oklch(15% 0.04 270);
-  --color-success: oklch(65% 0.2 145);
-  --color-success-content: oklch(98% 0.005 145);
-  --color-warning: oklch(80% 0.18 85);
-  --color-warning-content: oklch(20% 0.05 85);
-  --color-error: oklch(60% 0.25 25);
-  --color-error-content: oklch(98% 0.005 25);
-
-  /* Shape */
-  --radius-selector: 0.25rem;
-  --radius-field: 0.25rem;
-  --radius-box: 0.5rem;
-  --size-selector: 0.25rem;
-  --size-field: 0.25rem;
-  --border: 1px;
-  --depth: 1;
-  --noise: 0;
-
-  /* Typography */
-  font-family:
-    'TWK Everett',
-    system-ui,
-    -apple-system,
-    sans-serif;
-}
+@import './generated/_theme-light.css';
+@import './generated/_theme-dark.css';
+@import './generated/_theme-auto-dark.css';
 
 /* ==========================================================================
-   SQLI Dark Theme
-   Dark mode theme for reduced eye strain
-
-   Background: Midnight (#0F0E2B)
-   Text: Cream (#FFFAF0)
-   Interactions: Sky (#6DA5FF)
+   Base Styles
    ========================================================================== */
 
-@plugin "daisyui/theme" {
-  name: 'sqli-dark';
-  prefersdark: true;
-  color-scheme: dark;
-
-  /* Base Colors - Inverted */
-  --color-base-100: oklch(15% 0.04 270);
-  --color-base-200: oklch(18% 0.04 270);
-  --color-base-300: oklch(22% 0.04 270);
-  --color-base-content: oklch(98% 0.005 85);
-
-  /* Primary - Sky Blue */
-  --color-primary: oklch(68% 0.14 250);
-  --color-primary-content: oklch(15% 0.04 270);
-
-  /* Secondary - Cream */
-  --color-secondary: oklch(98% 0.005 85);
-  --color-secondary-content: oklch(15% 0.04 270);
-
-  /* Accent - Lighter Sky */
-  --color-accent: oklch(75% 0.12 250);
-  --color-accent-content: oklch(15% 0.04 270);
-
-  /* Neutral - Dark gray */
-  --color-neutral: oklch(30% 0.03 270);
-  --color-neutral-content: oklch(98% 0.005 85);
-
-  /* Status Colors */
-  --color-info: oklch(68% 0.14 250);
-  --color-info-content: oklch(15% 0.04 270);
-  --color-success: oklch(70% 0.18 145);
-  --color-success-content: oklch(15% 0.05 145);
-  --color-warning: oklch(85% 0.16 85);
-  --color-warning-content: oklch(20% 0.05 85);
-  --color-error: oklch(65% 0.22 25);
-  --color-error-content: oklch(98% 0.005 25);
-
-  /* Shape */
-  --radius-selector: 0.25rem;
-  --radius-field: 0.25rem;
-  --radius-box: 0.5rem;
-  --size-selector: 0.25rem;
-  --size-field: 0.25rem;
-  --border: 1px;
-  --depth: 1;
-  --noise: 0;
-
-  /* Typography */
-  font-family:
-    'TWK Everett',
-    system-ui,
-    -apple-system,
-    sans-serif;
+body {
+  background-color: var(--color-base-100);
+  color: var(--color-base-content);
 }
 
 /* ==========================================================================
-   Component Customizations: focus states, links, toggles
+   Component Customizations: code blocks, links, syntax highlighting
    ========================================================================== */
 
 @import './_customizations.css';

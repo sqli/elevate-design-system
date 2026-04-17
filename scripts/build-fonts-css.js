@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
 /**
- * Build fonts.css for standalone/Platform.sh usage
+ * Build fonts.css for standalone usage
  *
  * Generates dist/fonts.css with relative paths (./fonts/...)
- * so fonts work correctly when loaded via Platform.sh or direct file include.
+ * so fonts work correctly when loaded via direct file include.
  *
  * Usage:
  *   node scripts/build-fonts-css.js
@@ -19,13 +19,10 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const fontsCss = `/**
  * Elevate Design System - TWK Everett Font Declarations
  *
- * Standalone font file for Platform.sh or direct embed usage.
+ * Standalone font file for direct embed usage.
  * Paths are relative to this CSS file location.
  *
- * Usage via Platform.sh:
- *   <link rel="stylesheet" href="https://main-bvxea6i-n3mp4dy5ud5ck.fr-3.platformsh.site/assets/fonts.css" />
- *
- * Usage standalone:
+ * Usage:
  *   <link rel="stylesheet" href="./fonts.css" />
  *   (Ensure fonts/ folder is in same directory)
  */

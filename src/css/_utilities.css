@@ -1,8 +1,8 @@
 /**
  * SQLI Custom Utilities
  *
- * Utility classes that extend Tailwind CSS and DaisyUI.
- * Only add utilities here that are not provided by Tailwind/DaisyUI.
+ * Utility classes that extend Tailwind CSS.
+ * Only add utilities here that are not provided by Tailwind.
  *
  * Naming Convention:
  * - Prefix all custom utilities with 'sqli-' to avoid conflicts
@@ -46,9 +46,6 @@
    Reduced Motion Support
    Accessibility feature for users who prefer reduced motion.
 
-   This affects ALL elements on the page when the user has enabled
-   "Reduce motion" in their OS settings.
-
    IMPORTANT: This is a critical accessibility feature. Do not remove.
    ========================================================================== */
 
@@ -62,14 +59,3 @@
     scroll-behavior: auto !important;
   }
 }
-
-/* ==========================================================================
-   Future Utilities
-   Reserved space for additional utilities as needed.
-
-   When adding new utilities:
-   1. Ensure they're not already available in Tailwind/DaisyUI
-   2. Use the sqli- prefix
-   3. Add documentation with @example
-   4. Consider accessibility implications
-   ========================================================================== */

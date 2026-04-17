@@ -5,15 +5,26 @@ import globals from 'globals';
 import json from '@eslint/json';
 import markdown from '@eslint/markdown';
 import css from '@eslint/css';
+import tseslint from 'typescript-eslint';
 import { defineConfig } from 'eslint/config';
 
 export default defineConfig([
   {
-    files: ['**/*.{js,mjs,cjs}'],
+    files: ['**/*.{js,mjs,cjs,jsx}'],
     plugins: { js },
     extends: ['js/recommended'],
-    languageOptions: { globals: globals.browser },
+    languageOptions: {
+      globals: globals.browser,
+      parserOptions: { ecmaFeatures: { jsx: true } },
+    },
+    rules: {
+      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z]', argsIgnorePattern: '^[A-Z_]' }],
+    },
   },
+  ...tseslint.configs.recommended.map((config) => ({
+    ...config,
+    files: ['**/*.{ts,tsx}'],
+  })),
   {
     files: ['scripts/**/*.js', 'tests/**/*.js'],
     languageOptions: { globals: globals.node },

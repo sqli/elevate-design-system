@@ -31,8 +31,55 @@ Changes in development, not yet released.
 
 ### Documentation
 
-- **Platform.sh URLs** - Updated all documentation to use Platform.sh deployment URLs
 - **Installation Guide** - Improved framework integration examples
+
+---
+
+## [0.12.0-alpha] - 2026-02-16
+
+Major architecture upgrade from CSS-only DaisyUI to a full React component library.
+
+### React Component Library
+
+- **25 typed React components** with CVA (class-variance-authority) variants
+- **forwardRef** pattern on all components for ref forwarding
+- **cn() utility** (clsx + tailwind-merge) for class merging
+
+### Radix UI Integration
+
+- **12 accessible primitives**: Dialog, Accordion, Tabs, Select, Checkbox, RadioGroup, Switch, Slider, DropdownMenu, Tooltip, Toast, Label
+- Full keyboard navigation and ARIA attributes out of the box
+
+### ElevateTheme Provider
+
+- `<ElevateTheme>` wrapper with `useTheme()` hook
+- `useThemeOptional()` for components outside the provider
+- Appearance management: light, dark, system
+- OS preference detection via `prefers-color-scheme`
+
+### Semantic CSS Tokens
+
+- **Shadow scale**: `--shadow-1` through `--shadow-6`
+- **Overlay**: `--color-overlay`
+- **Surface & Panel**: `--color-surface`, `--color-panel-solid`, `--color-panel-translucent`
+- **Focus**: `--color-focus`
+
+### TypeScript
+
+- Full type safety with `.d.ts` exports
+- VariantProps from CVA for type-safe variant props
+- Strict mode enabled
+
+### Build System
+
+- **tsup** for component builds (ESM + CJS + `.d.ts`)
+- Dual package exports (`import` / `require`)
+- Tree-shakeable ESM output
+
+### Recharts Integration
+
+- Chart theming with SQLI brand colors
+- Bar, Line, Area, Pie, and Radar chart variants
 
 ---
 
@@ -42,7 +89,7 @@ Initial public release of the Elevate Design System.
 
 ### Features
 
-- **DaisyUI Integration** - 65+ components with SQLI themes
+- **DaisyUI Integration** - 65+ CSS components with SQLI themes
 - **SQLI Themes** - `sqli-light` (Cream/Cobalt) and `sqli-dark` (Midnight/Sky)
 - **TWK Everett Font** - Custom SQLI typeface (Light, Regular, Medium, Bold)
 - **Brand Assets** - Logos, Ascenders, favicons in multiple formats
@@ -72,7 +119,10 @@ This is an **alpha release**. APIs and component structures may change before th
 
 ### Roadmap to v1.0.0
 
-- [x] DaisyUI component library integration
+- [x] React component library (25 components)
+- [x] Radix UI accessible primitives (12 primitives)
+- [x] ElevateTheme provider with `useTheme()` hook
+- [x] TypeScript types with `.d.ts` exports
 - [x] SQLI brand theming
 - [x] Distribution via npm and CDN
 - [ ] Component API stabilization

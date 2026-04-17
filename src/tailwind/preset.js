@@ -19,30 +19,32 @@
  * - Font weight utilities matching brand guidelines
  */
 
+import { brandColors } from '../tokens/generated/colors.js';
+
 export default {
   theme: {
     extend: {
       colors: {
         // Primary backgrounds
-        'sqli-cream': '#FFFAF0',
-        'sqli-midnight': '#0F0E2B',
+        'sqli-cream': brandColors.cream.hex,
+        'sqli-midnight': brandColors.midnight.hex,
 
         // Interactive colors
-        'sqli-cobalt': '#1F24E9',
-        'sqli-sky': '#6DA5FF',
+        'sqli-cobalt': brandColors.cobalt.hex,
+        'sqli-sky': brandColors.sky.hex,
 
         // Hover states
-        'sqli-cobalt-hover': '#1418C8',
-        'sqli-sky-hover': '#5A96F0',
+        'sqli-cobalt-hover': brandColors.cobaltHover.hex,
+        'sqli-sky-hover': brandColors.skyHover.hex,
 
         // Semantic aliases (for convenience)
         sqli: {
-          cream: '#FFFAF0',
-          midnight: '#0F0E2B',
-          cobalt: '#1F24E9',
-          sky: '#6DA5FF',
-          'cobalt-hover': '#1418C8',
-          'sky-hover': '#5A96F0',
+          cream: brandColors.cream.hex,
+          midnight: brandColors.midnight.hex,
+          cobalt: brandColors.cobalt.hex,
+          sky: brandColors.sky.hex,
+          'cobalt-hover': brandColors.cobaltHover.hex,
+          'sky-hover': brandColors.skyHover.hex,
         },
       },
       fontFamily: {

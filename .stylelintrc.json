@@ -3,12 +3,10 @@
   "plugins": ["stylelint-order"],
   "ignoreFiles": [
     "dist/**/*",
-    "src/css/tokens/_colors.css",
     ".storybook/preview.css",
     "src/css/main.css",
     "src/css/_fonts.css",
-    "src/css/_tokens.css",
-    "src/css/_themes.css",
+    "src/css/generated/**/*",
     "src/css/_customizations.css",
     "src/css/_utilities.css"
   ],

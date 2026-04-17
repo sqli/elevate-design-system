@@ -22,13 +22,8 @@ Complete guide to integrate the Elevate Design System into your projects.
   <tbody>
     <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
       <td style={{ padding: '0.75rem' }}><strong>Git Repository</strong></td>
-      <td style={{ padding: '0.75rem' }}>Production apps (React, Vue, Angular, Next.js)</td>
+      <td style={{ padding: '0.75rem' }}>React apps (Next.js, Vite+React), production</td>
       <td style={{ padding: '0.75rem' }}>Yes</td>
-    </tr>
-    <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
-      <td style={{ padding: '0.75rem' }}><strong>Platform.sh</strong></td>
-      <td style={{ padding: '0.75rem' }}>Prototypes, static sites, quick demos</td>
-      <td style={{ padding: '0.75rem' }}>No</td>
     </tr>
     <tr>
       <td style={{ padding: '0.75rem' }}><strong>Download</strong></td>
@@ -63,7 +58,16 @@ npm install git+https://gitlab-paris.sqli.com/SQLI/elevate-design-system.git#v1.
 npm install git+https://gitlab-paris.sqli.com/SQLI/elevate-design-system.git#dev
 ```
 
-### Import CSS
+### React Import
+
+```tsx
+import { Button, Card, CardBody, Alert } from '@sqli/elevate-design-system';
+import '@sqli/elevate-design-system/css';
+
+<Button variant="primary">Hello World</Button>
+```
+
+### CSS-Only Import
 
 ```css
 /* In your main CSS file */
@@ -92,58 +96,7 @@ import '@sqli/elevate-design-system/dist/fonts.css';
 
 ---
 
-## Method 2: Platform.sh (No build required)
-
-Use the CSS directly from Platform.sh deployments. No build step required:
-
-### Stable Version (main branch)
-
-```html
-<!DOCTYPE html>
-<html lang="en" data-theme="sqli-light">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My App</title>
-
-  <!-- Elevate Design System CSS -->
-  <link rel="stylesheet"
-        href="https://main-bvxea6i-n3mp4dy5ud5ck.fr-3.platformsh.site/assets/sqli-design-system.min.css" />
-
-  <!-- Fonts (required for TWK Everett) -->
-  <link rel="stylesheet"
-        href="https://main-bvxea6i-n3mp4dy5ud5ck.fr-3.platformsh.site/assets/fonts.css" />
-</head>
-<body class="bg-base-100 text-base-content">
-  <button class="btn btn-primary">Hello World</button>
-</body>
-</html>
-```
-
-### Development Version (dev branch)
-
-For testing latest features:
-
-```html
-<!-- CSS -->
-<link rel="stylesheet"
-      href="https://dev-54ta5gq-n3mp4dy5ud5ck.fr-3.platformsh.site/assets/sqli-design-system.min.css" />
-
-<!-- Fonts -->
-<link rel="stylesheet"
-      href="https://dev-54ta5gq-n3mp4dy5ud5ck.fr-3.platformsh.site/assets/fonts.css" />
-```
-
-### Environment URLs
-
-| Environment | URL | Branch |
-|-------------|-----|--------|
-| **Stable** | https://main-bvxea6i-n3mp4dy5ud5ck.fr-3.platformsh.site/ | main |
-| **Dev** | https://dev-54ta5gq-n3mp4dy5ud5ck.fr-3.platformsh.site/ | dev |
-
----
-
-## Method 3: Direct Download
+## Method 2: Direct Download
 
 Download files directly for self-hosting:
 
@@ -202,16 +155,11 @@ your-project/
 
 ## Advanced: Tokens Only
 
-Import only the CSS variables without DaisyUI components:
+Import only the CSS variables, without the full stylesheet:
 
 ```css
 /* Git repository install */
 @import '@sqli/elevate-design-system/dist/tokens.css';
-```
-
-```html
-<!-- Platform.sh -->
-<link rel="stylesheet" href="https://main-bvxea6i-n3mp4dy5ud5ck.fr-3.platformsh.site/assets/tokens.css" />
 ```
 
 Available variables:
@@ -261,10 +209,17 @@ This adds:
 
 ```tsx
 // app/layout.tsx
+import { ElevateTheme } from '@sqli/elevate-design-system';
+import '@sqli/elevate-design-system/css';
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="sqli-light" suppressHydrationWarning>
-      <body>{children}</body>
+      <body>
+        <ElevateTheme defaultTheme="sqli-light">
+          {children}
+        </ElevateTheme>
+      </body>
     </html>
   );
 }
@@ -272,28 +227,23 @@ export default function RootLayout({ children }) {
 
 ### Vite + React
 
-```css
-/* src/index.css */
-@import '@sqli/elevate-design-system/dist/sqli-design-system.css';
-@import '@sqli/elevate-design-system/dist/fonts.css';
-```
-
 ```tsx
 // src/main.tsx
-import './index.css';
+import '@sqli/elevate-design-system/css';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-
-document.documentElement.setAttribute('data-theme', 'sqli-light');
+import { ElevateTheme } from '@sqli/elevate-design-system';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
+    <ElevateTheme defaultTheme="sqli-light">
+      <App />
+    </ElevateTheme>
   </StrictMode>
 );
 ```
 
-### Vite + Vue
+### Vite + Vue (CSS-only)
 
 ```css
 /* src/style.css */
@@ -311,7 +261,7 @@ document.documentElement.setAttribute('data-theme', 'sqli-light');
 createApp(App).mount('#app');
 ```
 
-### Angular
+### Angular (CSS-only)
 
 ```css
 /* styles.css */
@@ -345,7 +295,33 @@ createApp(App).mount('#app');
 
 ## Theme Switching
 
-### JavaScript Toggle
+### ElevateTheme Provider (React)
+
+```tsx
+import { ElevateTheme, useTheme } from '@sqli/elevate-design-system';
+
+function App() {
+  return (
+    <ElevateTheme defaultTheme="sqli-light">
+      <ThemeToggle />
+      <Content />
+    </ElevateTheme>
+  );
+}
+
+function ThemeToggle() {
+  const { theme, setTheme } = useTheme();
+  const toggle = () => setTheme(theme === 'sqli-light' ? 'sqli-dark' : 'sqli-light');
+  return <button onClick={toggle}>Toggle Theme</button>;
+}
+```
+
+The `ElevateTheme` provider handles:
+- Persisting the user's preference to `localStorage`
+- Detecting OS preference via `prefers-color-scheme`
+- Applying `data-theme` attribute to the document
+
+### JavaScript Toggle (non-React)
 
 ```javascript
 function toggleTheme() {
@@ -375,12 +351,6 @@ const theme = localStorage.getItem('theme') || getSystemTheme();
 document.documentElement.setAttribute('data-theme', theme);
 ```
 
-### DaisyUI Theme Controller
-
-```html
-<input type="checkbox" value="sqli-dark" class="toggle theme-controller" />
-```
-
 ---
 
 ## Font Integration
@@ -389,13 +359,7 @@ document.documentElement.setAttribute('data-theme', theme);
 
 Fonts are loaded automatically via CSS. Ensure font files are accessible at `/fonts/` or configure your bundler.
 
-### Option 2: Platform.sh Fonts
-
-```html
-<link rel="stylesheet" href="https://main-bvxea6i-n3mp4dy5ud5ck.fr-3.platformsh.site/assets/fonts.css" />
-```
-
-### Option 3: Self-Hosted
+### Option 2: Self-Hosted
 
 ```bash
 # Copy fonts to your project
@@ -435,12 +399,12 @@ cp -r node_modules/@sqli/elevate-design-system/dist/fonts ./public/fonts
     <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
       <td style={{ padding: '0.75rem' }}>Fonts not loading</td>
       <td style={{ padding: '0.75rem' }}>Path issue</td>
-      <td style={{ padding: '0.75rem' }}>Use Platform.sh or copy fonts locally</td>
+      <td style={{ padding: '0.75rem' }}>Copy fonts locally or self-host</td>
     </tr>
     <tr style={{ borderBottom: '1px solid #e5e7eb' }}>
       <td style={{ padding: '0.75rem' }}>Theme not applying</td>
       <td style={{ padding: '0.75rem' }}>Missing attribute</td>
-      <td style={{ padding: '0.75rem' }}>Add <code>data-theme</code> to <code>&lt;html&gt;</code></td>
+      <td style={{ padding: '0.75rem' }}>Add <code>data-theme</code> to <code>&lt;html&gt;</code> or use <code>&lt;ElevateTheme&gt;</code></td>
     </tr>
     <tr>
       <td style={{ padding: '0.75rem' }}>Components unstyled</td>
@@ -472,4 +436,4 @@ getComputedStyle(document.documentElement).getPropertyValue('--color-primary')
 
 - **Storybook**: Browse [component examples](?path=/docs/governance-component-index--docs)
 - **GitLab**: [Open an issue](https://gitlab.paris.sqli.com/sqli/design-system/-/issues)
-- **Documentation**: [DaisyUI components](https://daisyui.com/components/)
+- **Radix UI**: [Primitives documentation](https://www.radix-ui.com/primitives)

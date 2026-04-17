@@ -7,7 +7,7 @@ import { Meta } from '@storybook/addon-docs/blocks';
 
 ## Design System Architecture
 
-The Elevate Design System is built on **DaisyUI** + **Tailwind CSS 4**:
+The Elevate Design System is built on **React** + **Radix UI** + **CVA** + **Tailwind CSS 4**:
 
 <table>
   <thead>
@@ -24,9 +24,14 @@ The Elevate Design System is built on **DaisyUI** + **Tailwind CSS 4**:
       <td>Colors, Typography, Theming, Logo, Ascender</td>
     </tr>
     <tr>
-      <td><strong>Components</strong></td>
-      <td>DaisyUI components with SQLI theme styling</td>
-      <td>Button, Input, Badge, Card, Alert, Modal</td>
+      <td><strong>React Components</strong></td>
+      <td>Radix UI primitives + CVA variants with TypeScript types</td>
+      <td>Button, Dialog, Select, Accordion, Tabs, Toast</td>
+    </tr>
+    <tr>
+      <td><strong>CSS Components</strong></td>
+      <td>CSS class-based components with SQLI theme styling</td>
+      <td>Carousel, ChatBubble, Countdown, Hero, Navbar</td>
     </tr>
   </tbody>
 </table>
@@ -35,54 +40,71 @@ The Elevate Design System is built on **DaisyUI** + **Tailwind CSS 4**:
 
 ### Decision Tree
 
-1. **Is it a design token or brand asset?** → **Foundations**
-2. **Is it a new DaisyUI component story?** → **Components**
-3. **Is it a custom CSS override?** → `src/css/main.css`
+1. **Is it a design token or brand asset?** -> **Foundations**
+2. **Is it a new React component?** -> `src/components/<ComponentName>/`
+3. **Is it a new CSS component story?** -> `stories/2-Components/<Category>/`
+4. **Is it a custom CSS override?** -> `src/css/main.css`
 
 ### Component Categories
 
-See the [Introduction](?path=/docs/introduction--docs#2-components) for the complete list of 65+ components organized by category (Actions, Data Display, Data Input, Feedback, Navigation, Layout, Mockup).
+See the [Component Index](?path=/docs/governance-component-index--docs) for the complete list of 25 React components + CSS utility components organized by category (Actions, Data Display, Data Input, Feedback, Navigation, Layout, Mockup).
 
 ## Naming Conventions
 
-### DaisyUI Classes
+### React Component Pattern
 
-Components use DaisyUI's semantic class system:
+Components use CVA variants with the `cn()` utility:
 
-```html
-<!-- Good - DaisyUI classes -->
-<button class="btn btn-primary">Primary</button>
-<div class="card bg-base-100">Card</div>
-<input class="input input-bordered" />
+```tsx
+import { forwardRef } from 'react';
+import { cva, type VariantProps } from 'class-variance-authority';
+import { cn } from '../../lib/utils';
 
-<!-- Avoid - Custom sqli-* classes (deprecated) -->
-<button class="sqli-btn sqli-btn--primary">Primary</button>
+const myVariants = cva('base-classes', {
+  variants: {
+    variant: { primary: '...', secondary: '...' },
+    size: { sm: '...', md: '...', lg: '...' },
+  },
+  defaultVariants: { variant: 'primary', size: 'md' },
+});
+
+export interface MyProps
+  extends React.HTMLAttributes<HTMLElement>,
+    VariantProps<typeof myVariants> {}
+
+export const MyComponent = forwardRef<HTMLElement, MyProps>(
+  ({ className, variant, size, ...props }, ref) => (
+    <div ref={ref} className={cn(myVariants({ variant, size }), className)} {...props} />
+  )
+);
+MyComponent.displayName = 'MyComponent';
 ```
 
 ### File Naming
 
-- Story files: `ComponentName.stories.js`
+- Component files: `src/components/<ComponentName>/<ComponentName>.tsx` + `index.ts`
+- Story files: `stories/2-Components/<Category>/ComponentName.stories.tsx`
 - CSS overrides: Add to `src/css/main.css`
 
 ## Theme System
 
-The design system uses `data-theme` attribute for theming (NOT `.dark` class). See the [Introduction - Theme System](?path=/docs/introduction--docs#theme-system) for complete usage examples.
+The design system uses `data-theme` attribute for theming (NOT `.dark` class). The `ElevateTheme` React provider manages themes programmatically.
 
 Available themes: `sqli-light` (default) and `sqli-dark`.
 
 ### Custom CSS Overrides
 
-Add overrides in `src/css/main.css`:
+Add overrides in `src/css/main.css` using CSS variables:
 
 ```css
 /* Light mode override */
 .component:focus {
-  border-color: oklch(42% 0.28 265) !important; /* Cobalt */
+  border-color: var(--color-focus) !important;
 }
 
 /* Dark mode variant */
 [data-theme='sqli-dark'] .component:focus {
-  border-color: oklch(68% 0.14 250) !important; /* Sky */
+  border-color: var(--color-focus) !important;
 }
 ```
 
@@ -129,19 +151,26 @@ Every interactive component story should demonstrate:
 
 ## Story Template
 
-```javascript
-export default {
-  title: 'Components/<Category>/ComponentName',
+```tsx
+import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react';
+import { MyComponent } from '../../../src/components/MyComponent';
+
+const meta: Meta<typeof MyComponent> = {
+  title: 'Components/<Category>/MyComponent',
+  component: MyComponent,
   tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
         component: `
-DaisyUI ComponentName styled with SQLI themes.
+React **MyComponent** with SQLI themes.
 
 ## Usage
-\`\`\`html
-<div class="component">Content</div>
+\`\`\`tsx
+import { MyComponent } from '@sqli/elevate-design-system';
+
+<MyComponent variant="primary">Content</MyComponent>
 \`\`\`
         `,
       },
@@ -149,23 +178,26 @@ DaisyUI ComponentName styled with SQLI themes.
   },
 };
 
-export const Default = () => `
-  <div class="component">Default</div>
-`;
+export default meta;
+type Story = StoryObj<typeof MyComponent>;
 
-export const Variants = () => `
-  <div class="flex gap-4">
-    <button class="btn">Default</button>
-    <button class="btn btn-primary">Primary</button>
-    <button class="btn btn-secondary">Secondary</button>
-  </div>
-`;
+export const Default: Story = {
+  args: { children: 'Default', variant: 'primary' },
+};
 
-export const DarkMode = () => `
-  <div data-theme="sqli-dark" class="bg-base-100 p-6 rounded-lg">
-    <button class="btn btn-primary">Dark Mode</button>
+export const Variants = () => (
+  <div className="flex gap-4">
+    <MyComponent variant="primary">Primary</MyComponent>
+    <MyComponent variant="secondary">Secondary</MyComponent>
   </div>
-`;
+);
+
+export const DarkMode = () => (
+  <div data-theme="sqli-dark" className="bg-[var(--color-base-100)] p-6 rounded-lg">
+    <MyComponent variant="primary">Dark Mode</MyComponent>
+  </div>
+);
+DarkMode.parameters = { backgrounds: { default: 'dark' } };
 ```
 
 ## Accessibility Checklist
@@ -194,7 +226,7 @@ Every component story must include:
 3. **Sizes**: All size options shown
 4. **States**: All interactive states demonstrated
 5. **Dark Mode**: Rendering in dark theme
-6. **Usage**: Code examples with DaisyUI classes
+6. **Usage**: Code examples with React component imports and props
 
 ## Review Process
 

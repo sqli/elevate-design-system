@@ -1,128 +1,26 @@
 /**
- * DaisyUI Component Customizations
+ * SQLI Component Customizations
  *
- * Overrides and enhancements for DaisyUI components to match SQLI brand.
- * These rules modify default DaisyUI behavior without breaking functionality.
- *
- * IMPORTANT: Only add overrides here that are necessary for brand compliance.
- * Avoid duplicating DaisyUI defaults or adding unnecessary complexity.
+ * Brand-specific overrides and component styles.
+ * Focus states and interactive behaviors are handled in React components.
  *
  * @since v0.1.0
  */
 
 /* ==========================================================================
-   Focus Styles
-   Global fix for DaisyUI focus states
+   Links
+   SQLI Brand Compliance
 
-   Problem: DaisyUI adds rings/outlines that can create double borders.
-   Solution: Remove all outlines, use border color change for focus indication.
-
-   Accessibility: Focus states remain visible through border color changes,
-   maintaining WCAG 2.1 compliance for keyboard navigation.
+   Default links use primary color (Cobalt in light, Sky in dark).
+   Hover state uses accent color for subtle darkening effect.
    ========================================================================== */
 
-/**
- * Global Focus Reset
- *
- * Removes browser default outlines. Focus indication is handled
- * per-component below using border colors.
- */
-*:focus,
-*:focus-visible,
-*:focus-within {
-  outline: none !important;
-  outline-width: 0 !important;
-  outline-offset: 0 !important;
+a {
+  color: var(--color-primary);
 }
 
-/**
- * Form Inputs Focus
- *
- * Simple border color change on focus - NO ring/shadow effects.
- * Uses var(--color-primary) to automatically adapt to theme:
- * - Light mode: Cobalt (#1F24E9)
- * - Dark mode: Sky (#6DA5FF)
- */
-.input:focus,
-.input:focus-visible,
-.input:focus-within,
-.select:focus,
-.select:focus-visible,
-.textarea:focus,
-.textarea:focus-visible,
-.file-input:focus,
-.file-input:focus-visible,
-label.input:focus-within,
-label.input:has(:focus) {
-  outline: none !important;
-  outline-width: 0 !important;
-  border-color: var(--color-primary) !important;
-  box-shadow: none !important;
-  --tw-ring-shadow: 0 0 #0000 !important;
-  --tw-ring-offset-shadow: 0 0 #0000 !important;
-  --tw-shadow: 0 0 #0000 !important;
-}
-
-/**
- * Color variant inputs - preserve border color on focus
- */
-.input-primary:focus,
-.input-secondary:focus,
-.input-accent:focus,
-.input-info:focus,
-.input-success:focus,
-.input-warning:focus,
-.input-error:focus,
-.select-primary:focus,
-.select-secondary:focus,
-.select-accent:focus,
-.select-info:focus,
-.select-success:focus,
-.select-warning:focus,
-.select-error:focus {
-  outline: none !important;
-  box-shadow: none !important;
-  --tw-ring-shadow: 0 0 #0000 !important;
-  --tw-ring-offset-shadow: 0 0 #0000 !important;
-  --tw-shadow: 0 0 #0000 !important;
-}
-
-/**
- * Join elements - remove double border effect
- */
-.join .input:focus,
-.join .select:focus,
-.join .btn:focus {
-  outline: none !important;
-  box-shadow: none !important;
-  --tw-ring-shadow: 0 0 #0000 !important;
-  --tw-ring-offset-shadow: 0 0 #0000 !important;
-  z-index: 1;
-}
-
-/**
- * Buttons and Interactive Elements Focus
- *
- * Remove ring shadows, rely on :hover/:active states for feedback.
- */
-.btn:focus,
-.btn:focus-visible,
-.checkbox:focus,
-.checkbox:focus-visible,
-.radio:focus,
-.radio:focus-visible,
-.toggle:focus,
-.toggle:focus-visible,
-.range:focus,
-.range:focus-visible,
-.rating:focus,
-.rating:focus-visible {
-  outline: none !important;
-  outline-width: 0 !important;
-  box-shadow: none !important;
-  --tw-ring-shadow: 0 0 #0000 !important;
-  --tw-ring-offset-shadow: 0 0 #0000 !important;
-  --tw-shadow: 0 0 #0000 !important;
+a:hover {
+  color: var(--color-accent);
 }
 
 /* ==========================================================================
@@ -133,12 +31,10 @@ label.input:has(:focus) {
    ========================================================================== */
 
 .diff-resizer {
-  /* Make resizer more visible with a solid line and handle */
   cursor: ew-resize;
 }
 
 .diff-resizer::after {
-  /* Handle circle */
   content: '';
   position: absolute;
   top: 50%;
@@ -156,7 +52,6 @@ label.input:has(:focus) {
 }
 
 .diff-resizer::before {
-  /* Vertical line */
   content: '';
   position: absolute;
   top: 0;
@@ -169,242 +64,3 @@ label.input:has(:focus) {
   z-index: 5;
 }
 
-/* ==========================================================================
-   Links
-   SQLI Brand Compliance
-
-   Default links use primary color (Cobalt in light, Sky in dark).
-   Hover state uses accent color for subtle darkening effect.
-
-   Excluded:
-   - .btn class (buttons have their own styling)
-   - .link-neutral class (intentionally neutral links)
-   ========================================================================== */
-
-a:not(.btn):not(.link-neutral) {
-  color: var(--color-primary);
-}
-
-a:not(.btn):not(.link-neutral):hover {
-  color: var(--color-accent);
-}
-
-.link {
-  color: var(--color-primary);
-}
-
-.link:hover {
-  color: var(--color-accent);
-}
-
-/* ==========================================================================
-   Toggle Component
-   SQLI Brand Compliance
-
-   Default toggle uses primary color when checked:
-   - Light mode: Cobalt (#1F24E9)
-   - Dark mode: Sky (#6DA5FF)
-   ========================================================================== */
-
-.toggle:checked {
-  --toggle-bg: var(--color-primary);
-  border-color: var(--color-primary);
-}
-
-[data-theme='sqli-dark'] .toggle:checked {
-  --toggle-bg: var(--color-primary);
-  border-color: var(--color-primary);
-}
-
-/* ==========================================================================
-   Code Block Component
-   Syntax-highlighted code display with SQLI theme
-
-   Features:
-   - Header with language badge and copy button
-   - Optional line numbers
-   - Dark background for readability
-   - SQLI brand colors for syntax highlighting
-   ========================================================================== */
-
-.code-block {
-  border-radius: 0.5rem;
-  overflow: hidden;
-  background-color: #1e1e2e;
-  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
-  font-size: 0.875rem;
-  line-height: 1.5;
-}
-
-.code-block-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem 1rem;
-  background-color: #313244;
-  border-bottom: 1px solid #45475a;
-}
-
-.code-block-lang {
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: #cdd6f4;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.code-block-copy {
-  color: #cdd6f4 !important;
-}
-
-.code-block-copy:hover {
-  color: #f5e0dc !important;
-  background-color: #45475a !important;
-}
-
-.code-block-body {
-  display: flex;
-  overflow-x: auto;
-}
-
-.code-block-body.with-lines {
-  padding-left: 0;
-}
-
-.code-block-lines {
-  display: flex;
-  flex-direction: column;
-  padding: 1rem 0;
-  padding-left: 1rem;
-  padding-right: 0.75rem;
-  background-color: #181825;
-  color: #6c7086;
-  text-align: right;
-  user-select: none;
-  border-right: 1px solid #313244;
-  font-size: 0.75rem;
-}
-
-.code-block-lines span {
-  line-height: 1.5;
-}
-
-.code-block-content {
-  flex: 1;
-  margin: 0;
-  padding: 1rem;
-  overflow-x: auto;
-  color: #cdd6f4;
-  background-color: transparent;
-}
-
-.code-block-content code {
-  font-family: inherit;
-  white-space: pre;
-}
-
-/* Dark mode adjustments */
-[data-theme='sqli-dark'] .code-block {
-  background-color: #11111b;
-}
-
-[data-theme='sqli-dark'] .code-block-header {
-  background-color: #1e1e2e;
-  border-bottom-color: #313244;
-}
-
-[data-theme='sqli-dark'] .code-block-lines {
-  background-color: #0d0d14;
-}
-
-/* ==========================================================================
-   Prism.js Syntax Highlighting - SQLI Theme
-   Based on Catppuccin Mocha with SQLI brand colors
-   ========================================================================== */
-
-/* Token colors */
-.code-block .token.comment,
-.code-block .token.prolog,
-.code-block .token.doctype,
-.code-block .token.cdata {
-  color: #6c7086;
-  font-style: italic;
-}
-
-.code-block .token.punctuation {
-  color: #9399b2;
-}
-
-.code-block .token.namespace {
-  opacity: 0.8;
-}
-
-.code-block .token.property,
-.code-block .token.tag,
-.code-block .token.constant,
-.code-block .token.symbol,
-.code-block .token.deleted {
-  color: #f38ba8;
-}
-
-.code-block .token.boolean,
-.code-block .token.number {
-  color: #fab387;
-}
-
-.code-block .token.selector,
-.code-block .token.attr-name,
-.code-block .token.string,
-.code-block .token.char,
-.code-block .token.builtin,
-.code-block .token.inserted {
-  color: #a6e3a1;
-}
-
-.code-block .token.operator,
-.code-block .token.entity,
-.code-block .token.url,
-.code-block .language-css .token.string,
-.code-block .style .token.string,
-.code-block .token.variable {
-  color: #94e2d5;
-}
-
-.code-block .token.atrule,
-.code-block .token.attr-value,
-.code-block .token.function,
-.code-block .token.class-name {
-  color: #f9e2af;
-}
-
-.code-block .token.keyword {
-  color: #cba6f7;
-}
-
-.code-block .token.regex,
-.code-block .token.important {
-  color: #fab387;
-}
-
-.code-block .token.important,
-.code-block .token.bold {
-  font-weight: bold;
-}
-
-.code-block .token.italic {
-  font-style: italic;
-}
-
-.code-block .token.entity {
-  cursor: help;
-}
-
-/* SQL specific */
-.code-block .token.sql-keyword {
-  color: #cba6f7;
-}
-
-/* PHP specific */
-.code-block .token.php-tag {
-  color: #f38ba8;
-}

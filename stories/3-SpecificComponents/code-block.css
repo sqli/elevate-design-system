@@ -2,10 +2,9 @@
 
 /**
  * CodeBlock Component Styles
- * Syntax highlighting theme based on Catppuccin Mocha
+ * Syntax highlighting theme based on Catppuccin Mocha with SQLI brand feel.
  *
- * Note: This file uses Prism.js token classes which follow their own naming convention.
- * BEM and color variable rules are disabled as these are third-party class names.
+ * Note: Uses Prism.js token classes which follow their own naming convention.
  */
 
 .code-block {
@@ -35,12 +34,19 @@
 }
 
 .code-block-copy {
-  color: #cdd6f4 !important;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  color: #cdd6f4;
+  background: transparent;
+  border: 1px solid #45475a;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
 }
 
 .code-block-copy:hover {
-  color: #f5e0dc !important;
-  background-color: #45475a !important;
+  color: #f5e0dc;
+  background-color: #45475a;
 }
 
 .code-block-body {
@@ -48,16 +54,10 @@
   overflow-x: auto;
 }
 
-.code-block-body.with-lines {
-  padding-left: 0;
-}
-
 .code-block-lines {
   display: flex;
   flex-direction: column;
-  padding: 1rem 0;
-  padding-right: 0.75rem;
-  padding-left: 1rem;
+  padding: 1rem 0.75rem 1rem 1rem;
   font-size: 0.75rem;
   text-align: right;
   color: #6c7086;
@@ -99,8 +99,7 @@
 }
 
 /* ==========================================================================
-   Prism.js Syntax Highlighting - SQLI Theme
-   Based on Catppuccin Mocha
+   Prism.js Syntax Highlighting - SQLI Theme (Catppuccin Mocha)
    ========================================================================== */
 
 /* Comments */

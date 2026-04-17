@@ -1,77 +1,75 @@
 # Elevate Design System
 
-Design system for SQLI applications, built on **DaisyUI** with custom SQLI themes.
+React component library for SQLI applications, built with **Radix UI** primitives, **Tailwind CSS**, and **TypeScript**.
 
-**Version:** 0.11.0-alpha
+**Version:** 0.12.0-alpha
 
 ## Important Instructions
 
 When working on this project or SQLI deliverables, you MUST follow the brand guidelines defined in `SQLI-BRAND-REFERENCE.md`.
 
-## Philosophy
+## Architecture
 
-> **Stateless Design System**: The Elevate Design System is a **CSS-only** library that provides themed components via DaisyUI classes. It does **not** include JavaScript framework integrations (React, Angular, Vue, etc.).
+The Elevate Design System is a **React component library** that provides:
 
-Framework integration is the responsibility of consuming projects. This design system provides:
-
-- **CSS styles** and **DaisyUI themes** (sqli-light, sqli-dark)
-- **HTML examples** demonstrating component usage
+- **React components** with type-safe props (TypeScript)
+- **Radix UI primitives** for accessible interactive components (Dialog, Tabs, Accordion, etc.)
+- **CVA (class-variance-authority)** for type-safe variant management
+- **Tailwind CSS 4** for styling, using CSS custom properties for theming
+- **Two SQLI themes** (sqli-light, sqli-dark) via `data-theme` attribute
 - **Brand assets** (fonts, logos, images)
-- **Documentation** for implementation guidance
 
-### Integration Examples
+### Tech Stack
 
-Projects consuming this design system should create their own wrappers:
+| Layer | Technology |
+|-------|-----------|
+| Components | React 19 + TypeScript |
+| Primitives | Radix UI (`radix-ui`) |
+| Variants | `class-variance-authority` (CVA) |
+| Styling | Tailwind CSS 4 + CSS variables |
+| Class merging | `tailwind-merge` + `clsx` via `cn()` |
+| Build | tsup (ESM + CJS + .d.ts) |
+| Storybook | `@storybook/react-vite` |
+| Icons | `hugeicons-react` |
 
-**React**
+### Project Structure
 
-```jsx
-// In your project (not in this DS)
-import '@sqli/elevate-design-system/dist/sqli-design-system.css';
-
-export const Button = ({ variant = 'primary', children, ...props }) => (
-  <button className={`btn btn-${variant}`} {...props}>
-    {children}
-  </button>
-);
 ```
+src/
+├── components/         # React components (~20 modules)
+│   ├── Button/        # Button.tsx + index.ts
+│   ├── Dialog/        # Radix Dialog wrapper
+│   ├── Select/        # Radix Select wrapper
+│   └── ...
+├── lib/
+│   └── utils.ts       # cn() utility
+├── css/
+│   ├── main.css       # Themes + imports
+│   ├── _fonts.css     # TWK Everett font faces
+│   ├── _tokens.css    # Design tokens
+│   ├── _customizations.css  # Code block, Prism.js styles
+│   └── _utilities.css # Custom utilities (sr-only, reduced motion)
+├── charts/            # Recharts integration
+├── tailwind/          # Tailwind preset for consumers
+└── index.ts           # Barrel export
 
-**Vue**
-
-```vue
-<!-- In your project (not in this DS) -->
-<script setup>
-import '@sqli/elevate-design-system/dist/sqli-design-system.css';
-defineProps(['variant']);
-</script>
-
-<template>
-  <button :class="`btn btn-${variant || 'primary'}`">
-    <slot />
-  </button>
-</template>
-```
-
-**Angular**
-
-```typescript
-// In your project (not in this DS)
-// styles.css: @import '@sqli/elevate-design-system/dist/sqli-design-system.css';
-
-@Component({
-  selector: 'app-button',
-  template: `<button [class]="'btn btn-' + variant"><ng-content></ng-content></button>`,
-})
-export class ButtonComponent {
-  @Input() variant = 'primary';
-}
+stories/
+├── 0-Governance/      # Documentation, changelog
+├── 1-Foundations/     # Colors, typography, theming, icons
+├── 2-Components/      # Component stories (67 files)
+│   ├── Actions/       # Button, Dropdown, Dialog, Swap, FAB
+│   ├── DataDisplay/   # Card, Badge, Avatar, Table, etc.
+│   ├── DataInput/     # Input, Select, Checkbox, Radio, etc.
+│   ├── Feedback/      # Alert, Loading, Progress, Toast, etc.
+│   ├── Layout/        # Divider, Drawer, Hero, Stack, etc.
+│   ├── Navigation/    # Tabs, Menu, Navbar, Breadcrumbs, etc.
+│   └── Mockup/        # Browser, Phone, Code, Window
+└── 3-SpecificComponents/  # CodeBlock, Mermaid
 ```
 
 ## Quick Reference
 
 ### Themes
-
-The design system provides two DaisyUI themes:
 
 | Theme        | Usage              | Background | Text     | Primary |
 | ------------ | ------------------ | ---------- | -------- | ------- |
@@ -79,16 +77,14 @@ The design system provides two DaisyUI themes:
 | `sqli-dark`  | Dark mode          | Midnight   | Cream    | Sky     |
 
 ```html
-<!-- Apply theme to document -->
 <html data-theme="sqli-light">
-  <!-- Or scope to specific element -->
   <div data-theme="sqli-dark">Dark content</div>
 </html>
 ```
 
 ### Brand Colors
 
-| Name     | Hex       | DaisyUI Variable           | Usage                  |
+| Name     | Hex       | CSS Variable               | Usage                  |
 | -------- | --------- | -------------------------- | ---------------------- |
 | Cream    | `#FFFAF0` | `--color-base-100` (light) | Light background       |
 | Midnight | `#0F0E2B` | `--color-base-100` (dark)  | Dark background, text  |
@@ -102,49 +98,6 @@ The design system provides two DaisyUI themes:
 - **Standard**: Regular (400)
 - **Headings**: Medium (500)
 
-### Icons
-
-The design system provides **HeroIcons** (MIT-licensed icons from Tailwind Labs).
-
-```javascript
-// Import
-import { heroicon, HeroIcons } from '../utils/heroicons.js';
-
-// Function API
-heroicon('home'); // 24px outline (default)
-heroicon('home', { variant: 'solid' }); // 24px solid
-heroicon('home', { size: 20, variant: 'solid' }); // 20px mini
-heroicon('home', { size: 16, variant: 'solid' }); // 16px micro
-heroicon('home', { class: 'w-6 h-6 text-primary' }); // with classes
-
-// Pre-built exports
-HeroIcons.home; // 24px outline
-HeroIcons.homeSolid; // 24px solid
-HeroIcons.search; // alias for magnifying-glass
-HeroIcons.settings; // alias for cog-6-tooth
-```
-
-**Usage in HTML:**
-
-```html
-<!-- Button with icon -->
-<button class="btn btn-primary">${heroicon('plus', { class: 'w-5 h-5' })} Add Item</button>
-
-<!-- Alert with icon -->
-<div role="alert" class="alert alert-info">
-  ${heroicon('information-circle', { class: 'w-6 h-6' })}
-  <span>New update available</span>
-</div>
-
-<!-- Input with icon -->
-<label class="input input-bordered flex items-center gap-2">
-  ${heroicon('magnifying-glass', { class: 'w-5 h-5 opacity-50' })}
-  <input type="text" placeholder="Search..." />
-</label>
-```
-
-See Storybook **Foundations > Icons** for complete documentation.
-
 ### Logo
 
 - Logo "sqli" always in **lowercase**
@@ -154,159 +107,191 @@ See Storybook **Foundations > Icons** for complete documentation.
 
 - **"Elevate. Digitally"** - period ONLY after "Elevate"
 
-## Available Commands
-
-- `/brand-check [content]` - Check brand guideline compliance
-- `/brand-generate [request]` - Generate brand-compliant content
-
-## Design System Architecture
-
-The design system uses **DaisyUI** as its component library with custom SQLI themes:
-
-```
-stories/
-├── 0-Governance/           # Documentation, changelog
-├── 1-Foundations/          # Colors, typography, theming
-└── 2-Components/           # DaisyUI components (65+)
-    ├── Actions/            # Button, Dropdown, Modal, Swap, FAB
-    ├── DataDisplay/        # Card, Badge, Avatar, Table, etc.
-    ├── DataInput/          # Input, Select, Checkbox, Toggle, etc.
-    ├── Feedback/           # Alert, Loading, Progress, Toast, etc.
-    ├── Layout/             # Divider, Drawer, Hero, Stack, etc.
-    ├── Navigation/         # Tabs, Menu, Navbar, Breadcrumbs, etc.
-    └── Mockup/             # Browser, Phone, Code, Window
-```
-
 ## Component Usage
 
-All components use **DaisyUI classes** (not sqli-\* classes):
+### Installation
+
+```tsx
+import { Button, Badge, Alert } from '@sqli/elevate-design-system';
+import '@sqli/elevate-design-system/css';
+```
 
 ### Buttons
 
-```html
-<button class="btn">Default</button>
-<button class="btn btn-primary">Primary</button>
-<button class="btn btn-secondary">Secondary</button>
-<button class="btn btn-accent">Accent</button>
-<button class="btn btn-ghost">Ghost</button>
-<button class="btn btn-link">Link</button>
+```tsx
+import { Button } from '@sqli/elevate-design-system';
 
-<!-- Sizes -->
-<button class="btn btn-xs">Extra Small</button>
-<button class="btn btn-sm">Small</button>
-<button class="btn btn-md">Medium</button>
-<button class="btn btn-lg">Large</button>
-
-<!-- States -->
-<button class="btn btn-primary" disabled>Disabled</button>
-<button class="btn btn-primary loading">Loading</button>
+<Button variant="primary">Primary</Button>
+<Button variant="secondary" size="lg">Large Secondary</Button>
+<Button variant="ghost" loading>Loading</Button>
+<Button variant="outline" disabled>Disabled</Button>
 ```
+
+Variants: `primary`, `secondary`, `accent`, `ghost`, `outline`, `link`, `info`, `success`, `warning`, `error`
+Sizes: `xs`, `sm`, `md`, `lg`
 
 ### Cards
 
-```html
-<div class="card bg-base-100 shadow-xl">
-  <figure><img src="image.jpg" alt="Image" /></figure>
-  <div class="card-body">
-    <h2 class="card-title">Title</h2>
+```tsx
+import { Card, CardBody, CardTitle, CardActions, CardFigure } from '@sqli/elevate-design-system';
+
+<Card>
+  <CardFigure><img src="image.jpg" alt="Image" /></CardFigure>
+  <CardBody>
+    <CardTitle>Title</CardTitle>
     <p>Description</p>
-    <div class="card-actions justify-end">
-      <button class="btn btn-primary">Action</button>
-    </div>
-  </div>
-</div>
+    <CardActions>
+      <Button variant="primary">Action</Button>
+    </CardActions>
+  </CardBody>
+</Card>
 ```
 
 ### Form Inputs
 
-```html
-<!-- Text input -->
-<input type="text" placeholder="Type here" class="input input-bordered w-full" />
+```tsx
+import { Input, Textarea, Label, Checkbox, RadioGroup, RadioGroupItem, Switch, Select, SelectTrigger, SelectContent, SelectItem, SelectValue, Slider } from '@sqli/elevate-design-system';
 
-<!-- With label -->
-<label class="form-control w-full">
-  <div class="label">
-    <span class="label-text">Email</span>
-  </div>
-  <input type="email" class="input input-bordered" />
-</label>
+<Input variant="bordered" placeholder="Type here" />
+<Textarea variant="bordered" placeholder="Message" />
+<Label htmlFor="email">Email</Label>
+<Checkbox />
+<Switch />
+<Slider defaultValue={[50]} max={100} step={1} />
 
-<!-- Select -->
-<select class="select select-bordered w-full">
-  <option disabled selected>Pick one</option>
-  <option>Option 1</option>
-</select>
+<Select>
+  <SelectTrigger><SelectValue placeholder="Pick one" /></SelectTrigger>
+  <SelectContent>
+    <SelectItem value="1">Option 1</SelectItem>
+    <SelectItem value="2">Option 2</SelectItem>
+  </SelectContent>
+</Select>
 
-<!-- Checkbox -->
-<input type="checkbox" class="checkbox checkbox-primary" />
+<RadioGroup defaultValue="option1">
+  <RadioGroupItem value="option1" id="r1" />
+  <Label htmlFor="r1">Option 1</Label>
+</RadioGroup>
+```
 
-<!-- Toggle -->
-<input type="checkbox" class="toggle toggle-primary" />
+### Dialog (replaces Modal)
 
-<!-- Radio -->
-<input type="radio" name="radio" class="radio radio-primary" />
+```tsx
+import { Dialog, DialogTrigger, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogClose } from '@sqli/elevate-design-system';
+
+<Dialog>
+  <DialogTrigger asChild><Button>Open</Button></DialogTrigger>
+  <DialogContent size="md">
+    <DialogHeader>
+      <DialogTitle>Title</DialogTitle>
+      <DialogDescription>Description</DialogDescription>
+    </DialogHeader>
+    <p>Content</p>
+    <DialogClose asChild><Button variant="ghost">Close</Button></DialogClose>
+  </DialogContent>
+</Dialog>
+```
+
+### Accordion
+
+```tsx
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@sqli/elevate-design-system';
+
+<Accordion type="single" collapsible>
+  <AccordionItem value="item-1">
+    <AccordionTrigger>Section 1</AccordionTrigger>
+    <AccordionContent>Content 1</AccordionContent>
+  </AccordionItem>
+</Accordion>
 ```
 
 ### Alerts
 
-```html
-<div role="alert" class="alert">
-  <span>Default alert</span>
-</div>
-<div role="alert" class="alert alert-info">
-  <span>Info alert</span>
-</div>
-<div role="alert" class="alert alert-success">
-  <span>Success alert</span>
-</div>
-<div role="alert" class="alert alert-warning">
-  <span>Warning alert</span>
-</div>
-<div role="alert" class="alert alert-error">
-  <span>Error alert</span>
-</div>
+```tsx
+import { Alert } from '@sqli/elevate-design-system';
+
+<Alert variant="info">Info message</Alert>
+<Alert variant="success">Success</Alert>
+<Alert variant="warning">Warning</Alert>
+<Alert variant="error">Error</Alert>
 ```
 
-### Navigation
+### Icons
 
-```html
-<!-- Tabs -->
-<div role="tablist" class="tabs tabs-bordered">
-  <a role="tab" class="tab">Tab 1</a>
-  <a role="tab" class="tab tab-active">Tab 2</a>
-  <a role="tab" class="tab">Tab 3</a>
-</div>
+```tsx
+import { Home01Icon, Search01Icon } from 'hugeicons-react';
 
-<!-- Breadcrumbs -->
-<div class="breadcrumbs text-sm">
-  <ul>
-    <li><a>Home</a></li>
-    <li><a>Documents</a></li>
-    <li>Current</li>
-  </ul>
-</div>
-
-<!-- Menu -->
-<ul class="menu bg-base-200 rounded-box w-56">
-  <li><a>Item 1</a></li>
-  <li><a>Item 2</a></li>
-</ul>
+<Button variant="primary">
+  <Home01Icon size={20} /> Home
+</Button>
 ```
 
-## Theme Switching
+## Component Development Pattern
 
-Use the DaisyUI Theme Controller:
+All components follow this pattern:
 
-```html
-<!-- Toggle switch -->
-<input type="checkbox" value="sqli-dark" class="toggle theme-controller" />
+```tsx
+import { forwardRef } from 'react';
+import { cva, type VariantProps } from 'class-variance-authority';
+import { cn } from '../../lib/utils';
 
-<!-- With icons -->
-<label class="swap swap-rotate">
-  <input type="checkbox" class="theme-controller" value="sqli-dark" />
-  <svg class="swap-off h-6 w-6 fill-current"><!-- sun icon --></svg>
-  <svg class="swap-on h-6 w-6 fill-current"><!-- moon icon --></svg>
-</label>
+const myVariants = cva('base-classes', {
+  variants: {
+    variant: { primary: '...', secondary: '...' },
+    size: { sm: '...', md: '...', lg: '...' },
+  },
+  defaultVariants: { variant: 'primary', size: 'md' },
+});
+
+export interface MyProps
+  extends React.HTMLAttributes<HTMLElement>,
+    VariantProps<typeof myVariants> {}
+
+export const MyComponent = forwardRef<HTMLElement, MyProps>(
+  ({ className, variant, size, ...props }, ref) => (
+    <div ref={ref} className={cn(myVariants({ variant, size }), className)} {...props} />
+  )
+);
+MyComponent.displayName = 'MyComponent';
+```
+
+### Radix UI wrapper pattern
+
+```tsx
+import { Dialog as DialogPrimitive } from 'radix-ui';
+
+export const Dialog = DialogPrimitive.Root;
+export const DialogTrigger = DialogPrimitive.Trigger;
+
+export const DialogContent = forwardRef<HTMLDivElement, Props>(
+  ({ className, children, ...props }, ref) => (
+    <DialogPrimitive.Portal>
+      <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-black/50" />
+      <DialogPrimitive.Content ref={ref} className={cn('...', className)} {...props}>
+        {children}
+      </DialogPrimitive.Content>
+    </DialogPrimitive.Portal>
+  )
+);
+```
+
+### CSS Variables in Tailwind
+
+Use CSS variables for theme-aware colors:
+
+```tsx
+// Correct - uses theme variables
+className="bg-[var(--color-primary)] text-[var(--color-primary-content)]"
+className="border-[var(--color-border)]"
+
+// Available variables
+// --color-base-100, --color-base-200, --color-base-300
+// --color-base-content
+// --color-primary, --color-primary-content, --color-primary-hover
+// --color-secondary, --color-secondary-content
+// --color-accent, --color-accent-content
+// --color-info, --color-success, --color-warning, --color-error
+// --color-border
+// --radius-sm, --radius-md, --radius-lg, --radius-full
 ```
 
 ## CSS Variables (Themes)
@@ -314,28 +299,18 @@ Use the DaisyUI Theme Controller:
 Themes use OKLCH color format in `src/css/main.css`:
 
 ```css
-@plugin "daisyui/theme" {
-  name: 'sqli-light';
-  default: true;
-
+:root, [data-theme="sqli-light"] {
+  color-scheme: light;
   --color-primary: oklch(42% 0.28 265); /* Cobalt */
-  --color-secondary: oklch(15% 0.04 270); /* Midnight */
-  --color-secondary-content: oklch(68% 0.14 250); /* Sky */
   --color-base-100: oklch(98.5% 0.012 85); /* Cream */
   --color-base-content: oklch(15% 0.04 270); /* Midnight */
-  /* ... */
 }
 
-@plugin "daisyui/theme" {
-  name: 'sqli-dark';
-  prefersdark: true;
-
+[data-theme="sqli-dark"] {
+  color-scheme: dark;
   --color-primary: oklch(68% 0.14 250); /* Sky */
-  --color-secondary: oklch(98% 0.005 85); /* Cream */
-  --color-secondary-content: oklch(15% 0.04 270); /* Midnight */
   --color-base-100: oklch(15% 0.04 270); /* Midnight */
   --color-base-content: oklch(98% 0.005 85); /* Cream */
-  /* ... */
 }
 ```
 
@@ -345,46 +320,58 @@ Themes use OKLCH color format in `src/css/main.css`:
 
 Each component story should include:
 
-1. **Default** - Base state
-2. **Variants** - Color variants (primary, secondary, accent, etc.)
-3. **Sizes** - Size variants (xs, sm, md, lg)
+1. **Default** - Base state (StoryObj with args)
+2. **Variants** - Color variants
+3. **Sizes** - Size variants
 4. **DarkMode** - Rendering with `data-theme="sqli-dark"`
+5. **Interactive** - StoryObj with argTypes controls
 
 ### Example Story
 
-```javascript
-export default {
+```tsx
+import React from 'react';
+import type { Meta, StoryObj } from '@storybook/react';
+import { Button } from '../../../src/components/Button';
+
+const meta: Meta<typeof Button> = {
   title: 'Components/Actions/Button',
+  component: Button,
   tags: ['autodocs'],
   parameters: {
     docs: {
       description: {
-        component: `DaisyUI Button component with SQLI themes.`,
+        component: `React **Button** component with SQLI themes.`,
       },
     },
   },
 };
 
-export const Default = () => `
-  <button class="btn">Button</button>
-`;
+export default meta;
+type Story = StoryObj<typeof Button>;
 
-export const Variants = () => `
-  <div class="flex gap-2">
-    <button class="btn btn-primary">Primary</button>
-    <button class="btn btn-secondary">Secondary</button>
-  </div>
-`;
-
-export const DarkMode = () => `
-  <div data-theme="sqli-dark" class="p-4 rounded-lg bg-base-100">
-    <button class="btn btn-primary">Primary in Dark</button>
-  </div>
-`;
-DarkMode.parameters = {
-  backgrounds: { default: 'dark' },
+export const Default: Story = {
+  args: { children: 'Button', variant: 'primary' },
 };
+
+export const Variants = () => (
+  <div className="flex gap-2">
+    <Button variant="primary">Primary</Button>
+    <Button variant="secondary">Secondary</Button>
+  </div>
+);
+
+export const DarkMode = () => (
+  <div data-theme="sqli-dark" className="p-6 rounded-lg bg-[var(--color-base-100)]">
+    <Button variant="primary">Primary in Dark</Button>
+  </div>
+);
+DarkMode.parameters = { backgrounds: { default: 'dark' } };
 ```
+
+## Available Commands
+
+- `/brand-check [content]` - Check brand guideline compliance
+- `/brand-generate [request]` - Generate brand-compliant content
 
 ## Assets
 
@@ -416,7 +403,10 @@ Versions must be synchronized between:
 # Development
 npm run dev              # Start Storybook + watch CSS
 npm run storybook        # Start Storybook only
-npm run build:css        # Build CSS
+npm run build            # Full build (components + CSS + fonts + logos)
+npm run build:components # Build React components only (tsup)
+npm run build:css        # Build CSS only
+npm run typecheck        # TypeScript type checking
 
 # Quality
 npm run lint             # Lint CSS + JS
@@ -426,13 +416,6 @@ npm run validate         # Lint + Format + Build
 npm run clean            # Remove dist/, storybook-static/
 npm run reset            # Clean + reinstall dependencies
 ```
-
-## DaisyUI Documentation
-
-For complete component documentation, see:
-
-- [DaisyUI Components](https://daisyui.com/components/)
-- [DaisyUI Themes](https://daisyui.com/docs/themes/)
 
 ## Complete Reference
 

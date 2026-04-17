@@ -1,0 +1,61 @@
+/**
+ * Tailwind CSS 4 Theme Tokens - Generated from src/tokens/tokens.json
+ * DO NOT EDIT MANUALLY - Run: npm run build:tokens
+ */
+
+@theme {
+  /* Brand Colors */
+  --color-sqli-cream: #fffaf0;
+  --color-sqli-midnight: #0f0e2b;
+  --color-sqli-cobalt: #1f24e9;
+  --color-sqli-sky: #6da5ff;
+  --color-sqli-cobalt-hover: #1418c8;
+  --color-sqli-sky-hover: #5a96f0;
+
+  /* Typography */
+  --font-family-sans: 'TWK Everett', system-ui, -apple-system, sans-serif;
+  --font-family-everett: 'TWK Everett', system-ui, sans-serif;
+
+  /* Semantic Colors (theme-aware, values set by :root / [data-theme]) */
+  --color-base-100: initial;
+  --color-base-200: initial;
+  --color-base-300: initial;
+  --color-base-content: initial;
+  --color-primary: initial;
+  --color-primary-content: initial;
+  --color-primary-hover: initial;
+  --color-secondary: initial;
+  --color-secondary-content: initial;
+  --color-accent: initial;
+  --color-accent-content: initial;
+  --color-neutral: initial;
+  --color-neutral-content: initial;
+  --color-info: initial;
+  --color-info-content: initial;
+  --color-success: initial;
+  --color-success-content: initial;
+  --color-warning: initial;
+  --color-warning-content: initial;
+  --color-error: initial;
+  --color-error-content: initial;
+  --color-border: initial;
+  --color-surface: initial;
+  --color-panel-solid: initial;
+  --color-panel-translucent: initial;
+  --color-overlay: initial;
+  --color-focus: initial;
+
+  /* Border Radius Tokens */
+  --radius-sm: initial;
+  --radius-md: initial;
+  --radius-lg: initial;
+  --radius-full: initial;
+
+  /* Shadow Tokens */
+  --shadow-1: initial;
+  --shadow-2: initial;
+  --shadow-3: initial;
+  --shadow-4: initial;
+  --shadow-5: initial;
+  --shadow-6: initial;
+}

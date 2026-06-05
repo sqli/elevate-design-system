@@ -1,0 +1,77 @@
+# Platform.sh / Upsun configuration for SQLI Design System (Storybook)
+# Documentation: https://docs.platform.sh/
+
+name: storybook
+
+type: 'nodejs:22'
+
+# Build configuration - disable default npm install (we use npm ci)
+build:
+  flavor: none
+
+# Dependencies and build process
+hooks:
+  build: |
+    set -e
+
+    # Disable husky in CI (no .git directory)
+    export HUSKY=0
+
+    # Use PLATFORM_CACHE_DIR for npm cache (persists between builds)
+    export npm_config_cache="$PLATFORM_CACHE_DIR/.npm"
+
+    # Install dependencies with cache
+    npm ci --prefer-offline
+
+    # Build Storybook without telemetry
+    STORYBOOK_DISABLE_TELEMETRY=1 npm run build-storybook
+
+# Web configuration - static site only
+web:
+  commands:
+    # No server needed for static files
+    start: sleep infinity
+  locations:
+    '/':
+      root: 'storybook-static'
+      index:
+        - index.html
+      expires: 7d
+      scripts: false
+      allow: true
+      headers:
+        Cache-Control: 'public, max-age=604800'
+    # Cache static assets longer
+    '/assets':
+      root: 'storybook-static/assets'
+      expires: 30d
+      allow: true
+      headers:
+        Cache-Control: 'public, max-age=2592000, immutable'
+    '/fonts':
+      root: 'storybook-static/fonts'
+      expires: 365d
+      allow: true
+      headers:
+        Cache-Control: 'public, max-age=31536000, immutable'
+    '/logos':
+      root: 'storybook-static/logos'
+      expires: 30d
+      allow: true
+      headers:
+        Cache-Control: 'public, max-age=2592000'
+    '/images':
+      root: 'storybook-static/images'
+      expires: 30d
+      allow: true
+      headers:
+        Cache-Control: 'public, max-age=2592000'
+
+# Disk space allocation (minimal for static site output)
+# npm cache uses PLATFORM_CACHE_DIR which doesn't count against disk quota
+disk: 256
+
+# Resources sizing - increase memory for faster Vite builds
+resources:
+  base_memory: 512
+  memory_ratio: 512

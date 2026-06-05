@@ -1,3 +1,0 @@
-[submodule "tools/md2docx"]
-	path = tools/md2docx
-	url = https://gitlab-paris.sqli.com/SQLI/md2docx.git
